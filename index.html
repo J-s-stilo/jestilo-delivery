@@ -1,17 +1,24 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>JESTILO DELIVERY SERVICE</title>
 
 <style>
+
+*{
+  box-sizing:border-box;
+}
+
 body{
   margin:0;
   font-family:Arial,sans-serif;
   background:#f7f3ed;
   color:#2d1b12;
 }
+
 header{
   background:#2d1b12;
   color:white;
@@ -22,32 +29,44 @@ header{
   gap:20px;
   flex-wrap:wrap;
 }
+
 header b{
   font-size:18px;
 }
+
 nav a{
   color:white;
   margin-left:18px;
   text-decoration:none;
 }
+
 .hero{
-  padding:70px 7%;
+  padding:75px 7%;
   background:#fffaf3;
 }
+
 .hero h1{
   font-size:42px;
-  margin-bottom:15px;
+  margin:0 0 15px;
 }
+
+.hero p{
+  max-width:650px;
+  line-height:1.7;
+}
+
 section{
   padding:45px 7%;
 }
+
 .panel{
   background:white;
-  padding:24px;
-  border-radius:16px;
-  max-width:800px;
-  box-shadow:0 5px 20px rgba(45,27,18,.06);
+  padding:25px;
+  border-radius:18px;
+  max-width:900px;
+  box-shadow:0 5px 25px rgba(45,27,18,.07);
 }
+
 .btn{
   background:#f36b16;
   color:#fff;
@@ -59,225 +78,644 @@ section{
   text-decoration:none;
   display:inline-block;
 }
-input,textarea{
+
+input{
   width:100%;
-  padding:13px;
+  padding:14px;
   margin:7px 0 15px;
-  box-sizing:border-box;
   border:1px solid #dfcdbb;
-  border-radius:8px;
-  font-family:Arial,sans-serif;
+  border-radius:9px;
+  font-size:16px;
 }
-.status{
-  margin-top:18px;
-  padding:18px;
-  background:#f8eee5;
-  border-radius:10px;
+
+.status-card{
+  margin-top:25px;
+  background:#fffaf3;
+  border-radius:18px;
+  padding:25px;
+  border:1px solid #ead8c7;
 }
-.error{
-  color:#a93226;
+
+.status-badge{
+  display:inline-block;
+  background:#f36b16;
+  color:white;
+  padding:8px 13px;
+  border-radius:20px;
+  font-size:14px;
+  font-weight:bold;
 }
+
+.tracking-number{
+  font-size:24px;
+  font-weight:bold;
+  margin:12px 0 25px;
+}
+
+.info-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+  margin:20px 0;
+}
+
+.info-box{
+  background:white;
+  border-radius:12px;
+  padding:17px;
+  border:1px solid #ead8c7;
+}
+
+.info-box small{
+  display:block;
+  color:#806f63;
+  margin-bottom:6px;
+}
+
+.timeline{
+  margin:30px 0;
+  padding-left:10px;
+}
+
+.timeline-item{
+  position:relative;
+  padding:0 0 25px 35px;
+  border-left:2px solid #dfcdbb;
+}
+
+.timeline-item:last-child{
+  border-left:0;
+}
+
+.timeline-dot{
+  position:absolute;
+  left:-9px;
+  top:0;
+  width:16px;
+  height:16px;
+  background:#dfcdbb;
+  border-radius:50%;
+}
+
+.timeline-item.active .timeline-dot{
+  background:#f36b16;
+}
+
+.timeline-item strong{
+  display:block;
+  margin-bottom:5px;
+}
+
+.map-box{
+  background:#eee5dc;
+  border-radius:14px;
+  padding:25px;
+  margin-top:20px;
+  text-align:center;
+}
+
+.map-icon{
+  font-size:42px;
+}
+
 .service-card{
   background:white;
   padding:20px;
   border-radius:14px;
   margin:12px 0;
 }
+
+.error{
+  color:#a93226;
+}
+
 footer{
   background:#2d1b12;
   color:white;
   padding:30px 7%;
 }
+
 footer a{
   color:white;
 }
+
 @media(max-width:600px){
+
   .hero h1{
     font-size:32px;
   }
+
+  nav{
+    width:100%;
+  }
+
   nav a{
-    margin-left:8px;
+    margin-left:0;
+    margin-right:12px;
+  }
+
+  .info-grid{
+    grid-template-columns:1fr;
   }
 }
+
 </style>
 </head>
 
 <body>
 
 <header>
-  <b>JESTILO DELIVERY SERVICE</b>
 
-  <nav>
-    <a href="#track">Track</a>
-    <a href="#services">Services</a>
-    <a href="#support">Customer Service</a>
-    <a href="/admin.html">Admin</a>
-  </nav>
+<b>JESTILO DELIVERY SERVICE</b>
+
+<nav>
+<a href="#track">Track</a>
+<a href="#services">Services</a>
+<a href="#support">Customer Service</a>
+<a href="/admin.html">Admin</a>
+</nav>
+
 </header>
 
-<section class="hero">
-  <h1>Reliable delivery, wherever you need it.</h1>
-  <p>
-    Track your shipment and view its latest delivery status.
-    We provide international delivery support for eligible destinations.
-  </p>
 
-  <a href="#track" class="btn">Track Your Shipment</a>
+<section class="hero">
+
+<h1>Reliable delivery, wherever you need it.</h1>
+
+<p>
+Track your shipment and view its latest available delivery
+information, status and location.
+</p>
+
+<a href="#track" class="btn">
+Track Your Shipment
+</a>
+
 </section>
+
 
 <section id="services">
-  <h2>Our Services</h2>
 
-  <div class="service-card">
-    <h3>International Delivery</h3>
-    <p>
-      Delivery services for eligible international destinations,
-      subject to the applicable shipping requirements.
-    </p>
-  </div>
+<h2>Our Services</h2>
 
-  <div class="service-card">
-    <h3>Shipment Tracking</h3>
-    <p>
-      Use your tracking number to check the latest available
-      shipment status and location.
-    </p>
-  </div>
+<div class="service-card">
+<h3>🌍 International Delivery</h3>
+<p>
+International shipment support for eligible destinations,
+subject to applicable shipping requirements.
+</p>
+</div>
 
-  <div class="service-card">
-    <h3>Customer Support</h3>
-    <p>
-      Our customer service team can assist with shipment and
-      tracking questions.
-    </p>
-  </div>
+<div class="service-card">
+<h3>📦 Shipment Tracking</h3>
+<p>
+Enter your tracking number to view the latest available
+shipment status and location.
+</p>
+</div>
+
+<div class="service-card">
+<h3>🚚 Delivery Updates</h3>
+<p>
+Shipment information can be updated as your package moves
+through the delivery process.
+</p>
+</div>
+
 </section>
+
 
 <section id="track">
-  <h2>Track Your Delivery</h2>
 
-  <div class="panel">
-    <input id="code" placeholder="Enter tracking number">
+<h2>Track Your Delivery</h2>
 
-    <button class="btn" onclick="track()">
-      Check Status
-    </button>
+<div class="panel">
 
-    <div id="result"></div>
-  </div>
+<input
+id="code"
+placeholder="Enter tracking number"
+autocomplete="off"
+>
+
+<button
+class="btn"
+onclick="track()"
+>
+Check Status
+</button>
+
+<div id="result"></div>
+
+</div>
+
 </section>
+
 
 <section id="support">
-  <h2>Customer Service</h2>
 
-  <div class="panel">
-    <h3>Need help with your shipment?</h3>
+<h2>Customer Service</h2>
 
-    <p>
-      Contact our customer service team if you have questions
-      about an existing shipment or its tracking information.
-    </p>
+<div class="panel">
 
-    <p>
-      <b>WhatsApp:</b> +63 965 867 4185
-    </p>
+<h3>Need help with your shipment?</h3>
 
-    <a
-      href="https://wa.me/639658674185"
-      target="_blank"
-      rel="noopener"
-      class="btn"
-    >
-      Contact us on WhatsApp
-    </a>
+<p>
+Contact our customer service team if you have questions
+about your shipment or tracking information.
+</p>
 
-    <p style="margin-top:25px;">
-      <b>Email:</b> delightedinternationaldelivery@gmail.com
-    </p>
+<p>
+<b>WhatsApp:</b> +63 965 867 4185
+</p>
 
-    <a
-      href="mailto:delightedinternationaldelivery@gmail.com"
-      class="btn"
-    >
-      Email Customer Service
-    </a>
-  </div>
+<a
+href="https://wa.me/639658674185"
+target="_blank"
+rel="noopener"
+class="btn"
+>
+Contact us on WhatsApp
+</a>
+
+<p style="margin-top:25px;">
+<b>Email:</b>
+delightedinternationaldelivery@gmail.com
+</p>
+
+<a
+href="mailto:delightedinternationaldelivery@gmail.com"
+class="btn"
+>
+Email Customer Service
+</a>
+
+</div>
+
 </section>
 
+
 <footer>
-  <h3>JESTILO DELIVERY SERVICE</h3>
-  <p>International delivery and shipment tracking support.</p>
-  <p>
-    Customer Service:
-    <a href="mailto:delightedinternationaldelivery@gmail.com">
-      delightedinternationaldelivery@gmail.com
-    </a>
-  </p>
+
+<h3>JESTILO DELIVERY SERVICE</h3>
+
+<p>
+International delivery and shipment tracking support.
+</p>
+
+<p>
+Customer Service:
+<a href="mailto:delightedinternationaldelivery@gmail.com">
+delightedinternationaldelivery@gmail.com
+</a>
+</p>
+
 </footer>
 
+
 <script>
+
 async function track(){
 
-  let c = document.getElementById('code').value.trim().toUpperCase();
-  let r = document.getElementById('result');
+  const c =
+    document
+    .getElementById("code")
+    .value
+    .trim()
+    .toUpperCase();
+
+  const r =
+    document
+    .getElementById("result");
+
 
   if(!c){
-    r.innerHTML =
-      '<div class="status error">Please enter a tracking number.</div>';
+
+    r.innerHTML = `
+      <div class="status-card error">
+        Please enter a tracking number.
+      </div>
+    `;
+
     return;
   }
 
+
+  r.innerHTML = `
+    <div class="status-card">
+      Checking shipment information...
+    </div>
+  `;
+
+
   try{
 
-    let x = await fetch(
-      '/api/shipments/' + encodeURIComponent(c)
-    );
+    const x =
+      await fetch(
+        "/api/shipments/"
+        + encodeURIComponent(c)
+      );
+
 
     if(!x.ok){
-      r.innerHTML =
-        '<div class="status">No shipment was found.</div>';
+
+      r.innerHTML = `
+        <div class="status-card error">
+          No shipment was found for this tracking number.
+        </div>
+      `;
+
       return;
     }
 
-    let d = await x.json();
 
-    r.innerHTML =
-      '<div class="status">' +
-      '<h3>' + e(d.status) + '</h3>' +
-      '<p><b>Tracking:</b> ' + e(d.code) + '</p>' +
-      (d.customer
-        ? '<p><b>Customer:</b> ' + e(d.customer) + '</p>'
-        : '') +
-      (d.location
-        ? '<p><b>Location:</b> ' + e(d.location) + '</p>'
-        : '') +
-      (d.note
-        ? '<p><b>Update:</b> ' + e(d.note) + '</p>'
-        : '') +
-      '<p>Last updated: ' + e(d.updated) + '</p>' +
-      '</div>';
+    const d =
+      await x.json();
+
+
+    const status =
+      String(d.status || "")
+      .toLowerCase();
+
+
+    const steps = [
+      "Order received",
+      "Processing",
+      "In transit",
+      "Arrived at destination",
+      "Out for delivery",
+      "Delivered"
+    ];
+
+
+    let currentIndex =
+      steps.findIndex(
+        s => status.includes(s.toLowerCase())
+      );
+
+
+    if(currentIndex < 0){
+
+      if(status.includes("hold")){
+        currentIndex = 1;
+      }else{
+        currentIndex = 0;
+      }
+
+    }
+
+
+    const timeline =
+      steps.map((step,index)=>`
+
+        <div class="timeline-item ${
+          index <= currentIndex
+          ? "active"
+          : ""
+        }">
+
+          <div class="timeline-dot"></div>
+
+          <strong>${step}</strong>
+
+          ${
+            index === currentIndex
+            ? "<span>Current shipment stage</span>"
+            : ""
+          }
+
+        </div>
+
+      `).join("");
+
+
+    const mapUrl =
+      d.location
+      ? "https://www.google.com/maps/search/?api=1&query="
+        + encodeURIComponent(d.location)
+      : "";
+
+
+    r.innerHTML = `
+
+      <div class="status-card">
+
+        <span class="status-badge">
+          ${e(d.status)}
+        </span>
+
+
+        <div class="tracking-number">
+          ${e(d.code)}
+        </div>
+
+
+        <div class="info-grid">
+
+          ${
+            d.customer
+            ? `
+              <div class="info-box">
+                <small>Customer</small>
+                <b>${e(d.customer)}</b>
+              </div>
+            `
+            : ""
+          }
+
+
+          ${
+            d.location
+            ? `
+              <div class="info-box">
+                <small>Current Location</small>
+                <b>${e(d.location)}</b>
+              </div>
+            `
+            : ""
+          }
+
+
+          <div class="info-box">
+
+            <small>Last Updated</small>
+
+            <b>
+              ${formatDate(d.updated)}
+            </b>
+
+          </div>
+
+
+          <div class="info-box">
+
+            <small>Tracking Number</small>
+
+            <b>
+              ${e(d.code)}
+            </b>
+
+          </div>
+
+        </div>
+
+
+        <h3>Shipment Journey</h3>
+
+        <div class="timeline">
+
+          ${timeline}
+
+        </div>
+
+
+        ${
+          d.location
+          ? `
+
+            <div class="map-box">
+
+              <div class="map-icon">
+                📍
+              </div>
+
+              <h3>
+                Current Reported Location
+              </h3>
+
+              <p>
+                ${e(d.location)}
+              </p>
+
+              <a
+                href="${mapUrl}"
+                target="_blank"
+                rel="noopener"
+                class="btn"
+              >
+                View Location on Map
+              </a>
+
+              <p style="font-size:13px;margin-top:12px;">
+                Location shown is the latest location
+                reported for this shipment.
+              </p>
+
+            </div>
+
+          `
+          : ""
+        }
+
+
+        ${
+          d.note
+          ? `
+
+            <div class="info-box"
+                 style="margin-top:20px;">
+
+              <small>
+                Latest Shipment Update
+              </small>
+
+              <p>
+                ${e(d.note)}
+              </p>
+
+            </div>
+
+          `
+          : ""
+        }
+
+
+        <div
+          style="
+            margin-top:25px;
+            padding:18px;
+            background:#fff;
+            border-radius:12px;
+          "
+        >
+
+          <h3>
+            Need help?
+          </h3>
+
+          <p>
+            Contact JESTILO customer service
+            about this shipment.
+          </p>
+
+          <a
+            href="https://wa.me/639658674185"
+            target="_blank"
+            rel="noopener"
+            class="btn"
+          >
+            WhatsApp Support
+          </a>
+
+        </div>
+
+      </div>
+
+    `;
+
 
   }catch(error){
 
-    r.innerHTML =
-      '<div class="status error">' +
-      'Unable to check the shipment right now. Please try again later.' +
-      '</div>';
+    r.innerHTML = `
+      <div class="status-card error">
+        Unable to check the shipment right now.
+        Please try again later.
+      </div>
+    `;
+
   }
+
 }
 
-function e(s){
-  return String(s || '').replace(
-    /[&<>"']/g,
-    m => ({
-      '&':'&amp;',
-      '<':'&lt;',
-      '>':'&gt;',
-      '"':'&quot;',
-      "'":'&#039;'
-    }[m])
-  );
+
+function formatDate(value){
+
+  if(!value){
+    return "Not available";
+  }
+
+
+  const date =
+    new Date(value);
+
+
+  if(isNaN(date.getTime())){
+    return e(value);
+  }
+
+
+  return date.toLocaleString();
+
 }
+
+
+function e(s){
+
+  return String(s || "")
+    .replace(
+      /[&<>"']/g,
+      m => ({
+
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#039;"
+
+      }[m])
+    );
+
+}
+
 </script>
 
 </body>
