@@ -6,7 +6,20 @@ const crypto = require("crypto");
 const app = express();
 
 app.use(express.json({ limit: "2mb" }));
+
+// Serve files from the project folder
 app.use(express.static(__dirname));
+
+// Explicitly serve the customer homepage
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
+
+// Explicitly serve the admin page
+app.get("/admin", (req, res) => {
+  res.sendFile(path.join(__dirname, "admin.html"));
+});
+
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -22,6 +35,7 @@ if (!PASSWORD) {
 }
 
 const sessions = new Set();
+
 
 async function setupDatabase() {
 
@@ -61,13 +75,32 @@ async function setupDatabase() {
   ];
 
   for (const [name, definition] of columns) {
+
     await pool.query(`
       ALTER TABLE shipments
       ADD COLUMN IF NOT EXISTS ${name} ${definition}
     `);
+
   }
 
   console.log("Database ready.");
+}
+
+
+function escapeHtml(value) {
+
+  return String(value || "").replace(
+    /[&<>"']/g,
+
+    m => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#039;"
+    }[m])
+  );
+
 }
 
 
@@ -202,7 +235,6 @@ async function sendShipmentEmail(shipment) {
       }
     );
 
-
     if (!response.ok) {
 
       const errorText =
@@ -226,23 +258,9 @@ async function sendShipmentEmail(shipment) {
       "Email notification error:",
       error
     );
+
   }
-}
 
-
-function escapeHtml(value) {
-
-  return String(value || "").replace(
-    /[&<>"']/g,
-
-    m => ({
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#039;"
-    }[m])
-  );
 }
 
 
@@ -257,9 +275,11 @@ function auth(req, res, next) {
     return res.status(401).json({
       error: "Unauthorized"
     });
+
   }
 
   next();
+
 }
 
 
@@ -272,6 +292,7 @@ app.post(
       return res.status(401).json({
         error: "Invalid password"
       });
+
     }
 
     const token =
@@ -280,6 +301,7 @@ app.post(
     sessions.add(token);
 
     res.json({ token });
+
   }
 );
 
@@ -302,6 +324,7 @@ app.get(
       if (result.rows.length === 0) {
 
         return res.sendStatus(404);
+
       }
 
       res.json(result.rows[0]);
@@ -313,7 +336,9 @@ app.get(
       res.status(500).json({
         error: "Server error"
       });
+
     }
+
   }
 );
 
@@ -339,7 +364,9 @@ app.get(
       res.status(500).json({
         error: "Server error"
       });
+
     }
+
   }
 );
 
@@ -351,22 +378,20 @@ app.post(
 
     try {
 
-      const data =
-        req.body || {};
+      const data = req.body || {};
 
       const code =
         String(data.code || "")
           .trim()
           .toUpperCase();
 
-
       if (!code) {
 
         return res.status(400).json({
           error: "Tracking number required"
         });
-      }
 
+      }
 
       const shipment = {
 
@@ -415,6 +440,7 @@ app.post(
 
         updated:
           new Date().toISOString()
+
       };
 
 
@@ -505,26 +531,24 @@ app.post(
           shipment.note,
           shipment.updated
         ]
+
       );
 
 
-      await sendShipmentEmail(
-        shipment
-      );
-
+      await sendShipmentEmail(shipment);
 
       res.json(shipment);
-
 
     } catch (error) {
 
       console.error(error);
 
       res.status(500).json({
-        error:
-          "Could not save shipment"
+        error: "Could not save shipment"
       });
+
     }
+
   }
 );
 
@@ -548,24 +572,11 @@ app.delete(
       console.error(error);
 
       res.status(500).json({
-        error:
-          "Could not delete shipment"
+        error: "Could not delete shipment"
       });
+
     }
-  }
-);
 
-
-app.get(
-  "/admin",
-  (req, res) => {
-
-    res.sendFile(
-      path.join(
-        __dirname,
-        "admin.html"
-      )
-    );
   }
 );
 
@@ -599,4 +610,5 @@ setupDatabase()
     );
 
     process.exit(1);
+
   });
