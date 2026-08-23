@@ -11,18 +11,18 @@ body{
   background:#f7f3ed;
   color:#2d1b12;
   margin:0;
-  padding:30px
+  padding:25px;
 }
 .container{
-  max-width:800px;
-  margin:auto
+  max-width:900px;
+  margin:auto;
 }
 .card{
   background:white;
   padding:25px;
   border-radius:15px;
   box-shadow:0 5px 20px #0001;
-  margin-bottom:20px
+  margin-bottom:20px;
 }
 input,select,textarea{
   width:100%;
@@ -30,7 +30,12 @@ input,select,textarea{
   margin:7px 0 15px;
   box-sizing:border-box;
   border:1px solid #ddd;
-  border-radius:8px
+  border-radius:8px;
+  font-family:Arial,sans-serif;
+}
+textarea{
+  min-height:90px;
+  resize:vertical;
 }
 button{
   background:#f36b16;
@@ -39,28 +44,51 @@ button{
   padding:12px 20px;
   border-radius:8px;
   font-weight:bold;
-  cursor:pointer
+  cursor:pointer;
 }
 button.delete{
-  background:#a93226
+  background:#a93226;
 }
 .hidden{
-  display:none
+  display:none;
 }
 .success{
-  color:green
+  color:green;
 }
 .error{
-  color:#a93226
+  color:#a93226;
+}
+.help{
+  color:#666;
+  font-size:13px;
+  margin-top:-8px;
 }
 table{
   width:100%;
-  border-collapse:collapse
+  border-collapse:collapse;
+  overflow:hidden;
 }
 th,td{
   padding:10px;
   border-bottom:1px solid #ddd;
-  text-align:left
+  text-align:left;
+}
+.preview{
+  max-width:180px;
+  max-height:150px;
+  border-radius:10px;
+  margin-top:5px;
+}
+@media(max-width:600px){
+  body{
+    padding:15px;
+  }
+  .card{
+    padding:18px;
+  }
+  table{
+    font-size:12px;
+  }
 }
 </style>
 </head>
@@ -90,8 +118,7 @@ th,td{
 
 <div class="card hidden" id="adminBox">
 
-<h2>Shipment Management</h2>
-
+<h2>Create / Update Shipment</h2>
 
 <label>Tracking Number</label>
 
@@ -105,7 +132,7 @@ th,td{
 
 <input
   id="customer"
-  placeholder="Customer name"
+  placeholder="Customer full name"
 >
 
 
@@ -118,7 +145,69 @@ th,td{
 >
 
 
-<label>Status</label>
+<label>Customer WhatsApp</label>
+
+<input
+  id="whatsapp"
+  placeholder="Example: +628123456789"
+>
+
+<p class="help">
+Include the country code, for example +62 for Indonesia.
+</p>
+
+
+<label>Package / Item Name</label>
+
+<input
+  id="item_name"
+  placeholder="Example: Personal gifts"
+>
+
+
+<label>Package Description</label>
+
+<textarea
+  id="item_description"
+  placeholder="Describe the package contents"
+></textarea>
+
+
+<label>Package Image URL</label>
+
+<input
+  id="image_url"
+  placeholder="https://example.com/package.jpg"
+>
+
+<p class="help">
+Use an image URL for the package image. Do not put private or sensitive images on a public website.
+</p>
+
+<img
+  id="imagePreview"
+  class="preview hidden"
+  alt="Package preview"
+>
+
+
+<label>Origin</label>
+
+<input
+  id="origin"
+  placeholder="Example: United Kingdom"
+>
+
+
+<label>Destination</label>
+
+<input
+  id="destination"
+  placeholder="Example: Indonesia"
+>
+
+
+<label>Shipment Status</label>
 
 <select id="status">
 
@@ -137,7 +226,15 @@ th,td{
 
 <input
   id="location"
-  placeholder="Current location"
+  placeholder="Example: Jakarta, Indonesia"
+>
+
+
+<label>Estimated Delivery</label>
+
+<input
+  id="estimated_delivery"
+  type="datetime-local"
 >
 
 
@@ -145,7 +242,7 @@ th,td{
 
 <textarea
   id="note"
-  placeholder="Shipment update"
+  placeholder="Example: Shipment has arrived at the destination country."
 ></textarea>
 
 
@@ -153,11 +250,18 @@ th,td{
 Save Shipment
 </button>
 
+<button
+  type="button"
+  onclick="clearForm()"
+  style="background:#777;margin-left:8px;"
+>
+Clear
+</button>
+
 <p id="saveMessage"></p>
 
 
 <hr>
-
 
 <h2>Shipments</h2>
 
@@ -172,347 +276,89 @@ Loading...
 
 <script>
 
-let token="";
+let token = "";
 
 
 async function login(){
 
-    const password=
-        document.getElementById("password").value;
+  const password =
+    document.getElementById("password").value;
 
-    const message=
-        document.getElementById("loginMessage");
+  const message =
+    document.getElementById("loginMessage");
 
+  try{
 
-    try{
+    const response =
+      await fetch("/api/admin/login",{
 
-        const response=await fetch(
-            "/api/admin/login",
-            {
-                method:"POST",
+        method:"POST",
 
-                headers:{
-                    "Content-Type":"application/json"
-                },
+        headers:{
+          "Content-Type":"application/json"
+        },
 
-                body:JSON.stringify({
-                    password
-                })
-            }
-        );
+        body:JSON.stringify({
+          password:password
+        })
 
-
-        const data=await response.json();
+      });
 
 
-        if(!response.ok){
-
-            message.className="error";
-
-            message.textContent=
-                "Incorrect password.";
-
-            return;
-        }
+    const data =
+      await response.json();
 
 
-        token=data.token;
+    if(!response.ok){
 
+      message.className="error";
 
-        document
-            .getElementById("loginBox")
-            .classList.add("hidden");
+      message.textContent =
+        "Incorrect password.";
 
-
-        document
-            .getElementById("adminBox")
-            .classList.remove("hidden");
-
-
-        loadShipments();
-
-
-    }catch(error){
-
-        message.className="error";
-
-        message.textContent=
-            "Could not connect to the server.";
+      return;
     }
+
+
+    token=data.token;
+
+
+    document
+      .getElementById("loginBox")
+      .classList.add("hidden");
+
+
+    document
+      .getElementById("adminBox")
+      .classList.remove("hidden");
+
+
+    loadShipments();
+
+  }catch(error){
+
+    message.className="error";
+
+    message.textContent =
+      "Could not connect to the server.";
+  }
 }
 
 
 
 async function saveShipment(){
 
-    const message=
-        document.getElementById("saveMessage");
+  const message =
+    document.getElementById("saveMessage");
 
 
-    const shipment={
+  const shipment = {
 
-        code:
-            document
-            .getElementById("code")
-            .value
-            .trim(),
+    code:
+      document.getElementById("code").value.trim(),
 
-        customer:
-            document
-            .getElementById("customer")
-            .value
-            .trim(),
+    customer:
+      document.getElementById("customer").value.trim(),
 
-        email:
-            document
-            .getElementById("email")
-            .value
-            .trim(),
-
-        status:
-            document
-            .getElementById("status")
-            .value,
-
-        location:
-            document
-            .getElementById("location")
-            .value
-            .trim(),
-
-        note:
-            document
-            .getElementById("note")
-            .value
-            .trim()
-    };
-
-
-    if(!shipment.code){
-
-        message.className="error";
-
-        message.textContent=
-            "Enter a tracking number.";
-
-        return;
-    }
-
-
-    try{
-
-        const response=await fetch(
-            "/api/admin/shipments",
-            {
-                method:"POST",
-
-                headers:{
-                    "Content-Type":"application/json",
-
-                    "Authorization":
-                        "Bearer "+token
-                },
-
-                body:JSON.stringify(shipment)
-            }
-        );
-
-
-        const data=
-            await response.json();
-
-
-        if(!response.ok){
-
-            message.className="error";
-
-            message.textContent=
-                data.error ||
-                "Could not save shipment.";
-
-            return;
-        }
-
-
-        message.className="success";
-
-        message.textContent=
-            shipment.email
-            ? "Shipment saved. Notification requested."
-            : "Shipment saved successfully.";
-
-
-        document
-            .getElementById("code")
-            .value="";
-
-        document
-            .getElementById("customer")
-            .value="";
-
-        document
-            .getElementById("email")
-            .value="";
-
-        document
-            .getElementById("location")
-            .value="";
-
-        document
-            .getElementById("note")
-            .value="";
-
-
-        loadShipments();
-
-
-    }catch(error){
-
-        message.className="error";
-
-        message.textContent=
-            "Could not connect to the server.";
-    }
-}
-
-
-
-async function loadShipments(){
-
-    const box=
-        document.getElementById("records");
-
-
-    try{
-
-        const response=await fetch(
-            "/api/admin/shipments",
-            {
-                headers:{
-                    "Authorization":
-                        "Bearer "+token
-                }
-            }
-        );
-
-
-        const data=
-            await response.json();
-
-
-        if(!data.length){
-
-            box.innerHTML=
-                "<p>No shipments yet.</p>";
-
-            return;
-        }
-
-
-        box.innerHTML=`
-
-        <table>
-
-        <tr>
-        <th>Tracking</th>
-        <th>Status</th>
-        <th>Location</th>
-        <th>Action</th>
-        </tr>
-
-        ${
-            data.map(x=>`
-
-            <tr>
-
-            <td>
-              ${escapeHtml(x.code)}
-            </td>
-
-            <td>
-              ${escapeHtml(x.status)}
-            </td>
-
-            <td>
-              ${escapeHtml(x.location || "-")}
-            </td>
-
-            <td>
-
-            <button
-              class="delete"
-              onclick="deleteShipment('${encodeURIComponent(x.code)}')"
-            >
-              Delete
-            </button>
-
-            </td>
-
-            </tr>
-
-            `).join("")
-        }
-
-        </table>`;
-
-    }catch(error){
-
-        box.innerHTML=
-            "<p class='error'>Could not load shipments.</p>";
-    }
-}
-
-
-
-async function deleteShipment(encodedCode){
-
-    const code=
-        decodeURIComponent(encodedCode);
-
-
-    if(!confirm("Delete this shipment?"))
-        return;
-
-
-    await fetch(
-        "/api/admin/shipments/"
-        +encodeURIComponent(code),
-        {
-            method:"DELETE",
-
-            headers:{
-                "Authorization":
-                    "Bearer "+token
-            }
-        }
-    );
-
-
-    loadShipments();
-}
-
-
-
-function escapeHtml(value){
-
-    return String(value).replace(
-        /[&<>"']/g,
-        function(m){
-
-            return {
-
-                "&":"&amp;",
-                "<":"&lt;",
-                ">":"&gt;",
-                '"':"&quot;",
-                "'":"&#039;"
-
-            }[m];
-        }
-    );
-}
-
-</script>
-
-</body>
-</html>
+    email:
+      document.getElementBy
