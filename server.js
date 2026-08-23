@@ -14,6 +14,7 @@ const pool = new Pool({
 });
 
 const PASSWORD = process.env.ADMIN_PASSWORD;
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
 
 if (!PASSWORD) {
   console.error("ADMIN_PASSWORD is not set.");
@@ -27,6 +28,7 @@ async function setupDatabase() {
     CREATE TABLE IF NOT EXISTS shipments (
       code TEXT PRIMARY KEY,
       customer TEXT DEFAULT '',
+      email TEXT DEFAULT '',
       status TEXT DEFAULT 'Order received',
       location TEXT DEFAULT '',
       note TEXT DEFAULT '',
@@ -34,7 +36,66 @@ async function setupDatabase() {
     )
   `);
 
+  await pool.query(`
+    ALTER TABLE shipments
+    ADD COLUMN IF NOT EXISTS email TEXT DEFAULT ''
+  `);
+
   console.log("Database ready.");
+}
+
+async function sendShipmentEmail(shipment) {
+  if (!RESEND_API_KEY || !shipment.email) {
+    return;
+  }
+
+  try {
+    const response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${RESEND_API_KEY}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        from: "JESTILO Delivery Service <onboarding@resend.dev>",
+        to: [shipment.email],
+        subject: `Shipment update - ${shipment.code}`,
+        html: `
+          <h2>Shipment Update</h2>
+          <p>Hello ${escapeHtml(shipment.customer || "Customer")},</p>
+          <p>Your shipment status has been updated.</p>
+          <p><strong>Tracking:</strong> ${escapeHtml(shipment.code)}</p>
+          <p><strong>Status:</strong> ${escapeHtml(shipment.status)}</p>
+          ${shipment.location ? `<p><strong>Location:</strong> ${escapeHtml(shipment.location)}</p>` : ""}
+          ${shipment.note ? `<p><strong>Update:</strong> ${escapeHtml(shipment.note)}</p>` : ""}
+          <p>You can check your shipment using your tracking number on the JESTILO Delivery Service website.</p>
+        `
+      })
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Resend email failed:", errorText);
+      return;
+    }
+
+    console.log("Shipment notification email sent.");
+  } catch (error) {
+    console.error("Email notification error:", error);
+  }
+}
+
+function escapeHtml(value) {
+  return String(value || "").replace(
+    /[&<>"']/g,
+    m => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#039;"
+    }[m])
+  );
 }
 
 function auth(req, res, next) {
@@ -105,6 +166,7 @@ app.post("/api/admin/shipments", auth, async (req, res) => {
     const shipment = {
       code,
       customer: String(data.customer || ""),
+      email: String(data.email || "").trim(),
       status: String(data.status || "Order received"),
       location: String(data.location || ""),
       note: String(data.note || ""),
@@ -114,11 +176,12 @@ app.post("/api/admin/shipments", auth, async (req, res) => {
     await pool.query(
       `
       INSERT INTO shipments
-      (code, customer, status, location, note, updated)
-      VALUES ($1, $2, $3, $4, $5, $6)
+      (code, customer, email, status, location, note, updated)
+      VALUES ($1, $2, $3, $4, $5, $6, $7)
       ON CONFLICT (code)
       DO UPDATE SET
         customer = EXCLUDED.customer,
+        email = EXCLUDED.email,
         status = EXCLUDED.status,
         location = EXCLUDED.location,
         note = EXCLUDED.note,
@@ -127,12 +190,15 @@ app.post("/api/admin/shipments", auth, async (req, res) => {
       [
         shipment.code,
         shipment.customer,
+        shipment.email,
         shipment.status,
         shipment.location,
         shipment.note,
         shipment.updated
       ]
     );
+
+    await sendShipmentEmail(shipment);
 
     res.json(shipment);
   } catch (error) {
