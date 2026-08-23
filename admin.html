@@ -1,1 +1,232 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JESTILO Admin</title><style>body{font-family:Arial;background:#f7f3ed;padding:30px;color:#2d1b12}.panel{background:#fff;padding:24px;border-radius:16px;max-width:850px;margin:auto}input,select,textarea{width:100%;padding:13px;margin:7px 0 15px;box-sizing:border-box}.btn{background:#f36b16;color:#fff;border:0;padding:13px 20px;border-radius:9px;font-weight:bold}table{width:100%;margin-top:20px;border-collapse:collapse}td,th{padding:8px;border-bottom:1px solid #ddd;text-align:left}.danger{background:#a93226}</style></head><body><div class="panel"><h1>JESTILO Admin</h1><div id="login"><input id="password" type="password" placeholder="Admin password"><button class="btn" onclick="login()">Sign in</button><p id="msg"></p></div><div id="app" style="display:none"><h2>Shipment</h2><input id="code" placeholder="Tracking number"><input id="customer" placeholder="Customer"><select id="status"><option>Order received</option><option>Processing</option><option>In transit</option><option>Arrived at destination</option><option>Out for delivery</option><option>Delivered</option><option>On hold</option></select><input id="location" placeholder="Current location"><textarea id="note" placeholder="Update / note"></textarea><button class="btn" onclick="save()">Save Shipment</button><p id="saveMsg"></p><div id="records"></div></div></div><script>let token='';async function login(){let r=await fetch('/api/admin/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:password.value})});if(!r.ok){msg.textContent='Incorrect password.';return}token=(await r.json()).token;document.getElementById('login').style.display='none';app.style.display='block';load()}async function save(){let b={code:code.value.trim().toUpperCase(),customer:customer.value.trim(),status:status.value,location:location.value.trim(),note:note.value.trim()};let r=await fetch('/api/admin/shipments',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+token},body:JSON.stringify(b)});saveMsg.textContent=r.ok?'Shipment saved.':'Could not save.';load()}async function load(){let r=await fetch('/api/admin/shipments',{headers:{Authorization:'Bearer '+token}}),d=await r.json();records.innerHTML='<table><tr><th>Tracking</th><th>Status</th><th>Location</th><th>Updated</th></tr>'+d.map(x=>'<tr><td>'+e(x.code)+'</td><td>'+e(x.status)+'</td><td>'+e(x.location)+'</td><td>'+e(x.updated)+'</td></tr>').join('')+'</table>'}function e(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JESTILO Admin</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f7f3ed;color:#2d1b12;margin:0;padding:30px}
+.container{max-width:800px;margin:auto}
+.card{background:white;padding:25px;border-radius:15px;box-shadow:0 5px 20px #0001;margin-bottom:20px}
+input,select,textarea{width:100%;padding:12px;margin:7px 0 15px;box-sizing:border-box;border:1px solid #ddd;border-radius:8px}
+button{background:#f36b16;color:white;border:0;padding:12px 20px;border-radius:8px;font-weight:bold}
+button.delete{background:#a93226}
+.hidden{display:none}
+.success{color:green}
+.error{color:#a93226}
+table{width:100%;border-collapse:collapse}
+th,td{padding:10px;border-bottom:1px solid #ddd;text-align:left}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<h1>JESTILO DELIVERY SERVICE</h1>
+
+<div class="card" id="loginBox">
+<h2>Admin Login</h2>
+<input id="password" type="password" placeholder="Admin password">
+<button onclick="login()">Login</button>
+<p id="loginMessage"></p>
+</div>
+
+<div class="card hidden" id="adminBox">
+<h2>Shipment Management</h2>
+
+<label>Tracking Number</label>
+<input id="code" placeholder="Example: JST-2026-001">
+
+<label>Customer Name</label>
+<input id="customer" placeholder="Customer name">
+
+<label>Status</label>
+<select id="status">
+<option>Order received</option>
+<option>Processing</option>
+<option>In transit</option>
+<option>Arrived at destination</option>
+<option>Out for delivery</option>
+<option>Delivered</option>
+<option>On hold</option>
+</select>
+
+<label>Current Location</label>
+<input id="location" placeholder="Current location">
+
+<label>Shipment Update</label>
+<textarea id="note" placeholder="Shipment update"></textarea>
+
+<button onclick="saveShipment()">Save Shipment</button>
+<p id="saveMessage"></p>
+
+<hr>
+
+<h2>Shipments</h2>
+<div id="records">Loading...</div>
+</div>
+
+</div>
+
+<script>
+let token="";
+
+async function login(){
+    const password=document.getElementById("password").value;
+    const message=document.getElementById("loginMessage");
+
+    try{
+        const response=await fetch("/api/admin/login",{
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify({password})
+        });
+
+        const data=await response.json();
+
+        if(!response.ok){
+            message.className="error";
+            message.textContent="Incorrect password.";
+            return;
+        }
+
+        token=data.token;
+
+        document.getElementById("loginBox").classList.add("hidden");
+        document.getElementById("adminBox").classList.remove("hidden");
+
+        loadShipments();
+
+    }catch(error){
+        message.className="error";
+        message.textContent="Could not connect to the server.";
+    }
+}
+
+async function saveShipment(){
+    const message=document.getElementById("saveMessage");
+
+    const shipment={
+        code:document.getElementById("code").value.trim(),
+        customer:document.getElementById("customer").value.trim(),
+        status:document.getElementById("status").value,
+        location:document.getElementById("location").value.trim(),
+        note:document.getElementById("note").value.trim()
+    };
+
+    if(!shipment.code){
+        message.className="error";
+        message.textContent="Enter a tracking number.";
+        return;
+    }
+
+    try{
+        const response=await fetch("/api/admin/shipments",{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json",
+                "Authorization":"Bearer "+token
+            },
+            body:JSON.stringify(shipment)
+        });
+
+        const data=await response.json();
+
+        if(!response.ok){
+            message.className="error";
+            message.textContent=data.error || "Could not save shipment.";
+            return;
+        }
+
+        message.className="success";
+        message.textContent="Shipment saved successfully.";
+
+        document.getElementById("code").value="";
+        document.getElementById("customer").value="";
+        document.getElementById("location").value="";
+        document.getElementById("note").value="";
+
+        loadShipments();
+
+    }catch(error){
+        message.className="error";
+        message.textContent="Could not connect to the server.";
+    }
+}
+
+async function loadShipments(){
+    const box=document.getElementById("records");
+
+    try{
+        const response=await fetch("/api/admin/shipments",{
+            headers:{
+                "Authorization":"Bearer "+token
+            }
+        });
+
+        const data=await response.json();
+
+        if(!data.length){
+            box.innerHTML="<p>No shipments yet.</p>";
+            return;
+        }
+
+        box.innerHTML=`
+        <table>
+        <tr>
+        <th>Tracking</th>
+        <th>Status</th>
+        <th>Location</th>
+        <th>Action</th>
+        </tr>
+        ${
+            data.map(x=>`
+            <tr>
+            <td>${escapeHtml(x.code)}</td>
+            <td>${escapeHtml(x.status)}</td>
+            <td>${escapeHtml(x.location || "-")}</td>
+            <td>
+            <button class="delete" onclick="deleteShipment('${encodeURIComponent(x.code)}')">
+            Delete
+            </button>
+            </td>
+            </tr>
+            `).join("")
+        }
+        </table>`;
+
+    }catch(error){
+        box.innerHTML="<p class='error'>Could not load shipments.</p>";
+    }
+}
+
+async function deleteShipment(encodedCode){
+    const code=decodeURIComponent(encodedCode);
+
+    if(!confirm("Delete this shipment?")) return;
+
+    await fetch("/api/admin/shipments/"+encodeURIComponent(code),{
+        method:"DELETE",
+        headers:{
+            "Authorization":"Bearer "+token
+        }
+    });
+
+    loadShipments();
+}
+
+function escapeHtml(value){
+    return String(value).replace(/[&<>"']/g,function(m){
+        return {
+            "&":"&amp;",
+            "<":"&lt;",
+            ">":"&gt;",
+            '"':"&quot;",
+            "'":"&#039;"
+        }[m];
+    });
+}
+</script>
+
+</body>
+</html>
