@@ -2,159 +2,437 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>JESTILO Delivery Service</title>
+<title>JESTILO Delivery Service | International Shipment Tracking</title>
+
+<meta name="description"
+content="JESTILO Delivery Service provides international shipment support and online shipment tracking.">
 
 <style>
 *{
   box-sizing:border-box;
 }
 
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#f5f1eb;
-  color:#2d1b12;
+html{
+  scroll-behavior:smooth;
 }
 
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f6f4f1;
+  color:#211a16;
+  line-height:1.6;
+}
+
+a{
+  color:inherit;
+}
+
+.container{
+  width:min(1120px,92%);
+  margin:auto;
+}
+
+/* HEADER */
+
 header{
-  background:#2d1b12;
+  background:#171717;
   color:white;
-  padding:18px 7%;
+  position:sticky;
+  top:0;
+  z-index:1000;
+  box-shadow:0 3px 18px rgba(0,0,0,.12);
+}
+
+.nav{
+  min-height:72px;
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
+  gap:20px;
 }
 
 .logo{
-  font-size:20px;
-  font-weight:bold;
+  font-weight:800;
+  letter-spacing:.5px;
+  font-size:19px;
 }
 
-header a{
-  color:white;
+.logo span{
+  color:#f36b16;
+}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:24px;
+}
+
+.nav-links a{
   text-decoration:none;
+  color:#fff;
   font-size:14px;
 }
 
+.nav-button{
+  background:#f36b16;
+  padding:10px 16px;
+  border-radius:8px;
+  font-weight:bold;
+}
+
+/* HERO */
+
 .hero{
-  background:#fffaf3;
-  padding:65px 7%;
-  text-align:center;
+  background:
+    linear-gradient(
+      135deg,
+      #211a16 0%,
+      #38261b 55%,
+      #f36b16 140%
+    );
+  color:white;
+  padding:90px 0 85px;
+}
+
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:50px;
+  align-items:center;
 }
 
 .hero h1{
-  font-size:42px;
-  margin:0 0 12px;
+  font-size:clamp(38px,6vw,64px);
+  line-height:1.05;
+  margin:0 0 20px;
 }
 
-.hero p{
+.hero h1 span{
+  color:#ff9a59;
+}
+
+.hero-text{
+  color:#eadfd8;
   max-width:650px;
-  margin:0 auto 30px;
-  line-height:1.6;
-  color:#66584f;
+  font-size:17px;
 }
 
-.track-box{
+.hero-buttons{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:28px;
+}
+
+.btn{
+  display:inline-block;
+  padding:14px 20px;
+  border-radius:9px;
+  text-decoration:none;
+  font-weight:bold;
+  border:1px solid transparent;
+}
+
+.btn-primary{
+  background:#f36b16;
+  color:white;
+}
+
+.btn-secondary{
+  border-color:#ffffff55;
+  color:white;
+}
+
+/* TRACK CARD */
+
+.track-card{
   background:white;
-  max-width:650px;
-  margin:auto;
-  padding:25px;
-  border-radius:18px;
-  box-shadow:0 8px 30px rgba(45,27,18,.10);
+  color:#211a16;
+  padding:28px;
+  border-radius:20px;
+  box-shadow:0 20px 55px rgba(0,0,0,.22);
 }
 
-input{
+.track-card h2{
+  margin:0 0 7px;
+  font-size:24px;
+}
+
+.track-card p{
+  color:#716861;
+  margin-top:0;
+}
+
+.track-input{
   width:100%;
-  padding:15px;
-  border:1px solid #dfcdbb;
+  padding:16px;
+  border:1px solid #ded6cf;
   border-radius:9px;
   font-size:16px;
-  margin-bottom:12px;
+  outline:none;
+  margin:12px 0;
 }
 
-button{
+.track-input:focus{
+  border-color:#f36b16;
+}
+
+.track-button{
   width:100%;
-  padding:15px;
   border:0;
+  padding:16px;
   border-radius:9px;
   background:#f36b16;
   color:white;
   font-weight:bold;
-  font-size:16px;
   cursor:pointer;
+  font-size:15px;
 }
 
 .error{
   display:none;
+  margin-top:14px;
   color:#a93226;
-  margin-top:15px;
+  font-size:14px;
 }
 
-main{
-  max-width:1000px;
-  margin:auto;
-}
+/* TRUST STRIP */
 
-.section{
-  padding:45px 7%;
-}
-
-.result{
-  display:none;
+.trust-strip{
   background:white;
-  border-radius:20px;
-  padding:28px;
-  box-shadow:0 8px 30px rgba(45,27,18,.08);
+  border-bottom:1px solid #e8e2dc;
 }
 
-.result h2{
+.trust-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+  padding:24px 0;
+}
+
+.trust-item{
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+
+.trust-icon{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:#fff1e7;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+}
+
+.trust-item strong{
+  display:block;
+}
+
+.trust-item span{
+  color:#777;
+  font-size:13px;
+}
+
+/* GENERAL SECTIONS */
+
+section{
+  padding:75px 0;
+}
+
+.section-heading{
+  max-width:700px;
+  margin-bottom:35px;
+}
+
+.section-heading h2{
+  font-size:36px;
+  margin:0 0 10px;
+}
+
+.section-heading p{
+  color:#706861;
+}
+
+/* SERVICES */
+
+.services{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.service{
+  background:white;
+  border:1px solid #eee8e2;
+  padding:28px;
+  border-radius:16px;
+  box-shadow:0 7px 25px rgba(30,20,10,.05);
+}
+
+.service-icon{
+  font-size:30px;
+  margin-bottom:15px;
+}
+
+.service h3{
+  margin:0 0 8px;
+}
+
+.service p{
+  color:#716861;
+  margin-bottom:0;
+}
+
+/* HOW IT WORKS */
+
+.steps{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+}
+
+.step{
+  position:relative;
+  background:#211a16;
+  color:white;
+  border-radius:16px;
+  padding:26px;
+}
+
+.step-number{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  background:#f36b16;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+  margin-bottom:20px;
+}
+
+.step p{
+  color:#cfc5be;
+  font-size:14px;
+}
+
+/* ABOUT */
+
+.about{
+  background:#fffaf5;
+}
+
+.about-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:45px;
+  align-items:center;
+}
+
+.about-box{
+  background:white;
+  border-radius:18px;
+  padding:30px;
+  box-shadow:0 8px 30px rgba(30,20,10,.06);
+}
+
+.about-box h3{
   margin-top:0;
 }
 
-.top-row{
+.about-list{
+  padding:0;
+  list-style:none;
+}
+
+.about-list li{
+  margin:13px 0;
+}
+
+.about-list li::before{
+  content:"✓";
+  color:#f36b16;
+  font-weight:bold;
+  margin-right:9px;
+}
+
+/* TRACKING RESULT */
+
+.result-section{
+  display:none;
+  background:#f0ebe5;
+}
+
+.result{
+  background:white;
+  border-radius:20px;
+  padding:30px;
+  box-shadow:0 10px 35px rgba(30,20,10,.08);
+}
+
+.result-header{
   display:flex;
   justify-content:space-between;
-  align-items:center;
-  gap:15px;
+  align-items:flex-start;
+  gap:20px;
   flex-wrap:wrap;
+}
+
+.result-header h2{
+  margin:0;
+  font-size:30px;
+}
+
+.tracking-label{
+  color:#777;
+  margin-top:4px;
 }
 
 .badge{
   display:inline-block;
+  background:#fff0e5;
+  color:#b64e0b;
+  border-radius:30px;
   padding:9px 14px;
-  background:#f8eee5;
-  color:#a94d10;
-  border-radius:20px;
   font-weight:bold;
   font-size:13px;
 }
 
+/* ROUTE */
+
 .route{
   margin-top:25px;
-  padding:22px;
-  background:#fffaf3;
+  padding:25px;
+  background:#fff9f3;
   border-radius:15px;
   display:grid;
   grid-template-columns:1fr auto 1fr;
-  gap:15px;
+  gap:20px;
   align-items:center;
 }
 
 .route-box small{
   display:block;
   color:#777;
-  margin-bottom:6px;
+  margin-bottom:4px;
 }
 
 .route-box strong{
-  font-size:17px;
+  font-size:18px;
 }
 
 .route-arrow{
-  font-size:24px;
+  font-size:27px;
+  color:#f36b16;
 }
+
+/* INFO */
 
 .info-grid{
   display:grid;
@@ -164,29 +442,35 @@ main{
 }
 
 .info{
-  background:#faf7f3;
-  padding:17px;
+  background:#faf8f5;
+  padding:18px;
   border-radius:12px;
 }
 
 .info small{
   display:block;
   color:#777;
-  margin-bottom:6px;
+  margin-bottom:5px;
 }
+
+/* PACKAGE */
 
 .package{
   margin-top:22px;
-  padding:22px;
-  background:#fffaf3;
+  padding:24px;
+  background:#fff9f3;
   border-radius:15px;
+}
+
+.package h3{
+  margin-top:0;
 }
 
 .package-image{
   width:100%;
-  max-height:360px;
+  max-height:380px;
   object-fit:cover;
-  border-radius:13px;
+  border-radius:14px;
   margin-top:15px;
   display:none;
 }
@@ -194,11 +478,12 @@ main{
 .image-note{
   color:#777;
   font-size:13px;
-  margin-top:10px;
 }
 
+/* TIMELINE */
+
 .timeline{
-  margin-top:25px;
+  margin-top:28px;
 }
 
 .timeline-item{
@@ -214,10 +499,10 @@ main{
 }
 
 .dot{
-  width:16px;
-  height:16px;
+  width:17px;
+  height:17px;
   border-radius:50%;
-  background:#ddd;
+  background:#d8d3ce;
   flex-shrink:0;
 }
 
@@ -233,7 +518,6 @@ main{
 
 .timeline-item strong{
   display:block;
-  margin-bottom:4px;
 }
 
 .timeline-item span{
@@ -241,51 +525,125 @@ main{
   font-size:14px;
 }
 
+/* UPDATE */
+
 .update{
-  margin-top:22px;
+  margin-top:25px;
+  background:#faf8f5;
   padding:22px;
-  background:#faf7f3;
   border-radius:15px;
 }
 
-.services{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
-}
-
-.service{
-  background:white;
-  padding:22px;
-  border-radius:15px;
-  box-shadow:0 5px 20px rgba(45,27,18,.06);
-}
+/* SUPPORT */
 
 .support{
   background:white;
-  padding:25px;
-  border-radius:15px;
+  padding:32px;
+  border-radius:18px;
+  border:1px solid #eee7df;
 }
+
+.contact{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+  margin-top:25px;
+}
+
+.contact-box{
+  background:#faf8f5;
+  padding:20px;
+  border-radius:12px;
+}
+
+.contact-box small{
+  color:#777;
+  display:block;
+  margin-bottom:5px;
+}
+
+/* FOOTER */
 
 footer{
-  background:#2d1b12;
+  background:#171717;
   color:white;
-  padding:30px 7%;
-  margin-top:30px;
+  padding:50px 0 25px;
 }
 
-@media(max-width:650px){
+.footer-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:35px;
+}
 
-  .hero h1{
-    font-size:32px;
+footer h3{
+  margin-top:0;
+}
+
+footer p,
+footer li{
+  color:#bbb;
+  font-size:14px;
+}
+
+footer ul{
+  padding:0;
+  list-style:none;
+}
+
+footer li{
+  margin:8px 0;
+}
+
+.footer-bottom{
+  border-top:1px solid #ffffff18;
+  margin-top:35px;
+  padding-top:20px;
+  font-size:13px;
+  color:#888;
+}
+
+/* MOBILE */
+
+@media(max-width:800px){
+
+  .nav-links{
+    display:none;
   }
 
-  .section{
-    padding:35px 5%;
+  .hero{
+    padding:60px 0;
   }
 
-  .info-grid,
-  .services{
+  .hero-grid,
+  .about-grid{
+    grid-template-columns:1fr;
+  }
+
+  .services,
+  .steps{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .trust-grid{
+    grid-template-columns:1fr;
+  }
+
+  .footer-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:600px){
+
+  section{
+    padding:55px 0;
+  }
+
+  .services,
+  .steps,
+  .contact,
+  .info-grid{
     grid-template-columns:1fr;
   }
 
@@ -301,6 +659,18 @@ footer{
   .result{
     padding:20px;
   }
+
+  .hero h1{
+    font-size:40px;
+  }
+
+  .hero-buttons{
+    flex-direction:column;
+  }
+
+  .btn{
+    text-align:center;
+  }
 }
 </style>
 </head>
@@ -308,512 +678,4 @@ footer{
 <body>
 
 <header>
-  <div class="logo">JESTILO DELIVERY SERVICE</div>
-  <a href="#track">Track Shipment</a>
-</header>
-
-
-<section class="hero" id="track">
-
-  <h1>Track Your Shipment</h1>
-
-  <p>
-    Enter your tracking number to view the latest available
-    information about your shipment.
-  </p>
-
-  <div class="track-box">
-
-    <input
-      id="trackingCode"
-      placeholder="Enter tracking number"
-      autocomplete="off"
-    >
-
-    <button type="button" onclick="trackShipment()">
-      TRACK SHIPMENT
-    </button>
-
-    <div id="error" class="error"></div>
-
-  </div>
-
-</section>
-
-
-<main>
-
-<section class="section">
-
-<div id="result" class="result">
-
-  <div class="top-row">
-
-    <div>
-      <h2>Shipment Details</h2>
-      <p id="trackingLabel"></p>
-    </div>
-
-    <span id="status" class="badge"></span>
-
-  </div>
-
-
-  <div class="route">
-
-    <div class="route-box">
-      <small>Origin</small>
-      <strong id="origin"></strong>
-    </div>
-
-    <div class="route-arrow">→</div>
-
-    <div class="route-box">
-      <small>Destination</small>
-      <strong id="destination"></strong>
-    </div>
-
-  </div>
-
-
-  <div class="info-grid">
-
-    <div class="info">
-      <small>Tracking Number</small>
-      <strong id="code"></strong>
-    </div>
-
-    <div class="info">
-      <small>Customer</small>
-      <strong id="customer"></strong>
-    </div>
-
-    <div class="info">
-      <small>Current Location</small>
-      <strong id="location"></strong>
-    </div>
-
-    <div class="info">
-      <small>Estimated Delivery</small>
-      <strong id="estimated"></strong>
-    </div>
-
-  </div>
-
-
-  <div class="package">
-
-    <h3>📦 Package Information</h3>
-
-    <p>
-      <strong>Item:</strong>
-      <span id="itemName">Not available</span>
-    </p>
-
-    <p>
-      <strong>Description:</strong>
-      <span id="itemDescription">Not available</span>
-    </p>
-
-    <img
-      id="packageImage"
-      class="package-image"
-      alt="Shipment package"
-    >
-
-    <p id="imageNote" class="image-note"></p>
-
-  </div>
-
-
-  <div class="timeline">
-
-    <h3>Shipment Progress</h3>
-
-    <div class="timeline-item">
-      <div class="timeline-line">
-        <div id="dotReceived" class="dot"></div>
-        <div class="line"></div>
-      </div>
-      <div>
-        <strong>Order received</strong>
-        <span>Shipment information received.</span>
-      </div>
-    </div>
-
-
-    <div class="timeline-item">
-      <div class="timeline-line">
-        <div id="dotProcessing" class="dot"></div>
-        <div class="line"></div>
-      </div>
-      <div>
-        <strong>Processing</strong>
-        <span>Shipment is being processed.</span>
-      </div>
-    </div>
-
-
-    <div class="timeline-item">
-      <div class="timeline-line">
-        <div id="dotTransit" class="dot"></div>
-        <div class="line"></div>
-      </div>
-      <div>
-        <strong>In transit</strong>
-        <span>Shipment is moving toward its destination.</span>
-      </div>
-    </div>
-
-
-    <div class="timeline-item">
-      <div class="timeline-line">
-        <div id="dotOut" class="dot"></div>
-        <div class="line"></div>
-      </div>
-      <div>
-        <strong>Out for delivery</strong>
-        <span>Shipment is being prepared for final delivery.</span>
-      </div>
-    </div>
-
-
-    <div class="timeline-item">
-      <div class="timeline-line">
-        <div id="dotDelivered" class="dot"></div>
-      </div>
-      <div>
-        <strong>Delivered</strong>
-        <span>Shipment delivered to the destination.</span>
-      </div>
-    </div>
-
-  </div>
-
-
-  <div class="update">
-
-    <h3>Latest Shipment Update</h3>
-
-    <p id="note">
-      No additional update available.
-    </p>
-
-  </div>
-
-</div>
-
-</section>
-
-
-<section class="section">
-
-<h2>Our Services</h2>
-
-<div class="services">
-
-  <div class="service">
-    <h3>🌍 International Delivery</h3>
-    <p>
-      Shipment support for eligible international destinations.
-    </p>
-  </div>
-
-  <div class="service">
-    <h3>📦 Shipment Tracking</h3>
-    <p>
-      Check the latest available shipment information using
-      your tracking number.
-    </p>
-  </div>
-
-  <div class="service">
-    <h3>💬 Customer Support</h3>
-    <p>
-      Contact customer service with shipment questions.
-    </p>
-  </div>
-
-</div>
-
-</section>
-
-
-<section class="section">
-
-<div class="support">
-
-<h2>Customer Service</h2>
-
-<p>
-Need help with your shipment? Contact our customer service team.
-</p>
-
-<p>
-<strong>Email:</strong>
-delightedinternationaldelivery@gmail.com
-</p>
-
-</div>
-
-</section>
-
-</main>
-
-
-<footer>
-
-<h3>JESTILO DELIVERY SERVICE</h3>
-
-<p>
-International delivery and shipment tracking support.
-</p>
-
-</footer>
-
-
-<script>
-
-async function trackShipment(){
-
-  const code =
-    document
-      .getElementById("trackingCode")
-      .value
-      .trim()
-      .toUpperCase();
-
-  const error =
-    document.getElementById("error");
-
-  const result =
-    document.getElementById("result");
-
-  error.style.display = "none";
-  result.style.display = "none";
-
-  if(!code){
-
-    error.textContent =
-      "Please enter your tracking number.";
-
-    error.style.display = "block";
-
-    return;
-  }
-
-  try{
-
-    const response =
-      await fetch(
-        "/api/shipments/" +
-        encodeURIComponent(code)
-      );
-
-    if(!response.ok){
-
-      error.textContent =
-        "No shipment was found with that tracking number.";
-
-      error.style.display = "block";
-
-      return;
-    }
-
-    const shipment =
-      await response.json();
-
-
-    document.getElementById("trackingLabel").textContent =
-      "Tracking information for " + (shipment.code || code);
-
-    document.getElementById("status").textContent =
-      shipment.status || "Order received";
-
-    document.getElementById("code").textContent =
-      shipment.code || code;
-
-    document.getElementById("customer").textContent =
-      shipment.customer || "Not available";
-
-    document.getElementById("origin").textContent =
-      shipment.origin || "Not available";
-
-    document.getElementById("destination").textContent =
-      shipment.destination || "Not available";
-
-    document.getElementById("location").textContent =
-      shipment.location || "Not available";
-
-    document.getElementById("estimated").textContent =
-      shipment.estimated_delivery
-      ? formatDate(shipment.estimated_delivery)
-      : "Not available";
-
-
-    document.getElementById("itemName").textContent =
-      shipment.item_name || "Not available";
-
-    document.getElementById("itemDescription").textContent =
-      shipment.item_description || "Not available";
-
-
-    const image =
-      document.getElementById("packageImage");
-
-    const imageNote =
-      document.getElementById("imageNote");
-
-    image.style.display = "none";
-    imageNote.textContent = "";
-
-
-    if(shipment.image_url){
-
-      image.src = shipment.image_url;
-
-      image.onload = function(){
-
-        image.style.display = "block";
-        imageNote.textContent =
-          "Package image provided with the shipment information.";
-
-      };
-
-      image.onerror = function(){
-
-        image.style.display = "none";
-        imageNote.textContent =
-          "The package image could not be displayed.";
-
-      };
-
-    }
-
-
-    document.getElementById("note").textContent =
-      shipment.note ||
-      "No additional update available.";
-
-
-    updateTimeline(shipment.status);
-
-
-    result.style.display = "block";
-
-    result.scrollIntoView({
-      behavior:"smooth",
-      block:"start"
-    });
-
-  }catch(error){
-
-    console.error(error);
-
-    error.textContent =
-      "Unable to check the shipment right now. Please try again later.";
-
-    error.style.display = "block";
-  }
-}
-
-
-function updateTimeline(status){
-
-  const dots = [
-    "dotReceived",
-    "dotProcessing",
-    "dotTransit",
-    "dotOut",
-    "dotDelivered"
-  ];
-
-  dots.forEach(function(id){
-
-    document
-      .getElementById(id)
-      .classList.remove("active");
-
-  });
-
-
-  let level = 0;
-
-  switch(status){
-
-    case "Processing":
-      level = 1;
-      break;
-
-    case "In transit":
-      level = 2;
-      break;
-
-    case "Arrived at destination":
-      level = 2;
-      break;
-
-    case "Out for delivery":
-      level = 3;
-      break;
-
-    case "Delivered":
-      level = 4;
-      break;
-
-    case "On hold":
-      level = 0;
-      break;
-
-    default:
-      level = 0;
-  }
-
-
-  for(let i = 0; i <= level; i++){
-
-    document
-      .getElementById(dots[i])
-      .classList.add("active");
-
-  }
-}
-
-
-function formatDate(value){
-
-  const date =
-    new Date(value);
-
-  if(Number.isNaN(date.getTime())){
-
-    return value;
-  }
-
-  return date.toLocaleString(
-    undefined,
-    {
-      dateStyle:"medium",
-      timeStyle:"short"
-    }
-  );
-}
-
-
-document
-  .getElementById("trackingCode")
-  .addEventListener(
-    "keydown",
-    function(event){
-
-      if(event.key === "Enter"){
-        trackShipment();
-      }
-
-    }
-  );
-
-</script>
-
-</body>
-</html>
+  <div class="
