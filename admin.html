@@ -6,90 +6,22 @@
 <title>JESTILO Admin</title>
 
 <style>
-body{
-  font-family:Arial,sans-serif;
-  background:#f7f3ed;
-  color:#2d1b12;
-  margin:0;
-  padding:25px;
-}
-.container{
-  max-width:900px;
-  margin:auto;
-}
-.card{
-  background:white;
-  padding:25px;
-  border-radius:15px;
-  box-shadow:0 5px 20px #0001;
-  margin-bottom:20px;
-}
-input,select,textarea{
-  width:100%;
-  padding:12px;
-  margin:7px 0 15px;
-  box-sizing:border-box;
-  border:1px solid #ddd;
-  border-radius:8px;
-  font-family:Arial,sans-serif;
-}
-textarea{
-  min-height:90px;
-  resize:vertical;
-}
-button{
-  background:#f36b16;
-  color:white;
-  border:0;
-  padding:12px 20px;
-  border-radius:8px;
-  font-weight:bold;
-  cursor:pointer;
-}
-button.delete{
-  background:#a93226;
-}
-.hidden{
-  display:none;
-}
-.success{
-  color:green;
-}
-.error{
-  color:#a93226;
-}
-.help{
-  color:#666;
-  font-size:13px;
-  margin-top:-8px;
-}
-table{
-  width:100%;
-  border-collapse:collapse;
-  overflow:hidden;
-}
-th,td{
-  padding:10px;
-  border-bottom:1px solid #ddd;
-  text-align:left;
-}
-.preview{
-  max-width:180px;
-  max-height:150px;
-  border-radius:10px;
-  margin-top:5px;
-}
-@media(max-width:600px){
-  body{
-    padding:15px;
-  }
-  .card{
-    padding:18px;
-  }
-  table{
-    font-size:12px;
-  }
-}
+body{font-family:Arial,sans-serif;background:#f7f3ed;color:#2d1b12;margin:0;padding:25px}
+.container{max-width:900px;margin:auto}
+.card{background:white;padding:25px;border-radius:15px;box-shadow:0 5px 20px #0001;margin-bottom:20px}
+input,select,textarea{width:100%;padding:12px;margin:7px 0 15px;box-sizing:border-box;border:1px solid #ddd;border-radius:8px;font-family:Arial,sans-serif}
+textarea{min-height:90px;resize:vertical}
+button{background:#f36b16;color:white;border:0;padding:12px 20px;border-radius:8px;font-weight:bold;cursor:pointer}
+button.delete{background:#a93226}
+button.clear{background:#777;margin-left:8px}
+.hidden{display:none}
+.success{color:green}
+.error{color:#a93226}
+.help{color:#666;font-size:13px;margin-top:-8px}
+table{width:100%;border-collapse:collapse}
+th,td{padding:10px;border-bottom:1px solid #ddd;text-align:left}
+.preview{max-width:180px;max-height:150px;border-radius:10px;margin-top:5px}
+@media(max-width:600px){body{padding:15px}.card{padding:18px}table{font-size:12px}}
 </style>
 </head>
 
@@ -100,19 +32,13 @@ th,td{
 <h1>JESTILO DELIVERY SERVICE</h1>
 
 <div class="card" id="loginBox">
-
 <h2>Admin Login</h2>
 
-<input
-  id="password"
-  type="password"
-  placeholder="Admin password"
->
+<input id="password" type="password" placeholder="Admin password">
 
-<button onclick="login()">Login</button>
+<button type="button" onclick="login()">Login</button>
 
 <p id="loginMessage"></p>
-
 </div>
 
 
@@ -121,96 +47,41 @@ th,td{
 <h2>Create / Update Shipment</h2>
 
 <label>Tracking Number</label>
-
-<input
-  id="code"
-  placeholder="Example: JST-2026-001"
->
-
+<input id="code" placeholder="Example: JST-2026-001">
 
 <label>Customer Name</label>
-
-<input
-  id="customer"
-  placeholder="Customer full name"
->
-
+<input id="customer" placeholder="Customer full name">
 
 <label>Customer Email</label>
-
-<input
-  id="email"
-  type="email"
-  placeholder="customer@example.com"
->
-
+<input id="email" type="email" placeholder="customer@example.com">
 
 <label>Customer WhatsApp</label>
+<input id="whatsapp" placeholder="Example: +628123456789">
 
-<input
-  id="whatsapp"
-  placeholder="Example: +628123456789"
->
-
-<p class="help">
-Include the country code, for example +62 for Indonesia.
-</p>
-
+<p class="help">Include the country code.</p>
 
 <label>Package / Item Name</label>
-
-<input
-  id="item_name"
-  placeholder="Example: Personal gifts"
->
-
+<input id="item_name" placeholder="Example: Personal gifts">
 
 <label>Package Description</label>
-
-<textarea
-  id="item_description"
-  placeholder="Describe the package contents"
-></textarea>
-
+<textarea id="item_description" placeholder="Describe the package contents"></textarea>
 
 <label>Package Image URL</label>
+<input id="image_url" placeholder="https://example.com/package.jpg">
 
-<input
-  id="image_url"
-  placeholder="https://example.com/package.jpg"
->
+<p class="help">Use a publicly accessible image URL.</p>
 
-<p class="help">
-Use an image URL for the package image. Do not put private or sensitive images on a public website.
-</p>
-
-<img
-  id="imagePreview"
-  class="preview hidden"
-  alt="Package preview"
->
-
+<img id="imagePreview" class="preview hidden" alt="Package preview">
 
 <label>Origin</label>
-
-<input
-  id="origin"
-  placeholder="Example: United Kingdom"
->
-
+<input id="origin" placeholder="Example: United Kingdom">
 
 <label>Destination</label>
-
-<input
-  id="destination"
-  placeholder="Example: Indonesia"
->
-
+<input id="destination" placeholder="Example: Indonesia">
 
 <label>Shipment Status</label>
 
 <select id="status">
-
 <option>Order received</option>
 <option>Processing</option>
 <option>In transit</option>
@@ -218,59 +89,30 @@ Use an image URL for the package image. Do not put private or sensitive images o
 <option>Out for delivery</option>
 <option>Delivered</option>
 <option>On hold</option>
-
 </select>
 
-
 <label>Current Location</label>
-
-<input
-  id="location"
-  placeholder="Example: Jakarta, Indonesia"
->
-
+<input id="location" placeholder="Example: Jakarta, Indonesia">
 
 <label>Estimated Delivery</label>
-
-<input
-  id="estimated_delivery"
-  type="datetime-local"
->
-
+<input id="estimated_delivery" type="datetime-local">
 
 <label>Shipment Update</label>
+<textarea id="note" placeholder="Example: Shipment has arrived at the destination country."></textarea>
 
-<textarea
-  id="note"
-  placeholder="Example: Shipment has arrived at the destination country."
-></textarea>
+<button type="button" onclick="saveShipment()">Save Shipment</button>
 
-
-<button onclick="saveShipment()">
-Save Shipment
-</button>
-
-<button
-  type="button"
-  onclick="clearForm()"
-  style="background:#777;margin-left:8px;"
->
-Clear
-</button>
+<button type="button" class="clear" onclick="clearForm()">Clear</button>
 
 <p id="saveMessage"></p>
-
 
 <hr>
 
 <h2>Shipments</h2>
 
-<div id="records">
-Loading...
-</div>
+<div id="records">Loading...</div>
 
 </div>
-
 </div>
 
 
@@ -287,70 +129,75 @@ async function login(){
   const message =
     document.getElementById("loginMessage");
 
+  if(!password){
+
+    message.className = "error";
+    message.textContent = "Enter your admin password.";
+    return;
+  }
+
   try{
 
-    const response =
-      await fetch("/api/admin/login",{
-
+    const response = await fetch(
+      "/api/admin/login",
+      {
         method:"POST",
-
         headers:{
           "Content-Type":"application/json"
         },
-
         body:JSON.stringify({
           password:password
         })
+      }
+    );
 
-      });
-
-
-    const data =
-      await response.json();
-
+    const data = await response.json();
 
     if(!response.ok){
 
-      message.className="error";
-
+      message.className = "error";
       message.textContent =
-        "Incorrect password.";
+        data.error || "Incorrect password.";
 
       return;
     }
 
+    if(!data.token){
 
-    token=data.token;
+      message.className = "error";
+      message.textContent =
+        "Login failed: no session token received.";
 
+      return;
+    }
+
+    token = data.token;
 
     document
       .getElementById("loginBox")
       .classList.add("hidden");
 
-
     document
       .getElementById("adminBox")
       .classList.remove("hidden");
-
 
     loadShipments();
 
   }catch(error){
 
-    message.className="error";
+    console.error(error);
 
+    message.className = "error";
     message.textContent =
       "Could not connect to the server.";
   }
 }
 
 
-
 async function saveShipment(){
 
   const message =
     document.getElementById("saveMessage");
-
 
   const shipment = {
 
@@ -361,4 +208,280 @@ async function saveShipment(){
       document.getElementById("customer").value.trim(),
 
     email:
-      document.getElementBy
+      document.getElementById("email").value.trim(),
+
+    whatsapp:
+      document.getElementById("whatsapp").value.trim(),
+
+    item_name:
+      document.getElementById("item_name").value.trim(),
+
+    item_description:
+      document.getElementById("item_description").value.trim(),
+
+    image_url:
+      document.getElementById("image_url").value.trim(),
+
+    origin:
+      document.getElementById("origin").value.trim(),
+
+    destination:
+      document.getElementById("destination").value.trim(),
+
+    status:
+      document.getElementById("status").value,
+
+    location:
+      document.getElementById("location").value.trim(),
+
+    estimated_delivery:
+      document.getElementById("estimated_delivery").value,
+
+    note:
+      document.getElementById("note").value.trim()
+  };
+
+
+  if(!shipment.code){
+
+    message.className = "error";
+    message.textContent =
+      "Enter a tracking number.";
+
+    return;
+  }
+
+
+  try{
+
+    const response = await fetch(
+      "/api/admin/shipments",
+      {
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json",
+          "Authorization":"Bearer " + token
+        },
+        body:JSON.stringify(shipment)
+      }
+    );
+
+    const data = await response.json();
+
+    if(!response.ok){
+
+      message.className = "error";
+      message.textContent =
+        data.error || "Could not save shipment.";
+
+      return;
+    }
+
+    message.className = "success";
+    message.textContent =
+      "Shipment saved successfully.";
+
+    clearForm();
+
+    loadShipments();
+
+  }catch(error){
+
+    console.error(error);
+
+    message.className = "error";
+    message.textContent =
+      "Could not connect to the server.";
+  }
+}
+
+
+async function loadShipments(){
+
+  const box =
+    document.getElementById("records");
+
+  try{
+
+    const response = await fetch(
+      "/api/admin/shipments",
+      {
+        headers:{
+          "Authorization":"Bearer " + token
+        }
+      }
+    );
+
+    const data = await response.json();
+
+    if(!response.ok){
+
+      box.innerHTML =
+        "<p class='error'>Could not load shipments.</p>";
+
+      return;
+    }
+
+    if(!data.length){
+
+      box.innerHTML =
+        "<p>No shipments yet.</p>";
+
+      return;
+    }
+
+    box.innerHTML = `
+      <table>
+        <tr>
+          <th>Tracking</th>
+          <th>Customer</th>
+          <th>Status</th>
+          <th>Destination</th>
+          <th>Action</th>
+        </tr>
+
+        ${data.map(x => `
+          <tr>
+            <td>${escapeHtml(x.code)}</td>
+            <td>${escapeHtml(x.customer || "-")}</td>
+            <td>${escapeHtml(x.status || "-")}</td>
+            <td>${escapeHtml(x.destination || "-")}</td>
+            <td>
+              <button
+                type="button"
+                class="delete"
+                onclick="deleteShipment('${encodeURIComponent(x.code)}')">
+                Delete
+              </button>
+            </td>
+          </tr>
+        `).join("")}
+
+      </table>
+    `;
+
+  }catch(error){
+
+    console.error(error);
+
+    box.innerHTML =
+      "<p class='error'>Could not load shipments.</p>";
+  }
+}
+
+
+async function deleteShipment(encodedCode){
+
+  const code =
+    decodeURIComponent(encodedCode);
+
+  if(!confirm("Delete this shipment?")){
+    return;
+  }
+
+  try{
+
+    const response = await fetch(
+      "/api/admin/shipments/" +
+      encodeURIComponent(code),
+      {
+        method:"DELETE",
+        headers:{
+          "Authorization":"Bearer " + token
+        }
+      }
+    );
+
+    if(!response.ok){
+
+      alert("Could not delete shipment.");
+      return;
+    }
+
+    loadShipments();
+
+  }catch(error){
+
+    alert("Could not delete shipment.");
+  }
+}
+
+
+function clearForm(){
+
+  document.getElementById("code").value = "";
+  document.getElementById("customer").value = "";
+  document.getElementById("email").value = "";
+  document.getElementById("whatsapp").value = "";
+  document.getElementById("item_name").value = "";
+  document.getElementById("item_description").value = "";
+  document.getElementById("image_url").value = "";
+  document.getElementById("origin").value = "";
+  document.getElementById("destination").value = "";
+  document.getElementById("status").value = "Order received";
+  document.getElementById("location").value = "";
+  document.getElementById("estimated_delivery").value = "";
+  document.getElementById("note").value = "";
+
+  const preview =
+    document.getElementById("imagePreview");
+
+  preview.src = "";
+  preview.classList.add("hidden");
+}
+
+
+document
+  .getElementById("image_url")
+  .addEventListener(
+    "input",
+    function(){
+
+      const url = this.value.trim();
+
+      const preview =
+        document.getElementById("imagePreview");
+
+      if(!url){
+
+        preview.src = "";
+        preview.classList.add("hidden");
+
+        return;
+      }
+
+      preview.src = url;
+
+      preview.onload = function(){
+        preview.classList.remove("hidden");
+      };
+
+      preview.onerror = function(){
+        preview.classList.add("hidden");
+      };
+    }
+  );
+
+
+function escapeHtml(value){
+
+  return String(value || "").replace(
+    /[&<>"']/g,
+    function(m){
+
+      return {
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#039;"
+      }[m];
+
+    }
+  );
+}
+
+</script>
+
+</body>
+</html>
