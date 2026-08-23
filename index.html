@@ -1,1 +1,284 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JESTILO DELIVERY SERVICE</title><style>body{margin:0;font-family:Arial;background:#f7f3ed;color:#2d1b12}header{background:#2d1b12;color:white;padding:18px 7%;display:flex;justify-content:space-between}a{color:white;margin-left:18px}.hero{padding:70px 7%;background:#fffaf3}section{padding:45px 7%}.btn{background:#f36b16;color:#fff;border:0;padding:13px 20px;border-radius:9px;font-weight:bold}input,select,textarea{width:100%;padding:13px;margin:7px 0 15px;box-sizing:border-box;border:1px solid #dfcdbb;border-radius:8px}.panel{background:white;padding:24px;border-radius:16px;max-width:800px}.status{margin-top:18px;padding:18px;background:#f8eee5;border-radius:10px}.error{color:#a93226}</style></head><body><header><b>JESTILO DELIVERY SERVICE</b><nav><a href="#track">Track</a><a href="/admin.html">Admin</a></nav></header><section class="hero"><h1>Reliable delivery, wherever you need it.</h1><p>Track a shipment and view its latest delivery status.</p></section><section id="track"><h2>Track Your Delivery</h2><div class="panel"><input id="code" placeholder="Enter tracking number"><button class="btn" onclick="track()">Check Status</button><div id="result"></div></div></section><script>async function track(){let c=document.getElementById('code').value.trim().toUpperCase(),r=document.getElementById('result');if(!c){r.innerHTML='<div class="status error">Please enter a tracking number.</div>';return}let x=await fetch('/api/shipments/'+encodeURIComponent(c));if(!x.ok){r.innerHTML='<div class="status">No shipment was found.</div>';return}let d=await x.json();r.innerHTML='<div class="status"><h3>'+e(d.status)+'</h3><p><b>Tracking:</b> '+e(d.code)+'</p>'+(d.customer?'<p><b>Customer:</b> '+e(d.customer)+'</p>':'')+(d.location?'<p><b>Location:</b> '+e(d.location)+'</p>':'')+(d.note?'<p><b>Update:</b> '+e(d.note)+'</p>':'')+'<p>Last updated: '+e(d.updated)+'</p></div>'}function e(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}</script></body></html>
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JESTILO DELIVERY SERVICE</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f7f3ed;
+  color:#2d1b12;
+}
+header{
+  background:#2d1b12;
+  color:white;
+  padding:18px 7%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  flex-wrap:wrap;
+}
+header b{
+  font-size:18px;
+}
+nav a{
+  color:white;
+  margin-left:18px;
+  text-decoration:none;
+}
+.hero{
+  padding:70px 7%;
+  background:#fffaf3;
+}
+.hero h1{
+  font-size:42px;
+  margin-bottom:15px;
+}
+section{
+  padding:45px 7%;
+}
+.panel{
+  background:white;
+  padding:24px;
+  border-radius:16px;
+  max-width:800px;
+  box-shadow:0 5px 20px rgba(45,27,18,.06);
+}
+.btn{
+  background:#f36b16;
+  color:#fff;
+  border:0;
+  padding:13px 20px;
+  border-radius:9px;
+  font-weight:bold;
+  cursor:pointer;
+  text-decoration:none;
+  display:inline-block;
+}
+input,textarea{
+  width:100%;
+  padding:13px;
+  margin:7px 0 15px;
+  box-sizing:border-box;
+  border:1px solid #dfcdbb;
+  border-radius:8px;
+  font-family:Arial,sans-serif;
+}
+.status{
+  margin-top:18px;
+  padding:18px;
+  background:#f8eee5;
+  border-radius:10px;
+}
+.error{
+  color:#a93226;
+}
+.service-card{
+  background:white;
+  padding:20px;
+  border-radius:14px;
+  margin:12px 0;
+}
+footer{
+  background:#2d1b12;
+  color:white;
+  padding:30px 7%;
+}
+footer a{
+  color:white;
+}
+@media(max-width:600px){
+  .hero h1{
+    font-size:32px;
+  }
+  nav a{
+    margin-left:8px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <b>JESTILO DELIVERY SERVICE</b>
+
+  <nav>
+    <a href="#track">Track</a>
+    <a href="#services">Services</a>
+    <a href="#support">Customer Service</a>
+    <a href="/admin.html">Admin</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Reliable delivery, wherever you need it.</h1>
+  <p>
+    Track your shipment and view its latest delivery status.
+    We provide international delivery support for eligible destinations.
+  </p>
+
+  <a href="#track" class="btn">Track Your Shipment</a>
+</section>
+
+<section id="services">
+  <h2>Our Services</h2>
+
+  <div class="service-card">
+    <h3>International Delivery</h3>
+    <p>
+      Delivery services for eligible international destinations,
+      subject to the applicable shipping requirements.
+    </p>
+  </div>
+
+  <div class="service-card">
+    <h3>Shipment Tracking</h3>
+    <p>
+      Use your tracking number to check the latest available
+      shipment status and location.
+    </p>
+  </div>
+
+  <div class="service-card">
+    <h3>Customer Support</h3>
+    <p>
+      Our customer service team can assist with shipment and
+      tracking questions.
+    </p>
+  </div>
+</section>
+
+<section id="track">
+  <h2>Track Your Delivery</h2>
+
+  <div class="panel">
+    <input id="code" placeholder="Enter tracking number">
+
+    <button class="btn" onclick="track()">
+      Check Status
+    </button>
+
+    <div id="result"></div>
+  </div>
+</section>
+
+<section id="support">
+  <h2>Customer Service</h2>
+
+  <div class="panel">
+    <h3>Need help with your shipment?</h3>
+
+    <p>
+      Contact our customer service team if you have questions
+      about an existing shipment or its tracking information.
+    </p>
+
+    <p>
+      <b>WhatsApp:</b> +63 965 867 4185
+    </p>
+
+    <a
+      href="https://wa.me/639658674185"
+      target="_blank"
+      rel="noopener"
+      class="btn"
+    >
+      Contact us on WhatsApp
+    </a>
+
+    <p style="margin-top:25px;">
+      <b>Email:</b> delightedinternationaldelivery@gmail.com
+    </p>
+
+    <a
+      href="mailto:delightedinternationaldelivery@gmail.com"
+      class="btn"
+    >
+      Email Customer Service
+    </a>
+  </div>
+</section>
+
+<footer>
+  <h3>JESTILO DELIVERY SERVICE</h3>
+  <p>International delivery and shipment tracking support.</p>
+  <p>
+    Customer Service:
+    <a href="mailto:delightedinternationaldelivery@gmail.com">
+      delightedinternationaldelivery@gmail.com
+    </a>
+  </p>
+</footer>
+
+<script>
+async function track(){
+
+  let c = document.getElementById('code').value.trim().toUpperCase();
+  let r = document.getElementById('result');
+
+  if(!c){
+    r.innerHTML =
+      '<div class="status error">Please enter a tracking number.</div>';
+    return;
+  }
+
+  try{
+
+    let x = await fetch(
+      '/api/shipments/' + encodeURIComponent(c)
+    );
+
+    if(!x.ok){
+      r.innerHTML =
+        '<div class="status">No shipment was found.</div>';
+      return;
+    }
+
+    let d = await x.json();
+
+    r.innerHTML =
+      '<div class="status">' +
+      '<h3>' + e(d.status) + '</h3>' +
+      '<p><b>Tracking:</b> ' + e(d.code) + '</p>' +
+      (d.customer
+        ? '<p><b>Customer:</b> ' + e(d.customer) + '</p>'
+        : '') +
+      (d.location
+        ? '<p><b>Location:</b> ' + e(d.location) + '</p>'
+        : '') +
+      (d.note
+        ? '<p><b>Update:</b> ' + e(d.note) + '</p>'
+        : '') +
+      '<p>Last updated: ' + e(d.updated) + '</p>' +
+      '</div>';
+
+  }catch(error){
+
+    r.innerHTML =
+      '<div class="status error">' +
+      'Unable to check the shipment right now. Please try again later.' +
+      '</div>';
+  }
+}
+
+function e(s){
+  return String(s || '').replace(
+    /[&<>"']/g,
+    m => ({
+      '&':'&amp;',
+      '<':'&lt;',
+      '>':'&gt;',
+      '"':'&quot;',
+      "'":'&#039;'
+    }[m])
+  );
+}
+</script>
+
+</body>
+</html>
