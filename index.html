@@ -7,16 +7,12 @@
 <title>JESTILO Delivery Service | Shipment Tracking</title>
 
 <meta name="description"
-content="JESTILO Delivery Service prototype for shipment information and tracking.">
+content="JESTILO Delivery Service shipment information and tracking.">
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
-html{
-  scroll-behavior:smooth;
-}
+html{scroll-behavior:smooth}
 
 body{
   margin:0;
@@ -52,9 +48,7 @@ header{
   letter-spacing:.5px;
 }
 
-.logo span{
-  color:#f47b20;
-}
+.logo span{color:#f47b20}
 
 .nav-links{
   display:flex;
@@ -75,20 +69,8 @@ header{
   font-weight:bold;
 }
 
-.demo-bar{
-  background:#fff1e6;
-  color:#7d3b08;
-  text-align:center;
-  padding:9px 15px;
-  font-size:13px;
-  font-weight:bold;
-  border-bottom:1px solid #f4d4bb;
-}
-
 .hero{
-  background:
-    linear-gradient(120deg,rgba(16,24,32,.98),rgba(34,49,61,.94)),
-    #101820;
+  background:linear-gradient(120deg,rgba(16,24,32,.98),rgba(34,49,61,.94)),#101820;
   color:#fff;
   padding:85px 0 105px;
 }
@@ -114,9 +96,7 @@ header{
   margin:18px 0;
 }
 
-.hero h1 span{
-  color:#f47b20;
-}
+.hero h1 span{color:#f47b20}
 
 .hero p{
   color:#d7dee4;
@@ -184,15 +164,14 @@ header{
   margin:25px 0;
 }
 
-.route small{
+.route small,
+.result-route small{
   display:block;
   color:#7b858d;
   margin-bottom:5px;
 }
 
-.route strong{
-  font-size:16px;
-}
+.route strong{font-size:16px}
 
 .route-arrow{
   color:#f47b20;
@@ -238,9 +217,7 @@ header{
   outline:none;
 }
 
-.track-form input:focus{
-  border-color:#f47b20;
-}
+.track-form input:focus{border-color:#f47b20}
 
 .track-form button{
   border:0;
@@ -274,9 +251,7 @@ header{
   border-right:1px solid #e7eaed;
 }
 
-.feature:last-child{
-  border-right:0;
-}
+.feature:last-child{border-right:0}
 
 .feature-icon{
   font-size:26px;
@@ -293,9 +268,7 @@ header{
   font-size:13px;
 }
 
-section{
-  padding:80px 0;
-}
+section{padding:80px 0}
 
 .section-label{
   color:#f47b20;
@@ -342,9 +315,7 @@ section{
   margin-bottom:18px;
 }
 
-.service h3{
-  margin:0 0 8px;
-}
+.service h3{margin:0 0 8px}
 
 .service p{
   color:#6d7780;
@@ -356,9 +327,7 @@ section{
   color:#fff;
 }
 
-.journey .section-description{
-  color:#bfc8cf;
-}
+.journey .section-description{color:#bfc8cf}
 
 .journey-grid{
   display:grid;
@@ -442,15 +411,7 @@ section{
   align-items:center;
 }
 
-.result-route small{
-  display:block;
-  color:#7c858d;
-  margin-bottom:5px;
-}
-
-.result-route strong{
-  font-size:18px;
-}
+.result-route strong{font-size:18px}
 
 .result-arrow{
   color:#f47b20;
@@ -484,9 +445,7 @@ section{
   border-radius:9px;
 }
 
-.package h3{
-  margin-top:0;
-}
+.package h3{margin-top:0}
 
 .package-image{
   display:none;
@@ -497,9 +456,7 @@ section{
   margin-top:18px;
 }
 
-.timeline{
-  margin-top:30px;
-}
+.timeline{margin-top:30px}
 
 .timeline-item{
   display:flex;
@@ -532,9 +489,7 @@ section{
   background:#dfe3e6;
 }
 
-.timeline-item strong{
-  display:block;
-}
+.timeline-item strong{display:block}
 
 .timeline-item span{
   color:#77818a;
@@ -548,13 +503,9 @@ section{
   border-radius:8px;
 }
 
-.update p{
-  color:#65717a;
-}
+.update p{color:#65717a}
 
-.about{
-  background:#fff;
-}
+.about{background:#fff}
 
 .about-grid{
   display:grid;
@@ -575,9 +526,7 @@ section{
   margin:20px 0 0;
 }
 
-.about-panel li{
-  margin:13px 0;
-}
+.about-panel li{margin:13px 0}
 
 .about-panel li:before{
   content:"✓";
@@ -624,10 +573,7 @@ footer a{
 }
 
 @media(max-width:850px){
-
-  .nav-links{
-    display:none;
-  }
+  .nav-links{display:none}
 
   .hero-grid,
   .about-grid{
@@ -639,41 +585,26 @@ footer a{
     grid-template-columns:1fr 1fr;
   }
 
-  .features-grid{
-    grid-template-columns:1fr;
-  }
+  .features-grid{grid-template-columns:1fr}
 
   .feature{
     border-right:0;
     border-bottom:1px solid #e7eaed;
   }
 
-  .feature:last-child{
-    border-bottom:0;
-  }
+  .feature:last-child{border-bottom:0}
 
-  .footer-grid{
-    grid-template-columns:1fr;
-  }
+  .footer-grid{grid-template-columns:1fr}
 }
 
 @media(max-width:600px){
+  .hero{padding:60px 0 85px}
 
-  .hero{
-    padding:60px 0 85px;
-  }
+  .hero h1{font-size:43px}
 
-  .hero h1{
-    font-size:43px;
-  }
+  .track-form{flex-direction:column}
 
-  .track-form{
-    flex-direction:column;
-  }
-
-  .track-form button{
-    padding:15px;
-  }
+  .track-form button{padding:15px}
 
   .services,
   .journey-grid,
@@ -681,9 +612,7 @@ footer a{
     grid-template-columns:1fr;
   }
 
-  .section-title{
-    font-size:32px;
-  }
+  .section-title{font-size:32px}
 
   .result-route{
     grid-template-columns:1fr;
@@ -698,10 +627,6 @@ footer a{
 </head>
 
 <body>
-
-<div class="demo-bar">
-  JESTILO PROTOTYPE — Tracking information shown on this site is demonstration data.
-</div>
 
 <header>
   <div class="container nav">
@@ -737,11 +662,12 @@ footer a{
 
       <p>
         Enter a shipment reference to view the latest
-        demonstration information available for your delivery,
-        including route, status, package information and updates.
+        available information for your delivery, including
+        route, status, package information and updates.
       </p>
 
       <div class="hero-buttons">
+
         <a href="#tracking" class="button primary">
           Track Shipment
         </a>
@@ -749,6 +675,7 @@ footer a{
         <a href="#services" class="button secondary">
           Explore Services
         </a>
+
       </div>
 
     </div>
@@ -760,7 +687,7 @@ footer a{
         <strong>Shipment Overview</strong>
 
         <span class="status">
-          DEMO
+          ACTIVE
         </span>
 
       </div>
@@ -785,7 +712,7 @@ footer a{
 
       <p style="color:#6d7780;font-size:14px;">
         Shipment tracking, package information and delivery
-        updates can be displayed here.
+        updates are available through the tracking system.
       </p>
 
     </div>
@@ -811,11 +738,14 @@ footer a{
         <input
           id="trackingCode"
           type="text"
-          placeholder="Example: JST-DEMO-001"
+          placeholder="Enter tracking number"
           autocomplete="off"
         >
 
-        <button onclick="trackShipment()">
+        <button
+          type="button"
+          onclick="trackShipment()"
+        >
           TRACK SHIPMENT
         </button>
 
@@ -842,7 +772,7 @@ footer a{
     <div class="feature">
       <div class="feature-icon">🌍</div>
       <strong>International Routes</strong>
-      <span>Display origin and destination information.</span>
+      <span>View origin and destination information.</span>
     </div>
 
     <div class="feature">
@@ -866,9 +796,9 @@ footer a{
     </h2>
 
     <p class="section-description">
-      JESTILO is being developed as an independent delivery
-      service platform. The system can later be connected to
-      real shipment records and a private management dashboard.
+      JESTILO is an independent delivery service platform
+      designed to manage shipment information and customer
+      tracking in one place.
     </p>
 
     <div class="services">
@@ -906,8 +836,8 @@ footer a{
         <h3>Package Photos</h3>
 
         <p>
-          Real package photographs can be added when the
-          proper management system is connected.
+          Package photographs can be added through the
+          private management dashboard.
         </p>
 
       </div>
@@ -931,8 +861,8 @@ footer a{
     </h2>
 
     <p class="section-description">
-      A future JESTILO management system can allow authorized
-      staff to update each stage from a private dashboard.
+      Shipment information can be updated through the
+      authorized management dashboard.
     </p>
 
     <div class="journey-grid">
@@ -975,7 +905,10 @@ footer a{
 
 </section>
 
-<section id="resultSection" class="result-section">
+<section
+  id="resultSection"
+  class="result-section"
+>
 
   <div class="container">
 
@@ -989,13 +922,19 @@ footer a{
             Tracking number
           </div>
 
-          <h2 id="resultCode" class="result-code">
+          <h2
+            id="resultCode"
+            class="result-code"
+          >
             -
           </h2>
 
         </div>
 
-        <div id="resultStatus" class="result-status">
+        <div
+          id="resultStatus"
+          class="result-status"
+        >
           -
         </div>
 
@@ -1056,7 +995,7 @@ footer a{
         <img
           id="packageImage"
           class="package-image"
-          alt="Demonstration package"
+          alt="Package photograph"
         >
 
       </div>
@@ -1068,7 +1007,10 @@ footer a{
         <div class="timeline-item">
 
           <div class="timeline-marker">
-            <div id="dotReceived" class="dot active"></div>
+            <div
+              id="dotReceived"
+              class="dot active"
+            ></div>
             <div class="line"></div>
           </div>
 
@@ -1082,7 +1024,10 @@ footer a{
         <div class="timeline-item">
 
           <div class="timeline-marker">
-            <div id="dotProcessing" class="dot"></div>
+            <div
+              id="dotProcessing"
+              class="dot"
+            ></div>
             <div class="line"></div>
           </div>
 
@@ -1096,7 +1041,10 @@ footer a{
         <div class="timeline-item">
 
           <div class="timeline-marker">
-            <div id="dotTransit" class="dot"></div>
+            <div
+              id="dotTransit"
+              class="dot"
+            ></div>
             <div class="line"></div>
           </div>
 
@@ -1110,7 +1058,10 @@ footer a{
         <div class="timeline-item">
 
           <div class="timeline-marker">
-            <div id="dotDestination" class="dot"></div>
+            <div
+              id="dotDestination"
+              class="dot"
+            ></div>
             <div class="line"></div>
           </div>
 
@@ -1124,7 +1075,10 @@ footer a{
         <div class="timeline-item">
 
           <div class="timeline-marker">
-            <div id="dotDelivery" class="dot"></div>
+            <div
+              id="dotDelivery"
+              class="dot"
+            ></div>
           </div>
 
           <div>
@@ -1167,27 +1121,24 @@ footer a{
       </h2>
 
       <p class="section-description">
-        This prototype is designed so the public tracking
-        experience can later be connected to a secure private
-        management system.
+        JESTILO provides a customer-facing tracking experience
+        connected to a private shipment management system.
       </p>
 
     </div>
 
     <div class="about-panel">
 
-      <h3>Future management features</h3>
+      <h3>Management features</h3>
 
       <ul>
-
         <li>Create shipment records</li>
         <li>Change shipment status</li>
         <li>Add shipment updates</li>
         <li>Upload package photographs</li>
         <li>Update delivery information</li>
         <li>Manage tracking references</li>
-        <li>Keep customer-facing information organized</li>
-
+        <li>Keep customer information organized</li>
       </ul>
 
     </div>
@@ -1207,7 +1158,7 @@ footer a{
         <h3>JESTILO DELIVERY SERVICE</h3>
 
         <p>
-          Independent delivery-service prototype and
+          Independent delivery-service and
           shipment-tracking platform.
         </p>
 
@@ -1227,14 +1178,18 @@ footer a{
 
         <h3>Tracking</h3>
 
-        <p><a href="#tracking">Track Shipment</a></p>
+        <p>
+          <a href="#tracking">
+            Track Shipment
+          </a>
+        </p>
 
       </div>
 
     </div>
 
     <div class="footer-bottom">
-      © 2026 JESTILO Delivery Service — Prototype.
+      © 2026 JESTILO Delivery Service.
     </div>
 
   </div>
@@ -1243,4 +1198,404 @@ footer a{
 
 <script>
 
-const d
+async function trackShipment(){
+
+  const input =
+    document.getElementById("trackingCode");
+
+  const errorBox =
+    document.getElementById("error");
+
+  const resultSection =
+    document.getElementById("resultSection");
+
+  const code =
+    input.value.trim().toUpperCase();
+
+
+  errorBox.style.display = "none";
+  errorBox.textContent = "";
+
+
+  if(!code){
+
+    errorBox.textContent =
+      "Please enter a tracking number.";
+
+    errorBox.style.display = "block";
+
+    resultSection.style.display = "none";
+
+    return;
+  }
+
+
+  try{
+
+    const response =
+      await fetch(
+        "/api/shipments/" +
+        encodeURIComponent(code)
+      );
+
+
+    if(!response.ok){
+
+      if(response.status === 404){
+
+        errorBox.textContent =
+          "Tracking number not found. Please check the number and try again.";
+
+      }else{
+
+        errorBox.textContent =
+          "Unable to retrieve shipment information. Please try again.";
+
+      }
+
+      errorBox.style.display = "block";
+
+      resultSection.style.display = "none";
+
+      return;
+    }
+
+
+    const shipment =
+      await response.json();
+
+
+    document.getElementById(
+      "resultCode"
+    ).textContent =
+      shipment.code || code;
+
+
+    document.getElementById(
+      "resultStatus"
+    ).textContent =
+      shipment.status || "Shipment received";
+
+
+    document.getElementById(
+      "resultOrigin"
+    ).textContent =
+      shipment.origin || "-";
+
+
+    document.getElementById(
+      "resultDestination"
+    ).textContent =
+      shipment.destination || "-";
+
+
+    document.getElementById(
+      "resultCustomer"
+    ).textContent =
+      shipment.customer || "-";
+
+
+    document.getElementById(
+      "resultLocation"
+    ).textContent =
+      shipment.location || "-";
+
+
+    document.getElementById(
+      "resultDelivery"
+    ).textContent =
+      formatDate(
+        shipment.estimated_delivery
+      );
+
+
+    document.getElementById(
+      "resultUpdated"
+    ).textContent =
+      formatDate(
+        shipment.updated
+      );
+
+
+    document.getElementById(
+      "resultItem"
+    ).textContent =
+      shipment.item_name || "Shipment";
+
+
+    document.getElementById(
+      "resultDescription"
+    ).textContent =
+      shipment.item_description ||
+      "No package description available.";
+
+
+    document.getElementById(
+      "resultNote"
+    ).textContent =
+      shipment.note ||
+      "No additional update available.";
+
+
+    const image =
+      document.getElementById(
+        "packageImage"
+      );
+
+
+    if(
+      shipment.image_url &&
+      shipment.image_url.startsWith(
+        "data:image/"
+      )
+    ){
+
+      image.src =
+        shipment.image_url;
+
+      image.style.display =
+        "block";
+
+    }else{
+
+      image.src = "";
+
+      image.style.display =
+        "none";
+
+    }
+
+
+    updateTimeline(
+      shipment.status
+    );
+
+
+    resultSection.style.display =
+      "block";
+
+
+    resultSection.scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+
+
+  }catch(error){
+
+    console.error(error);
+
+    errorBox.textContent =
+      "Unable to connect to the tracking service. Please try again.";
+
+    errorBox.style.display =
+      "block";
+
+    resultSection.style.display =
+      "none";
+  }
+
+}
+
+
+function formatDate(value){
+
+  if(!value){
+    return "-";
+  }
+
+
+  const date =
+    new Date(value);
+
+
+  if(
+    Number.isNaN(
+      date.getTime()
+    )
+  ){
+
+    return value;
+
+  }
+
+
+  return date.toLocaleString(
+    undefined,
+    {
+      year:"numeric",
+      month:"short",
+      day:"numeric",
+      hour:"numeric",
+      minute:"2-digit"
+    }
+  );
+
+}
+
+
+function updateTimeline(status){
+
+  const received =
+    document.getElementById(
+      "dotReceived"
+    );
+
+  const processing =
+    document.getElementById(
+      "dotProcessing"
+    );
+
+  const transit =
+    document.getElementById(
+      "dotTransit"
+    );
+
+  const destination =
+    document.getElementById(
+      "dotDestination"
+    );
+
+  const delivery =
+    document.getElementById(
+      "dotDelivery"
+    );
+
+
+  const dots = [
+    received,
+    processing,
+    transit,
+    destination,
+    delivery
+  ];
+
+
+  dots.forEach(
+    function(dot){
+
+      dot.classList.remove(
+        "active"
+      );
+
+    }
+  );
+
+
+  received.classList.add(
+    "active"
+  );
+
+
+  const value =
+    String(status || "")
+      .toLowerCase();
+
+
+  if(
+    value.includes("processing")
+  ){
+
+    processing.classList.add(
+      "active"
+    );
+
+  }
+
+
+  if(
+    value.includes("transit")
+  ){
+
+    processing.classList.add(
+      "active"
+    );
+
+    transit.classList.add(
+      "active"
+    );
+
+  }
+
+
+  if(
+    value.includes("arrived") ||
+    value.includes("destination")
+  ){
+
+    processing.classList.add(
+      "active"
+    );
+
+    transit.classList.add(
+      "active"
+    );
+
+    destination.classList.add(
+      "active"
+    );
+
+  }
+
+
+  if(
+    value.includes("out for delivery")
+  ){
+
+    processing.classList.add(
+      "active"
+    );
+
+    transit.classList.add(
+      "active"
+    );
+
+    destination.classList.add(
+      "active"
+    );
+
+    delivery.classList.add(
+      "active"
+    );
+
+  }
+
+
+  if(
+    value.includes("delivered")
+  ){
+
+    dots.forEach(
+      function(dot){
+
+        dot.classList.add(
+          "active"
+        );
+
+      }
+    );
+
+  }
+
+}
+
+
+document
+  .getElementById("trackingCode")
+  .addEventListener(
+    "keydown",
+    function(event){
+
+      if(event.key === "Enter"){
+
+        trackShipment();
+
+      }
+
+    }
+  );
+
+</script>
+
+</body>
+</html>
