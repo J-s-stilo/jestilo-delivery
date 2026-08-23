@@ -10,40 +10,33 @@
 content="JESTILO Delivery Service provides international shipment support and online shipment tracking.">
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
-html{
-  scroll-behavior:smooth;
-}
+html{scroll-behavior:smooth}
 
 body{
   margin:0;
   font-family:Arial,Helvetica,sans-serif;
   background:#f6f4f1;
   color:#211a16;
-  line-height:1.6;
+  line-height:1.6
 }
 
-a{
-  color:inherit;
-}
+a{color:inherit}
 
 .container{
   width:min(1120px,92%);
-  margin:auto;
+  margin:auto
 }
 
 /* HEADER */
-
 header{
   background:#171717;
-  color:white;
+  color:#fff;
   position:sticky;
   top:0;
   z-index:1000;
-  box-shadow:0 3px 18px rgba(0,0,0,.12);
+  box-shadow:0 3px 18px rgba(0,0,0,.12)
 }
 
 .nav{
@@ -51,40 +44,37 @@ header{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:20px;
+  gap:20px
 }
 
 .logo{
   font-weight:800;
   letter-spacing:.5px;
-  font-size:19px;
+  font-size:19px
 }
 
-.logo span{
-  color:#f36b16;
-}
+.logo span{color:#f36b16}
 
 .nav-links{
   display:flex;
   align-items:center;
-  gap:24px;
+  gap:24px
 }
 
 .nav-links a{
   text-decoration:none;
   color:#fff;
-  font-size:14px;
+  font-size:14px
 }
 
 .nav-button{
   background:#f36b16;
   padding:10px 16px;
   border-radius:8px;
-  font-weight:bold;
+  font-weight:bold
 }
 
 /* HERO */
-
 .hero{
   background:
     linear-gradient(
@@ -93,38 +83,36 @@ header{
       #38261b 55%,
       #f36b16 140%
     );
-  color:white;
-  padding:90px 0 85px;
+  color:#fff;
+  padding:90px 0 85px
 }
 
 .hero-grid{
   display:grid;
   grid-template-columns:1.1fr .9fr;
   gap:50px;
-  align-items:center;
+  align-items:center
 }
 
 .hero h1{
   font-size:clamp(38px,6vw,64px);
   line-height:1.05;
-  margin:0 0 20px;
+  margin:0 0 20px
 }
 
-.hero h1 span{
-  color:#ff9a59;
-}
+.hero h1 span{color:#ff9a59}
 
 .hero-text{
   color:#eadfd8;
   max-width:650px;
-  font-size:17px;
+  font-size:17px
 }
 
 .hero-buttons{
   display:flex;
   gap:12px;
   flex-wrap:wrap;
-  margin-top:28px;
+  margin-top:28px
 }
 
 .btn{
@@ -133,37 +121,36 @@ header{
   border-radius:9px;
   text-decoration:none;
   font-weight:bold;
-  border:1px solid transparent;
+  border:1px solid transparent
 }
 
 .btn-primary{
   background:#f36b16;
-  color:white;
+  color:#fff
 }
 
 .btn-secondary{
   border-color:#ffffff55;
-  color:white;
+  color:#fff
 }
 
 /* TRACK CARD */
-
 .track-card{
-  background:white;
+  background:#fff;
   color:#211a16;
   padding:28px;
   border-radius:20px;
-  box-shadow:0 20px 55px rgba(0,0,0,.22);
+  box-shadow:0 20px 55px rgba(0,0,0,.22)
 }
 
 .track-card h2{
   margin:0 0 7px;
-  font-size:24px;
+  font-size:24px
 }
 
 .track-card p{
   color:#716861;
-  margin-top:0;
+  margin-top:0
 }
 
 .track-input{
@@ -173,12 +160,10 @@ header{
   border-radius:9px;
   font-size:16px;
   outline:none;
-  margin:12px 0;
+  margin:12px 0
 }
 
-.track-input:focus{
-  border-color:#f36b16;
-}
+.track-input:focus{border-color:#f36b16}
 
 .track-button{
   width:100%;
@@ -186,37 +171,36 @@ header{
   padding:16px;
   border-radius:9px;
   background:#f36b16;
-  color:white;
+  color:#fff;
   font-weight:bold;
   cursor:pointer;
-  font-size:15px;
+  font-size:15px
 }
 
 .error{
   display:none;
   margin-top:14px;
   color:#a93226;
-  font-size:14px;
+  font-size:14px
 }
 
 /* TRUST STRIP */
-
 .trust-strip{
-  background:white;
-  border-bottom:1px solid #e8e2dc;
+  background:#fff;
+  border-bottom:1px solid #e8e2dc
 }
 
 .trust-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:20px;
-  padding:24px 0;
+  padding:24px 0
 }
 
 .trust-item{
   display:flex;
   gap:12px;
-  align-items:center;
+  align-items:center
 }
 
 .trust-icon{
@@ -227,82 +211,70 @@ header{
   display:flex;
   align-items:center;
   justify-content:center;
-  flex-shrink:0;
+  flex-shrink:0
 }
 
-.trust-item strong{
-  display:block;
-}
+.trust-item strong{display:block}
 
 .trust-item span{
   color:#777;
-  font-size:13px;
+  font-size:13px
 }
 
-/* GENERAL SECTIONS */
-
-section{
-  padding:75px 0;
-}
+/* SECTIONS */
+section{padding:75px 0}
 
 .section-heading{
   max-width:700px;
-  margin-bottom:35px;
+  margin-bottom:35px
 }
 
 .section-heading h2{
   font-size:36px;
-  margin:0 0 10px;
+  margin:0 0 10px
 }
 
-.section-heading p{
-  color:#706861;
-}
+.section-heading p{color:#706861}
 
 /* SERVICES */
-
 .services{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:20px;
+  gap:20px
 }
 
 .service{
-  background:white;
+  background:#fff;
   border:1px solid #eee8e2;
   padding:28px;
   border-radius:16px;
-  box-shadow:0 7px 25px rgba(30,20,10,.05);
+  box-shadow:0 7px 25px rgba(30,20,10,.05)
 }
 
 .service-icon{
   font-size:30px;
-  margin-bottom:15px;
+  margin-bottom:15px
 }
 
-.service h3{
-  margin:0 0 8px;
-}
+.service h3{margin:0 0 8px}
 
 .service p{
   color:#716861;
-  margin-bottom:0;
+  margin-bottom:0
 }
 
 /* HOW IT WORKS */
-
 .steps{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:20px;
+  gap:20px
 }
 
 .step{
-  position:relative;
   background:#211a16;
-  color:white;
+  color:#fff;
   border-radius:16px;
-  padding:26px;
+  padding:26px
 }
 
 .step-number{
@@ -314,66 +286,58 @@ section{
   align-items:center;
   justify-content:center;
   font-weight:bold;
-  margin-bottom:20px;
+  margin-bottom:20px
 }
 
 .step p{
   color:#cfc5be;
-  font-size:14px;
+  font-size:14px
 }
 
 /* ABOUT */
-
-.about{
-  background:#fffaf5;
-}
+.about{background:#fffaf5}
 
 .about-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:45px;
-  align-items:center;
+  align-items:center
 }
 
 .about-box{
-  background:white;
+  background:#fff;
   border-radius:18px;
   padding:30px;
-  box-shadow:0 8px 30px rgba(30,20,10,.06);
+  box-shadow:0 8px 30px rgba(30,20,10,.06)
 }
 
-.about-box h3{
-  margin-top:0;
-}
+.about-box h3{margin-top:0}
 
 .about-list{
   padding:0;
-  list-style:none;
+  list-style:none
 }
 
-.about-list li{
-  margin:13px 0;
-}
+.about-list li{margin:13px 0}
 
 .about-list li::before{
   content:"✓";
   color:#f36b16;
   font-weight:bold;
-  margin-right:9px;
+  margin-right:9px
 }
 
 /* TRACKING RESULT */
-
 .result-section{
   display:none;
-  background:#f0ebe5;
+  background:#f0ebe5
 }
 
 .result{
-  background:white;
+  background:#fff;
   border-radius:20px;
   padding:30px;
-  box-shadow:0 10px 35px rgba(30,20,10,.08);
+  box-shadow:0 10px 35px rgba(30,20,10,.08)
 }
 
 .result-header{
@@ -381,17 +345,17 @@ section{
   justify-content:space-between;
   align-items:flex-start;
   gap:20px;
-  flex-wrap:wrap;
+  flex-wrap:wrap
 }
 
 .result-header h2{
   margin:0;
-  font-size:30px;
+  font-size:30px
 }
 
 .tracking-label{
   color:#777;
-  margin-top:4px;
+  margin-top:4px
 }
 
 .badge{
@@ -401,11 +365,10 @@ section{
   border-radius:30px;
   padding:9px 14px;
   font-weight:bold;
-  font-size:13px;
+  font-size:13px
 }
 
 /* ROUTE */
-
 .route{
   margin-top:25px;
   padding:25px;
@@ -414,57 +377,51 @@ section{
   display:grid;
   grid-template-columns:1fr auto 1fr;
   gap:20px;
-  align-items:center;
+  align-items:center
 }
 
 .route-box small{
   display:block;
   color:#777;
-  margin-bottom:4px;
+  margin-bottom:4px
 }
 
-.route-box strong{
-  font-size:18px;
-}
+.route-box strong{font-size:18px}
 
 .route-arrow{
   font-size:27px;
-  color:#f36b16;
+  color:#f36b16
 }
 
 /* INFO */
-
 .info-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
   gap:15px;
-  margin-top:20px;
+  margin-top:20px
 }
 
 .info{
   background:#faf8f5;
   padding:18px;
-  border-radius:12px;
+  border-radius:12px
 }
 
 .info small{
   display:block;
   color:#777;
-  margin-bottom:5px;
+  margin-bottom:5px
 }
 
 /* PACKAGE */
-
 .package{
   margin-top:22px;
   padding:24px;
   background:#fff9f3;
-  border-radius:15px;
+  border-radius:15px
 }
 
-.package h3{
-  margin-top:0;
-}
+.package h3{margin-top:0}
 
 .package-image{
   width:100%;
@@ -472,30 +429,27 @@ section{
   object-fit:cover;
   border-radius:14px;
   margin-top:15px;
-  display:none;
+  display:none
 }
 
 .image-note{
   color:#777;
-  font-size:13px;
+  font-size:13px
 }
 
 /* TIMELINE */
-
-.timeline{
-  margin-top:28px;
-}
+.timeline{margin-top:28px}
 
 .timeline-item{
   display:flex;
   gap:15px;
-  margin:20px 0;
+  margin:20px 0
 }
 
 .timeline-line{
   display:flex;
   flex-direction:column;
-  align-items:center;
+  align-items:center
 }
 
 .dot{
@@ -503,174 +457,144 @@ section{
   height:17px;
   border-radius:50%;
   background:#d8d3ce;
-  flex-shrink:0;
+  flex-shrink:0
 }
 
-.dot.active{
-  background:#f36b16;
-}
+.dot.active{background:#f36b16}
 
 .line{
   width:2px;
   height:35px;
-  background:#ddd;
+  background:#ddd
 }
 
-.timeline-item strong{
-  display:block;
-}
+.timeline-item strong{display:block}
 
 .timeline-item span{
   color:#777;
-  font-size:14px;
+  font-size:14px
 }
 
 /* UPDATE */
-
 .update{
   margin-top:25px;
   background:#faf8f5;
   padding:22px;
-  border-radius:15px;
+  border-radius:15px
 }
 
 /* SUPPORT */
-
 .support{
-  background:white;
+  background:#fff;
   padding:32px;
   border-radius:18px;
-  border:1px solid #eee7df;
+  border:1px solid #eee7df
 }
 
 .contact{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:18px;
-  margin-top:25px;
+  margin-top:25px
 }
 
 .contact-box{
   background:#faf8f5;
   padding:20px;
-  border-radius:12px;
+  border-radius:12px
 }
 
 .contact-box small{
   color:#777;
   display:block;
-  margin-bottom:5px;
+  margin-bottom:5px
 }
 
 /* FOOTER */
-
 footer{
   background:#171717;
-  color:white;
-  padding:50px 0 25px;
+  color:#fff;
+  padding:50px 0 25px
 }
 
 .footer-grid{
   display:grid;
   grid-template-columns:2fr 1fr 1fr;
-  gap:35px;
+  gap:35px
 }
 
-footer h3{
-  margin-top:0;
-}
+footer h3{margin-top:0}
 
 footer p,
 footer li{
   color:#bbb;
-  font-size:14px;
+  font-size:14px
 }
 
 footer ul{
   padding:0;
-  list-style:none;
+  list-style:none
 }
 
-footer li{
-  margin:8px 0;
-}
+footer li{margin:8px 0}
 
 .footer-bottom{
   border-top:1px solid #ffffff18;
   margin-top:35px;
   padding-top:20px;
   font-size:13px;
-  color:#888;
+  color:#888
 }
 
 /* MOBILE */
-
 @media(max-width:800px){
 
-  .nav-links{
-    display:none;
-  }
+  .nav-links{display:none}
 
-  .hero{
-    padding:60px 0;
-  }
+  .hero{padding:60px 0}
 
   .hero-grid,
   .about-grid{
-    grid-template-columns:1fr;
+    grid-template-columns:1fr
   }
 
   .services,
   .steps{
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:1fr 1fr
   }
 
-  .trust-grid{
-    grid-template-columns:1fr;
-  }
+  .trust-grid{grid-template-columns:1fr}
 
-  .footer-grid{
-    grid-template-columns:1fr;
-  }
+  .footer-grid{grid-template-columns:1fr}
 }
 
 @media(max-width:600px){
 
-  section{
-    padding:55px 0;
-  }
+  section{padding:55px 0}
 
   .services,
   .steps,
   .contact,
   .info-grid{
-    grid-template-columns:1fr;
+    grid-template-columns:1fr
   }
 
   .route{
     grid-template-columns:1fr;
-    text-align:center;
+    text-align:center
   }
 
   .route-arrow{
-    transform:rotate(90deg);
+    transform:rotate(90deg)
   }
 
-  .result{
-    padding:20px;
-  }
+  .result{padding:20px}
 
-  .hero h1{
-    font-size:40px;
-  }
+  .hero h1{font-size:40px}
 
-  .hero-buttons{
-    flex-direction:column;
-  }
+  .hero-buttons{flex-direction:column}
 
-  .btn{
-    text-align:center;
-  }
+  .btn{text-align:center}
 }
 </style>
 </head>
@@ -678,4 +602,760 @@ footer li{
 <body>
 
 <header>
-  <div class="
+  <div class="container nav">
+
+    <div class="logo">
+      JESTILO <span>DELIVERY SERVICE</span>
+    </div>
+
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#about">About</a>
+      <a href="#support">Contact</a>
+      <a class="nav-button" href="#track">Track Shipment</a>
+    </div>
+
+  </div>
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero" id="track">
+
+  <div class="container hero-grid">
+
+    <div>
+
+      <h1>
+        Reliable <span>International</span>
+        Shipment Tracking
+      </h1>
+
+      <p class="hero-text">
+        Track your shipment using your unique tracking number
+        and view the latest shipment information available
+        from JESTILO Delivery Service.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="#track-card" class="btn btn-primary">
+          Track a Shipment
+        </a>
+
+        <a href="#services" class="btn btn-secondary">
+          Explore Our Services
+        </a>
+      </div>
+
+    </div>
+
+
+    <div class="track-card" id="track-card">
+
+      <h2>Track Your Shipment</h2>
+
+      <p>
+        Enter your tracking number below.
+      </p>
+
+      <input
+        id="trackingCode"
+        class="track-input"
+        placeholder="Example: JST-2026-001"
+        autocomplete="off"
+      >
+
+      <button
+        type="button"
+        class="track-button"
+        onclick="trackShipment()"
+      >
+        TRACK SHIPMENT
+      </button>
+
+      <div id="error" class="error"></div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- TRUST -->
+
+<div class="trust-strip">
+
+  <div class="container trust-grid">
+
+    <div class="trust-item">
+
+      <div class="trust-icon">📦</div>
+
+      <div>
+        <strong>Shipment Tracking</strong>
+        <span>Track using your unique reference</span>
+      </div>
+
+    </div>
+
+
+    <div class="trust-item">
+
+      <div class="trust-icon">🌍</div>
+
+      <div>
+        <strong>International Support</strong>
+        <span>Shipment support across eligible routes</span>
+      </div>
+
+    </div>
+
+
+    <div class="trust-item">
+
+      <div class="trust-icon">💬</div>
+
+      <div>
+        <strong>Customer Support</strong>
+        <span>Assistance with shipment enquiries</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- SERVICES -->
+
+<section id="services">
+
+  <div class="container">
+
+    <div class="section-heading">
+
+      <h2>Our Services</h2>
+
+      <p>
+        JESTILO Delivery Service provides shipment support
+        and tracking information for customers using our
+        delivery service.
+      </p>
+
+    </div>
+
+
+    <div class="services">
+
+      <div class="service">
+
+        <div class="service-icon">🌍</div>
+
+        <h3>International Delivery</h3>
+
+        <p>
+          Shipment support for eligible international
+          destinations and routes.
+        </p>
+
+      </div>
+
+
+      <div class="service">
+
+        <div class="service-icon">📦</div>
+
+        <h3>Shipment Tracking</h3>
+
+        <p>
+          Customers can check available shipment information
+          using their tracking number.
+        </p>
+
+      </div>
+
+
+      <div class="service">
+
+        <div class="service-icon">💬</div>
+
+        <h3>Customer Support</h3>
+
+        <p>
+          Assistance with shipment enquiries and delivery
+          information.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- HOW IT WORKS -->
+
+<section id="how-it-works" class="about">
+
+  <div class="container">
+
+    <div class="section-heading">
+
+      <h2>How It Works</h2>
+
+      <p>
+        Our shipment tracking process is designed to make
+        checking your delivery information simple.
+      </p>
+
+    </div>
+
+
+    <div class="steps">
+
+      <div class="step">
+
+        <div class="step-number">1</div>
+
+        <h3>Shipment Created</h3>
+
+        <p>
+          Your shipment information is recorded and assigned
+          a unique tracking number.
+        </p>
+
+      </div>
+
+
+      <div class="step">
+
+        <div class="step-number">2</div>
+
+        <h3>Processing</h3>
+
+        <p>
+          Shipment information is updated as the package
+          moves through the delivery process.
+        </p>
+
+      </div>
+
+
+      <div class="step">
+
+        <div class="step-number">3</div>
+
+        <h3>In Transit</h3>
+
+        <p>
+          The shipment is moving toward its destination.
+        </p>
+
+      </div>
+
+
+      <div class="step">
+
+        <div class="step-number">4</div>
+
+        <h3>Delivery</h3>
+
+        <p>
+          The shipment proceeds to final delivery when it
+          reaches the destination.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section id="about">
+
+  <div class="container about-grid">
+
+    <div>
+
+      <div class="section-heading">
+
+        <h2>About JESTILO</h2>
+
+        <p>
+          JESTILO Delivery Service is building a professional
+          customer experience around shipment information,
+          tracking and delivery support.
+        </p>
+
+      </div>
+
+      <p>
+        Our website allows customers to access shipment
+        information through a unique tracking reference.
+      </p>
+
+    </div>
+
+
+    <div class="about-box">
+
+      <h3>Customer-first tracking</h3>
+
+      <ul class="about-list">
+
+        <li>Unique shipment tracking numbers</li>
+
+        <li>Shipment status updates</li>
+
+        <li>Origin and destination information</li>
+
+        <li>Package information when provided</li>
+
+        <li>Estimated delivery information</li>
+
+        <li>Customer support information</li>
+
+      </ul>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- TRACKING RESULT -->
+
+<section id="trackingResult" class="result-section">
+
+  <div class="container">
+
+    <div class="result">
+
+      <div class="result-header">
+
+        <div>
+
+          <h2>Shipment Details</h2>
+
+          <div
+            id="trackingLabel"
+            class="tracking-label">
+          </div>
+
+        </div>
+
+        <span
+          id="status"
+          class="badge">
+        </span>
+
+      </div>
+
+
+      <!-- ROUTE -->
+
+      <div class="route">
+
+        <div class="route-box">
+
+          <small>Origin</small>
+
+          <strong id="origin">
+            Not available
+          </strong>
+
+        </div>
+
+
+        <div class="route-arrow">
+          →
+        </div>
+
+
+        <div class="route-box">
+
+          <small>Destination</small>
+
+          <strong id="destination">
+            Not available
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <!-- DETAILS -->
+
+      <div class="info-grid">
+
+        <div class="info">
+
+          <small>Tracking Number</small>
+
+          <strong id="code">
+            Not available
+          </strong>
+
+        </div>
+
+
+        <div class="info">
+
+          <small>Customer</small>
+
+          <strong id="customer">
+            Not available
+          </strong>
+
+        </div>
+
+
+        <div class="info">
+
+          <small>Current Location</small>
+
+          <strong id="location">
+            Not available
+          </strong>
+
+        </div>
+
+
+        <div class="info">
+
+          <small>Estimated Delivery</small>
+
+          <strong id="estimated">
+            Not available
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <!-- PACKAGE -->
+
+      <div class="package">
+
+        <h3>📦 Package Information</h3>
+
+        <p>
+          <strong>Item:</strong>
+          <span id="itemName">
+            Not available
+          </span>
+        </p>
+
+        <p>
+          <strong>Description:</strong>
+          <span id="itemDescription">
+            Not available
+          </span>
+        </p>
+
+
+        <img
+          id="packageImage"
+          class="package-image"
+          alt="Shipment package"
+        >
+
+        <p
+          id="imageNote"
+          class="image-note">
+        </p>
+
+      </div>
+
+
+      <!-- TIMELINE -->
+
+      <div class="timeline">
+
+        <h3>Shipment Progress</h3>
+
+
+        <div class="timeline-item">
+
+          <div class="timeline-line">
+
+            <div
+              id="dotReceived"
+              class="dot">
+            </div>
+
+            <div class="line"></div>
+
+          </div>
+
+          <div>
+
+            <strong>Order received</strong>
+
+            <span>
+              Shipment information received.
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="timeline-item">
+
+          <div class="timeline-line">
+
+            <div
+              id="dotProcessing"
+              class="dot">
+            </div>
+
+            <div class="line"></div>
+
+          </div>
+
+          <div>
+
+            <strong>Processing</strong>
+
+            <span>
+              Shipment is being processed.
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="timeline-item">
+
+          <div class="timeline-line">
+
+            <div
+              id="dotTransit"
+              class="dot">
+            </div>
+
+            <div class="line"></div>
+
+          </div>
+
+          <div>
+
+            <strong>In transit</strong>
+
+            <span>
+              Shipment is moving toward its destination.
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="timeline-item">
+
+          <div class="timeline-line">
+
+            <div
+              id="dotOut"
+              class="dot">
+            </div>
+
+            <div class="line"></div>
+
+          </div>
+
+          <div>
+
+            <strong>Out for delivery</strong>
+
+            <span>
+              Shipment is being prepared for final delivery.
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="timeline-item">
+
+          <div class="timeline-line">
+
+            <div
+              id="dotDelivered"
+              class="dot">
+            </div>
+
+          </div>
+
+          <div>
+
+            <strong>Delivered</strong>
+
+            <span>
+              Shipment delivered to the destination.
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- UPDATE -->
+
+      <div class="update">
+
+        <h3>Latest Shipment Update</h3>
+
+        <p id="note">
+          No additional update available.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- SUPPORT -->
+
+<section id="support">
+
+  <div class="container">
+
+    <div class="support">
+
+      <div class="section-heading">
+
+        <h2>Customer Support</h2>
+
+        <p>
+          Need assistance with your shipment? Contact
+          JESTILO customer support.
+        </p>
+
+      </div>
+
+
+      <div class="contact">
+
+        <div class="contact-box">
+
+          <small>Email</small>
+
+          <strong>
+            delightedinternationaldelivery@gmail.com
+          </strong>
+
+        </div>
+
+
+        <div class="contact-box">
+
+          <small>Service Base</small>
+
+          <strong>
+            United Kingdom
+          </strong>
+
+        </div>
+
+
+        <div class="contact-box">
+
+          <small>Business Address</small>
+
+          <strong>
+            UK business address to be added after
+            registration/verification
+          </strong>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+  <div class="container">
+
+    <div class="footer-grid">
+
+      <div>
+
+        <h3>JESTILO DELIVERY SERVICE</h3>
+
+        <p>
+          International shipment support and online
+          shipment tracking.
+        </p>
+
+      </div>
+
+
+      <div>
+
+        <h3>Services</h3>
+
+        <ul>
+
+          <li>
+            International Delivery
+          </li>
+
+          <li>
+            Shipment Tracking
+          </li>
+
+          <li>
+            Customer Support
+          </li>
+
+        </ul>
+
+      </div>
+
+
+      <div>
+
+        <h3>Quick Links</h3>
+
+        <ul>
+
+          <li>
+            <a href="#track">
+              Track Shipment
+            </a>
+          </li>
+
+          <li>
+            <a href="#s
