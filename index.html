@@ -7,7 +7,7 @@
 <title>JESTILO Delivery Service | International Shipment Tracking</title>
 
 <meta name="description"
-content="JESTILO Delivery Service provides international shipment support and online shipment tracking.">
+content="JESTILO Delivery Service provides shipment support and online shipment tracking.">
 
 <style>
 *{box-sizing:border-box}
@@ -163,7 +163,9 @@ header{
   margin:12px 0
 }
 
-.track-input:focus{border-color:#f36b16}
+.track-input:focus{
+  border-color:#f36b16
+}
 
 .track-button{
   width:100%;
@@ -510,6 +512,17 @@ section{padding:75px 0}
   margin-bottom:5px
 }
 
+.whatsapp-link{
+  display:inline-block;
+  margin-top:8px;
+  padding:10px 14px;
+  background:#25D366;
+  color:#fff;
+  text-decoration:none;
+  border-radius:8px;
+  font-weight:bold
+}
+
 /* FOOTER */
 footer{
   background:#171717;
@@ -538,6 +551,11 @@ footer ul{
 
 footer li{margin:8px 0}
 
+footer a{
+  color:#bbb;
+  text-decoration:none
+}
+
 .footer-bottom{
   border-top:1px solid #ffffff18;
   margin-top:35px;
@@ -563,9 +581,13 @@ footer li{margin:8px 0}
     grid-template-columns:1fr 1fr
   }
 
-  .trust-grid{grid-template-columns:1fr}
+  .trust-grid{
+    grid-template-columns:1fr
+  }
 
-  .footer-grid{grid-template-columns:1fr}
+  .footer-grid{
+    grid-template-columns:1fr
+  }
 }
 
 @media(max-width:600px){
@@ -592,7 +614,9 @@ footer li{margin:8px 0}
 
   .hero h1{font-size:40px}
 
-  .hero-buttons{flex-direction:column}
+  .hero-buttons{
+    flex-direction:column
+  }
 
   .btn{text-align:center}
 }
@@ -619,7 +643,6 @@ footer li{margin:8px 0}
   </div>
 </header>
 
-
 <!-- HERO -->
 
 <section class="hero" id="track">
@@ -640,6 +663,7 @@ footer li{margin:8px 0}
       </p>
 
       <div class="hero-buttons">
+
         <a href="#track-card" class="btn btn-primary">
           Track a Shipment
         </a>
@@ -647,10 +671,10 @@ footer li{margin:8px 0}
         <a href="#services" class="btn btn-secondary">
           Explore Our Services
         </a>
+
       </div>
 
     </div>
-
 
     <div class="track-card" id="track-card">
 
@@ -663,7 +687,7 @@ footer li{margin:8px 0}
       <input
         id="trackingCode"
         class="track-input"
-        placeholder="Example: JST-2026-001"
+        placeholder="Enter tracking number"
         autocomplete="off"
       >
 
@@ -683,7 +707,6 @@ footer li{margin:8px 0}
 
 </section>
 
-
 <!-- TRUST -->
 
 <div class="trust-strip">
@@ -691,44 +714,32 @@ footer li{margin:8px 0}
   <div class="container trust-grid">
 
     <div class="trust-item">
-
       <div class="trust-icon">📦</div>
-
       <div>
         <strong>Shipment Tracking</strong>
         <span>Track using your unique reference</span>
       </div>
-
     </div>
 
-
     <div class="trust-item">
-
       <div class="trust-icon">🌍</div>
-
       <div>
         <strong>International Support</strong>
         <span>Shipment support across eligible routes</span>
       </div>
-
     </div>
 
-
     <div class="trust-item">
-
       <div class="trust-icon">💬</div>
-
       <div>
         <strong>Customer Support</strong>
         <span>Assistance with shipment enquiries</span>
       </div>
-
     </div>
 
   </div>
 
 </div>
-
 
 <!-- SERVICES -->
 
@@ -748,48 +759,33 @@ footer li{margin:8px 0}
 
     </div>
 
-
     <div class="services">
 
       <div class="service">
-
         <div class="service-icon">🌍</div>
-
         <h3>International Delivery</h3>
-
         <p>
           Shipment support for eligible international
           destinations and routes.
         </p>
-
       </div>
 
-
       <div class="service">
-
         <div class="service-icon">📦</div>
-
         <h3>Shipment Tracking</h3>
-
         <p>
           Customers can check available shipment information
           using their tracking number.
         </p>
-
       </div>
 
-
       <div class="service">
-
         <div class="service-icon">💬</div>
-
         <h3>Customer Support</h3>
-
         <p>
           Assistance with shipment enquiries and delivery
           information.
         </p>
-
       </div>
 
     </div>
@@ -797,7 +793,6 @@ footer li{margin:8px 0}
   </div>
 
 </section>
-
 
 <!-- HOW IT WORKS -->
 
@@ -816,61 +811,41 @@ footer li{margin:8px 0}
 
     </div>
 
-
     <div class="steps">
 
       <div class="step">
-
         <div class="step-number">1</div>
-
         <h3>Shipment Created</h3>
-
         <p>
           Your shipment information is recorded and assigned
           a unique tracking number.
         </p>
-
       </div>
 
-
       <div class="step">
-
         <div class="step-number">2</div>
-
         <h3>Processing</h3>
-
         <p>
           Shipment information is updated as the package
           moves through the delivery process.
         </p>
-
       </div>
 
-
       <div class="step">
-
         <div class="step-number">3</div>
-
         <h3>In Transit</h3>
-
         <p>
           The shipment is moving toward its destination.
         </p>
-
       </div>
 
-
       <div class="step">
-
         <div class="step-number">4</div>
-
         <h3>Delivery</h3>
-
         <p>
           The shipment proceeds to final delivery when it
           reaches the destination.
         </p>
-
       </div>
 
     </div>
@@ -878,7 +853,6 @@ footer li{margin:8px 0}
   </div>
 
 </section>
-
 
 <!-- ABOUT -->
 
@@ -907,7 +881,6 @@ footer li{margin:8px 0}
 
     </div>
 
-
     <div class="about-box">
 
       <h3>Customer-first tracking</h3>
@@ -915,15 +888,10 @@ footer li{margin:8px 0}
       <ul class="about-list">
 
         <li>Unique shipment tracking numbers</li>
-
         <li>Shipment status updates</li>
-
         <li>Origin and destination information</li>
-
         <li>Package information when provided</li>
-
         <li>Estimated delivery information</li>
-
         <li>Customer support information</li>
 
       </ul>
@@ -933,7 +901,6 @@ footer li{margin:8px 0}
   </div>
 
 </section>
-
 
 <!-- TRACKING RESULT -->
 
@@ -963,9 +930,6 @@ footer li{margin:8px 0}
 
       </div>
 
-
-      <!-- ROUTE -->
-
       <div class="route">
 
         <div class="route-box">
@@ -978,11 +942,9 @@ footer li{margin:8px 0}
 
         </div>
 
-
         <div class="route-arrow">
           →
         </div>
-
 
         <div class="route-box">
 
@@ -996,56 +958,29 @@ footer li{margin:8px 0}
 
       </div>
 
-
-      <!-- DETAILS -->
-
       <div class="info-grid">
 
         <div class="info">
-
           <small>Tracking Number</small>
-
-          <strong id="code">
-            Not available
-          </strong>
-
+          <strong id="code">Not available</strong>
         </div>
 
-
         <div class="info">
-
           <small>Customer</small>
-
-          <strong id="customer">
-            Not available
-          </strong>
-
+          <strong id="customer">Not available</strong>
         </div>
 
-
         <div class="info">
-
           <small>Current Location</small>
-
-          <strong id="location">
-            Not available
-          </strong>
-
+          <strong id="location">Not available</strong>
         </div>
 
-
         <div class="info">
-
           <small>Estimated Delivery</small>
-
-          <strong id="estimated">
-            Not available
-          </strong>
-
+          <strong id="estimated">Not available</strong>
         </div>
 
       </div>
-
 
       <!-- PACKAGE -->
 
@@ -1055,18 +990,13 @@ footer li{margin:8px 0}
 
         <p>
           <strong>Item:</strong>
-          <span id="itemName">
-            Not available
-          </span>
+          <span id="itemName">Not available</span>
         </p>
 
         <p>
           <strong>Description:</strong>
-          <span id="itemDescription">
-            Not available
-          </span>
+          <span id="itemDescription">Not available</span>
         </p>
-
 
         <img
           id="packageImage"
@@ -1081,143 +1011,82 @@ footer li{margin:8px 0}
 
       </div>
 
-
       <!-- TIMELINE -->
 
       <div class="timeline">
 
         <h3>Shipment Progress</h3>
 
-
         <div class="timeline-item">
 
           <div class="timeline-line">
-
-            <div
-              id="dotReceived"
-              class="dot">
-            </div>
-
+            <div id="dotReceived" class="dot"></div>
             <div class="line"></div>
-
           </div>
 
           <div>
-
             <strong>Order received</strong>
-
-            <span>
-              Shipment information received.
-            </span>
-
+            <span>Shipment information received.</span>
           </div>
 
         </div>
 
-
         <div class="timeline-item">
 
           <div class="timeline-line">
-
-            <div
-              id="dotProcessing"
-              class="dot">
-            </div>
-
+            <div id="dotProcessing" class="dot"></div>
             <div class="line"></div>
-
           </div>
 
           <div>
-
             <strong>Processing</strong>
-
-            <span>
-              Shipment is being processed.
-            </span>
-
+            <span>Shipment is being processed.</span>
           </div>
 
         </div>
 
-
         <div class="timeline-item">
 
           <div class="timeline-line">
-
-            <div
-              id="dotTransit"
-              class="dot">
-            </div>
-
+            <div id="dotTransit" class="dot"></div>
             <div class="line"></div>
-
           </div>
 
           <div>
-
             <strong>In transit</strong>
-
-            <span>
-              Shipment is moving toward its destination.
-            </span>
-
+            <span>Shipment is moving toward its destination.</span>
           </div>
 
         </div>
 
-
         <div class="timeline-item">
 
           <div class="timeline-line">
-
-            <div
-              id="dotOut"
-              class="dot">
-            </div>
-
+            <div id="dotOut" class="dot"></div>
             <div class="line"></div>
-
           </div>
 
           <div>
-
             <strong>Out for delivery</strong>
-
-            <span>
-              Shipment is being prepared for final delivery.
-            </span>
-
+            <span>Shipment is being prepared for final delivery.</span>
           </div>
 
         </div>
 
-
         <div class="timeline-item">
 
           <div class="timeline-line">
-
-            <div
-              id="dotDelivered"
-              class="dot">
-            </div>
-
+            <div id="dotDelivered" class="dot"></div>
           </div>
 
           <div>
-
             <strong>Delivered</strong>
-
-            <span>
-              Shipment delivered to the destination.
-            </span>
-
+            <span>Shipment delivered to the destination.</span>
           </div>
 
         </div>
 
       </div>
-
 
       <!-- UPDATE -->
 
@@ -1236,7 +1105,6 @@ footer li{margin:8px 0}
   </div>
 
 </section>
-
 
 <!-- SUPPORT -->
 
@@ -1257,7 +1125,6 @@ footer li{margin:8px 0}
 
       </div>
 
-
       <div class="contact">
 
         <div class="contact-box">
@@ -1265,11 +1132,12 @@ footer li{margin:8px 0}
           <small>Email</small>
 
           <strong>
-            delightedinternationaldelivery@gmail.com
+            <a href="mailto:delightedinternationaldelivery@gmail.com">
+              delightedinternationaldelivery@gmail.com
+            </a>
           </strong>
 
         </div>
-
 
         <div class="contact-box">
 
@@ -1281,17 +1149,37 @@ footer li{margin:8px 0}
 
         </div>
 
-
         <div class="contact-box">
 
-          <small>Business Address</small>
+          <small>Driver WhatsApp</small>
 
           <strong>
-            UK business address to be added after
-            registration/verification
+            +63 965 867 4185
           </strong>
 
+          <br>
+
+          <a
+            class="whatsapp-link"
+            href="https://wa.me/639658674185"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            💬 Message on WhatsApp
+          </a>
+
         </div>
+
+      </div>
+
+      <div class="contact-box" style="margin-top:18px">
+
+        <small>Business Address</small>
+
+        <strong>
+          UK business address to be added after
+          registration/verification.
+        </strong>
 
       </div>
 
@@ -1300,7 +1188,6 @@ footer li{margin:8px 0}
   </div>
 
 </section>
-
 
 <!-- FOOTER -->
 
@@ -1321,29 +1208,17 @@ footer li{margin:8px 0}
 
       </div>
 
-
       <div>
 
         <h3>Services</h3>
 
         <ul>
-
-          <li>
-            International Delivery
-          </li>
-
-          <li>
-            Shipment Tracking
-          </li>
-
-          <li>
-            Customer Support
-          </li>
-
+          <li>International Delivery</li>
+          <li>Shipment Tracking</li>
+          <li>Customer Support</li>
         </ul>
 
       </div>
-
 
       <div>
 
@@ -1358,4 +1233,4 @@ footer li{margin:8px 0}
           </li>
 
           <li>
-            <a href="#s
+        
