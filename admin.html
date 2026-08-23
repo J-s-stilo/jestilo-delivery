@@ -1,88 +1,61 @@
+JESTILO Admin Page
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-
-<title>JESTILO Delivery Service</title>
+<title>JESTILO Admin</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
+  padding:25px;
   font-family:Arial,sans-serif;
   background:#f5f1eb;
   color:#2d1b12;
 }
 
-header{
-  background:#2d1b12;
-  color:white;
-  padding:18px 7%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:20px;
-}
-
-.logo{
-  font-size:20px;
-  font-weight:bold;
-}
-
-header a{
-  color:white;
-  text-decoration:none;
-}
-
-.hero{
-  background:#fffaf3;
-  padding:65px 7%;
-  text-align:center;
-}
-
-.hero h1{
-  font-size:42px;
-  margin:0 0 15px;
-}
-
-.hero p{
-  max-width:650px;
-  margin:0 auto 30px;
-  line-height:1.6;
-  color:#66584f;
-}
-
-.track-box{
-  background:white;
-  max-width:650px;
+.container{
+  max-width:950px;
   margin:auto;
-  padding:25px;
-  border-radius:18px;
-  box-shadow:0 8px 30px rgba(45,27,18,.10);
 }
 
-input{
+.card{
+  background:white;
+  padding:25px;
+  border-radius:16px;
+  box-shadow:0 6px 25px rgba(45,27,18,.10);
+  margin-bottom:20px;
+}
+
+h1{
+  margin-top:0;
+}
+
+input,select,textarea{
   width:100%;
-  padding:15px;
-  border:1px solid #dfcdbb;
+  padding:13px;
+  margin:7px 0 15px;
+  border:1px solid #ddd;
   border-radius:9px;
-  font-size:16px;
-  margin-bottom:12px;
+  font:inherit;
+}
+
+textarea{
+  min-height:90px;
+  resize:vertical;
 }
 
 button{
-  width:100%;
-  padding:15px;
   border:0;
   border-radius:9px;
+  padding:13px 20px;
   background:#f36b16;
   color:white;
   font-weight:bold;
-  font-size:16px;
   cursor:pointer;
 }
 
@@ -90,166 +63,65 @@ button:hover{
   opacity:.9;
 }
 
-main{
-  max-width:900px;
-  margin:auto;
+button.delete{
+  background:#a93226;
 }
 
-.section{
-  padding:45px 7%;
+button.clear{
+  background:#777;
+  margin-left:8px;
 }
 
-.result{
+.hidden{
   display:none;
-  background:white;
-  border-radius:18px;
-  padding:25px;
-  box-shadow:0 8px 30px rgba(45,27,18,.08);
 }
 
-.result h2{
-  margin-top:0;
-}
-
-.badge{
-  display:inline-block;
-  padding:8px 12px;
-  background:#f8eee5;
-  color:#a94d10;
-  border-radius:20px;
-  font-weight:bold;
-  font-size:13px;
-}
-
-.info-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:15px;
-  margin-top:20px;
-}
-
-.info{
-  background:#faf7f3;
-  padding:16px;
-  border-radius:12px;
-}
-
-.info small{
-  display:block;
-  color:#777;
-  margin-bottom:5px;
-}
-
-.package{
-  margin-top:20px;
-  padding:20px;
-  background:#fffaf3;
-  border-radius:14px;
-}
-
-.package img{
-  width:100%;
-  max-height:300px;
-  object-fit:cover;
-  border-radius:12px;
-  margin-top:15px;
-}
-
-.timeline{
-  margin-top:25px;
-}
-
-.step{
-  display:flex;
-  gap:15px;
-  margin:18px 0;
-  align-items:flex-start;
-}
-
-.dot{
-  width:15px;
-  height:15px;
-  background:#f36b16;
-  border-radius:50%;
-  margin-top:4px;
-  flex-shrink:0;
-}
-
-.step-text strong{
-  display:block;
-  margin-bottom:4px;
-}
-
-.map-box{
-  margin-top:20px;
-  background:#eee8df;
-  min-height:180px;
-  border-radius:14px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:20px;
-  color:#66584f;
+.success{
+  color:green;
 }
 
 .error{
-  display:none;
   color:#a93226;
-  margin-top:15px;
 }
 
-.services{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
+.help{
+  color:#777;
+  font-size:13px;
+  margin-top:-8px;
 }
 
-.service{
-  background:white;
-  padding:22px;
-  border-radius:15px;
-  box-shadow:0 5px 20px rgba(45,27,18,.06);
+.preview{
+  display:none;
+  max-width:220px;
+  max-height:180px;
+  margin:5px 0 15px;
+  border-radius:12px;
+  object-fit:cover;
 }
 
-.support{
-  background:white;
-  padding:25px;
-  border-radius:15px;
+.table-wrap{
+  overflow-x:auto;
 }
 
-footer{
-  background:#2d1b12;
-  color:white;
-  padding:30px 7%;
-  margin-top:30px;
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:650px;
 }
 
-footer a{
-  color:white;
+th,td{
+  padding:11px;
+  border-bottom:1px solid #ddd;
+  text-align:left;
 }
 
-@media(max-width:650px){
-
-  header{
-    padding:16px 5%;
+@media(max-width:600px){
+  body{
+    padding:15px;
   }
 
-  .hero{
-    padding:50px 5%;
-  }
-
-  .hero h1{
-    font-size:32px;
-  }
-
-  .section{
-    padding:35px 5%;
-  }
-
-  .info-grid,
-  .services{
-    grid-template-columns:1fr;
+  .card{
+    padding:18px;
   }
 }
 </style>
@@ -257,351 +129,374 @@ footer a{
 
 <body>
 
-<header>
+<div class="container">
 
-  <div class="logo">
-    JESTILO DELIVERY SERVICE
-  </div>
+<h1>JESTILO DELIVERY SERVICE</h1>
 
-  <a href="#track">
-    Track Shipment
-  </a>
+<!-- ADMIN LOGIN -->
 
-</header>
+<div class="card" id="loginBox">
 
+<h2>Admin Login</h2>
 
-<section class="hero" id="track">
-
-  <h1>
-    Track Your Shipment
-  </h1>
-
-  <p>
-    Enter your tracking number to view the latest available
-    information about your shipment.
-  </p>
-
-
-  <div class="track-box">
-
-    <input
-      id="trackingCode"
-      placeholder="Enter tracking number"
-      autocomplete="off"
-    >
-
-    <button
-      type="button"
-      onclick="trackShipment()"
-    >
-      TRACK SHIPMENT
-    </button>
-
-    <div
-      id="error"
-      class="error"
-    ></div>
-
-  </div>
-
-</section>
-
-
-<main>
-
-<section class="section">
-
-<div
-  id="result"
-  class="result"
+<input
+  id="password"
+  type="password"
+  placeholder="Enter admin password"
+  autocomplete="current-password"
 >
 
-  <h2>
-    Shipment Details
-  </h2>
+<button type="button" onclick="login()">
+Login
+</button>
 
-  <span
-    id="status"
-    class="badge"
-  ></span>
-
-
-  <div class="info-grid">
-
-    <div class="info">
-      <small>Tracking Number</small>
-      <strong id="code"></strong>
-    </div>
-
-    <div class="info">
-      <small>Customer</small>
-      <strong id="customer"></strong>
-    </div>
-
-    <div class="info">
-      <small>Origin</small>
-      <strong id="origin"></strong>
-    </div>
-
-    <div class="info">
-      <small>Destination</small>
-      <strong id="destination"></strong>
-    </div>
-
-    <div class="info">
-      <small>Current Location</small>
-      <strong id="location"></strong>
-    </div>
-
-    <div class="info">
-      <small>Estimated Delivery</small>
-      <strong id="estimated"></strong>
-    </div>
-
-  </div>
-
-
-  <div
-    id="packageBox"
-    class="package"
-  >
-
-    <h3>
-      Package Information
-    </h3>
-
-    <p>
-      <strong>Item:</strong>
-      <span id="itemName"></span>
-    </p>
-
-    <p>
-      <strong>Description:</strong>
-      <span id="itemDescription"></span>
-    </p>
-
-    <img
-      id="packageImage"
-      style="display:none"
-      alt="Shipment package"
-    >
-
-  </div>
-
-
-  <div class="timeline">
-
-    <h3>
-      Shipment Progress
-    </h3>
-
-    <div class="step">
-      <div class="dot"></div>
-      <div class="step-text">
-        <strong>Order received</strong>
-        Shipment information received.
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="dot"></div>
-      <div class="step-text">
-        <strong>Processing</strong>
-        Shipment is being processed.
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="dot"></div>
-      <div class="step-text">
-        <strong>In transit</strong>
-        Shipment is moving toward its destination.
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="dot"></div>
-      <div class="step-text">
-        <strong>Out for delivery</strong>
-        Shipment is being prepared for final delivery.
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="dot"></div>
-      <div class="step-text">
-        <strong>Delivered</strong>
-        Shipment delivered to the destination.
-      </div>
-    </div>
-
-  </div>
-
-
-  <div class="map-box">
-
-    <div>
-
-      <strong>Shipment Location</strong>
-
-      <p id="mapText">
-        Current shipment location will appear here.
-      </p>
-
-      <small>
-        Location information is based on the shipment
-        information provided by the delivery service.
-      </small>
-
-    </div>
-
-  </div>
-
-
-  <div class="package">
-
-    <h3>
-      Latest Update
-    </h3>
-
-    <p id="note"></p>
-
-  </div>
+<p id="loginMessage"></p>
 
 </div>
 
-</section>
+
+<!-- ADMIN DASHBOARD -->
+
+<div class="card hidden" id="adminBox">
+
+<h2>Create / Update Shipment</h2>
+
+<label>Tracking Number</label>
+
+<input
+  id="code"
+  placeholder="Example: JST-2026-001"
+>
 
 
-<section class="section">
+<label>Customer Name</label>
 
-<h2>
-  Our Services
-</h2>
+<input
+  id="customer"
+  placeholder="Customer full name"
+>
 
-<div class="services">
 
-  <div class="service">
-    <h3>International Delivery</h3>
-    <p>
-      Shipment support for eligible international
-      destinations.
-    </p>
-  </div>
+<label>Customer Email</label>
 
-  <div class="service">
-    <h3>Shipment Tracking</h3>
-    <p>
-      Check the latest available information using
-      your tracking number.
-    </p>
-  </div>
+<input
+  id="email"
+  type="email"
+  placeholder="customer@example.com"
+>
 
-  <div class="service">
-    <h3>Customer Support</h3>
-    <p>
-      Contact our support team with shipment questions.
-    </p>
-  </div>
+
+<label>Customer WhatsApp</label>
+
+<input
+  id="whatsapp"
+  placeholder="+628123456789"
+>
+
+
+<label>Package / Item Name</label>
+
+<input
+  id="item_name"
+  placeholder="Example: Personal gifts"
+>
+
+
+<label>Package Description</label>
+
+<textarea
+  id="item_description"
+  placeholder="Describe the package contents"
+></textarea>
+
+
+<label>Package Image URL</label>
+
+<input
+  id="image_url"
+  placeholder="https://example.com/package.jpg"
+>
+
+<p class="help">
+Use a publicly accessible image URL.
+</p>
+
+<img
+  id="imagePreview"
+  class="preview"
+  alt="Package preview"
+>
+
+
+<label>Origin</label>
+
+<input
+  id="origin"
+  placeholder="Example: United Kingdom"
+>
+
+
+<label>Destination</label>
+
+<input
+  id="destination"
+  placeholder="Example: Indonesia"
+>
+
+
+<label>Shipment Status</label>
+
+<select id="status">
+
+<option>Order received</option>
+<option>Processing</option>
+<option>In transit</option>
+<option>Arrived at destination</option>
+<option>Out for delivery</option>
+<option>Delivered</option>
+<option>On hold</option>
+
+</select>
+
+
+<label>Current Location</label>
+
+<input
+  id="location"
+  placeholder="Example: Jakarta, Indonesia"
+>
+
+
+<label>Estimated Delivery</label>
+
+<input
+  id="estimated_delivery"
+  type="datetime-local"
+>
+
+
+<label>Shipment Update</label>
+
+<textarea
+  id="note"
+  placeholder="Write the latest shipment update"
+></textarea>
+
+
+<button type="button" onclick="saveShipment()">
+Save Shipment
+</button>
+
+<button
+  type="button"
+  class="clear"
+  onclick="clearForm()"
+>
+Clear
+</button>
+
+<p id="saveMessage"></p>
+
+
+<hr>
+
+<h2>Saved Shipments</h2>
+
+<div id="records">
+Loading...
+</div>
 
 </div>
 
-</section>
-
-
-<section class="section">
-
-<div class="support">
-
-<h2>
-  Customer Service
-</h2>
-
-<p>
-Need help with your shipment? Contact our customer
-service team.
-</p>
-
-<p>
-<strong>Email:</strong>
-delightedinternationaldelivery@gmail.com
-</p>
-
 </div>
-
-</section>
-
-</main>
-
-
-<footer>
-
-<h3>
-JESTILO DELIVERY SERVICE
-</h3>
-
-<p>
-International delivery and shipment tracking support.
-</p>
-
-</footer>
 
 
 <script>
 
-function safe(value){
+let token = "";
 
-  return String(value || "").replace(
-    /[&<>"']/g,
-    function(m){
 
-      return {
-        "&":"&amp;",
-        "<":"&lt;",
-        ">":"&gt;",
-        '"':"&quot;",
-        "'":"&#039;"
-      }[m];
+/* LOGIN */
 
+async function login(){
+
+  const password =
+    document.getElementById("password").value.trim();
+
+  const message =
+    document.getElementById("loginMessage");
+
+  message.textContent = "";
+
+  if(!password){
+
+    message.className = "error";
+    message.textContent =
+      "Please enter your admin password.";
+
+    return;
+  }
+
+  try{
+
+    const response =
+      await fetch("/api/admin/login",{
+
+        method:"POST",
+
+        headers:{
+          "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+          password:password
+        })
+
+      });
+
+
+    const data =
+      await response.json();
+
+
+    if(!response.ok){
+
+      message.className = "error";
+
+      message.textContent =
+        data.error || "Incorrect password.";
+
+      return;
     }
-  );
-}
 
 
-function display(value){
+    if(!data.token){
 
-  return value
-    ? safe(value)
-    : "Not available";
-}
+      message.className = "error";
+
+      message.textContent =
+        "Login failed. No session was created.";
+
+      return;
+    }
 
 
-async function trackShipment(){
+    token = data.token;
 
-  const code =
+
     document
-      .getElementById("trackingCode")
-      .value
-      .trim()
-      .toUpperCase();
-
-  const error =
-    document.getElementById("error");
-
-  const result =
-    document.getElementById("result");
+      .getElementById("loginBox")
+      .classList.add("hidden");
 
 
-  error.style.display = "none";
-  result.style.display = "none";
+    document
+      .getElementById("adminBox")
+      .classList.remove("hidden");
 
 
-  if(!code){
+    loadShipments();
 
-    error.textContent =
-      "Please enter your tracking number.";
 
-    error.style.display = "block";
+  }catch(error){
+
+    console.error(error);
+
+    message.className = "error";
+
+    message.textContent =
+      "Could not connect to the server.";
+
+  }
+
+}
+
+
+/* SAVE / UPDATE SHIPMENT */
+
+async function saveShipment(){
+
+  const message =
+    document.getElementById("saveMessage");
+
+
+  const shipment = {
+
+    code:
+      document.getElementById("code").value.trim(),
+
+    customer:
+      document.getElementById("customer").value.trim(),
+
+    email:
+      document.getElementById("email").value.trim(),
+
+    whatsapp:
+      document.getElementById("whatsapp").value.trim(),
+
+    item_name:
+      document.getElementById("item_name").value.trim(),
+
+    item_description:
+      document
+        .getElementById("item_description")
+        .value
+        .trim(),
+
+    image_url:
+      document
+        .getElementById("image_url")
+        .value
+        .trim(),
+
+    origin:
+      document.getElementById("origin").value.trim(),
+
+    destination:
+      document
+        .getElementById("destination")
+        .value
+        .trim(),
+
+    status:
+      document.getElementById("status").value,
+
+    location:
+      document
+        .getElementById("location")
+        .value
+        .trim(),
+
+    estimated_delivery:
+      document
+        .getElementById("estimated_delivery")
+        .value,
+
+    note:
+      document
+        .getElementById("note")
+        .value
+        .trim()
+
+  };
+
+
+  if(!shipment.code){
+
+    message.className = "error";
+
+    message.textContent =
+      "Enter a tracking number.";
+
+    return;
+  }
+
+
+  if(!token){
+
+    message.className = "error";
+
+    message.textContent =
+      "Please login again.";
 
     return;
   }
@@ -611,133 +506,374 @@ async function trackShipment(){
 
     const response =
       await fetch(
-        "/api/shipments/" +
-        encodeURIComponent(code)
+        "/api/admin/shipments",
+        {
+
+          method:"POST",
+
+          headers:{
+            "Content-Type":"application/json",
+            "Authorization":
+              "Bearer " + token
+          },
+
+          body:
+            JSON.stringify(shipment)
+
+        }
       );
+
+
+    const data =
+      await response.json();
 
 
     if(!response.ok){
 
-      error.textContent =
-        "No shipment was found with that tracking number.";
+      message.className = "error";
 
-      error.style.display = "block";
+      message.textContent =
+        data.error ||
+        "Could not save shipment.";
 
       return;
     }
 
 
-    const shipment =
-      await response.json();
+    message.className = "success";
+
+    message.textContent =
+      "Shipment saved successfully.";
 
 
-    document.getElementById("status").textContent =
-      shipment.status || "Order received";
+    clearForm(false);
 
-    document.getElementById("code").textContent =
-      shipment.code || code;
+    loadShipments();
 
-    document.getElementById("customer").textContent =
-      shipment.customer || "Not available";
-
-    document.getElementById("origin").textContent =
-      shipment.origin || "Not available";
-
-    document.getElementById("destination").textContent =
-      shipment.destination || "Not available";
-
-    document.getElementById("location").textContent =
-      shipment.location || "Not available";
-
-    document.getElementById("estimated").textContent =
-      shipment.estimated_delivery
-      ? formatDate(shipment.estimated_delivery)
-      : "Not available";
-
-
-    document.getElementById("itemName").textContent =
-      shipment.item_name || "Not available";
-
-    document.getElementById("itemDescription").textContent =
-      shipment.item_description || "Not available";
-
-
-    const image =
-      document.getElementById("packageImage");
-
-
-    if(shipment.image_url){
-
-      image.src = shipment.image_url;
-      image.style.display = "block";
-
-    }else{
-
-      image.src = "";
-      image.style.display = "none";
-    }
-
-
-    document.getElementById("mapText").textContent =
-      shipment.location
-      ? "Current reported location: " +
-        shipment.location
-      : "No current location has been provided.";
-
-
-    document.getElementById("note").textContent =
-      shipment.note ||
-      "No additional update available.";
-
-
-    result.style.display = "block";
-
-    result.scrollIntoView({
-      behavior:"smooth",
-      block:"start"
-    });
 
   }catch(error){
 
     console.error(error);
 
-    error.textContent =
-      "Unable to check the shipment right now. Please try again later.";
+    message.className = "error";
 
-    error.style.display = "block";
+    message.textContent =
+      "Could not connect to the server.";
+
   }
+
 }
 
 
-function formatDate(value){
+/* LOAD SHIPMENTS */
 
-  const date =
-    new Date(value);
+async function loadShipments(){
 
-  if(Number.isNaN(date.getTime())){
+  const box =
+    document.getElementById("records");
 
-    return value;
-  }
 
-  return date.toLocaleString(
-    undefined,
-    {
-      dateStyle:"medium",
-      timeStyle:"short"
+  try{
+
+    const response =
+      await fetch(
+        "/api/admin/shipments",
+        {
+          headers:{
+            "Authorization":
+              "Bearer " + token
+          }
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if(!response.ok){
+
+      box.innerHTML =
+        "<p class='error'>Could not load shipments.</p>";
+
+      return;
     }
-  );
+
+
+    if(!Array.isArray(data) || data.length === 0){
+
+      box.innerHTML =
+        "<p>No shipments yet.</p>";
+
+      return;
+    }
+
+
+    box.innerHTML = `
+
+      <div class="table-wrap">
+
+      <table>
+
+        <tr>
+          <th>Tracking</th>
+          <th>Customer</th>
+          <th>Status</th>
+          <th>Destination</th>
+          <th>Action</th>
+        </tr>
+
+        ${
+          data.map(function(x){
+
+            return `
+
+              <tr>
+
+                <td>
+                  ${escapeHtml(x.code)}
+                </td>
+
+                <td>
+                  ${escapeHtml(
+                    x.customer || "-"
+                  )}
+                </td>
+
+                <td>
+                  ${escapeHtml(
+                    x.status || "-"
+                  )}
+                </td>
+
+                <td>
+                  ${escapeHtml(
+                    x.destination || "-"
+                  )}
+                </td>
+
+                <td>
+
+                  <button
+                    type="button"
+                    class="delete"
+                    onclick="deleteShipment(
+                      '${encodeURIComponent(x.code)}'
+                    )"
+                  >
+                    Delete
+                  </button>
+
+                </td>
+
+              </tr>
+
+            `;
+
+          }).join("")
+        }
+
+      </table>
+
+      </div>
+    `;
+
+
+  }catch(error){
+
+    console.error(error);
+
+    box.innerHTML =
+      "<p class='error'>Could not load shipments.</p>";
+
+  }
+
 }
 
+
+/* DELETE */
+
+async function deleteShipment(encodedCode){
+
+  const code =
+    decodeURIComponent(encodedCode);
+
+
+  if(!confirm(
+    "Delete shipment " + code + "?"
+  )){
+
+    return;
+
+  }
+
+
+  try{
+
+    const response =
+      await fetch(
+        "/api/admin/shipments/" +
+        encodeURIComponent(code),
+        {
+
+          method:"DELETE",
+
+          headers:{
+            "Authorization":
+              "Bearer " + token
+          }
+
+        }
+      );
+
+
+    if(!response.ok){
+
+      alert(
+        "Could not delete shipment."
+      );
+
+      return;
+    }
+
+
+    loadShipments();
+
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "Could not delete shipment."
+    );
+
+  }
+
+}
+
+
+/* CLEAR FORM */
+
+function clearForm(showMessage = true){
+
+  document.getElementById("code").value = "";
+  document.getElementById("customer").value = "";
+  document.getElementById("email").value = "";
+  document.getElementById("whatsapp").value = "";
+  document.getElementById("item_name").value = "";
+  document.getElementById("item_description").value = "";
+  document.getElementById("image_url").value = "";
+  document.getElementById("origin").value = "";
+  document.getElementById("destination").value = "";
+  document.getElementById("status").value =
+    "Order received";
+  document.getElementById("location").value = "";
+  document.getElementById("estimated_delivery").value = "";
+  document.getElementById("note").value = "";
+
+
+  const preview =
+    document.getElementById("imagePreview");
+
+  preview.src = "";
+  preview.style.display = "none";
+
+
+  if(showMessage){
+
+    document.getElementById(
+      "saveMessage"
+    ).textContent = "";
+
+  }
+
+}
+
+
+/* IMAGE PREVIEW */
 
 document
-  .getElementById("trackingCode")
+  .getElementById("image_url")
+  .addEventListener(
+    "input",
+    function(){
+
+      const url =
+        this.value.trim();
+
+      const preview =
+        document.getElementById(
+          "imagePreview"
+        );
+
+
+      if(!url){
+
+        preview.src = "";
+        preview.style.display =
+          "none";
+
+        return;
+      }
+
+
+      preview.src = url;
+
+      preview.onload = function(){
+
+        preview.style.display =
+          "block";
+
+      };
+
+
+      preview.onerror = function(){
+
+        preview.style.display =
+          "none";
+
+      };
+
+    }
+  );
+
+
+/* ESCAPE HTML */
+
+function escapeHtml(value){
+
+  return String(value || "").replace(
+    /[&<>"']/g,
+    function(m){
+
+      return {
+
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#039;"
+
+      }[m];
+
+    }
+  );
+
+}
+
+
+/* ENTER KEY FOR LOGIN */
+
+document
+  .getElementById("password")
   .addEventListener(
     "keydown",
     function(event){
 
       if(event.key === "Enter"){
 
-        trackShipment();
+        login();
 
       }
 
@@ -747,4 +883,4 @@ document
 </script>
 
 </body>
-</html>
+  </html>
