@@ -70,7 +70,9 @@ header{
 }
 
 .hero{
-  background:linear-gradient(120deg,rgba(16,24,32,.98),rgba(34,49,61,.94)),#101820;
+  background:
+  linear-gradient(120deg,rgba(16,24,32,.98),rgba(34,49,61,.94)),
+  #101820;
   color:#fff;
   padding:85px 0 105px;
 }
@@ -217,7 +219,9 @@ header{
   outline:none;
 }
 
-.track-form input:focus{border-color:#f47b20}
+.track-form input:focus{
+  border-color:#f47b20;
+}
 
 .track-form button{
   border:0;
@@ -268,7 +272,9 @@ header{
   font-size:13px;
 }
 
-section{padding:80px 0}
+section{
+  padding:80px 0;
+}
 
 .section-label{
   color:#f47b20;
@@ -315,19 +321,98 @@ section{padding:80px 0}
   margin-bottom:18px;
 }
 
-.service h3{margin:0 0 8px}
+.service h3{
+  margin:0 0 8px;
+}
 
 .service p{
   color:#6d7780;
   line-height:1.6;
 }
 
+/* =========================
+   DELIVERY IMAGE GALLERY
+   ========================= */
+
+.jestilo-gallery{
+  background:#fff;
+}
+
+.gallery-heading{
+  text-align:center;
+  margin-bottom:40px;
+}
+
+.gallery-heading .section-description{
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.gallery-card{
+  position:relative;
+  height:360px;
+  overflow:hidden;
+  border-radius:14px;
+  background:#101820;
+  box-shadow:0 12px 30px rgba(0,0,0,.12);
+  cursor:pointer;
+}
+
+.gallery-card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  transition:transform .5s ease;
+}
+
+.gallery-card:hover img{
+  transform:scale(1.06);
+}
+
+.gallery-overlay{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  padding:45px 24px 24px;
+  color:#fff;
+  background:linear-gradient(
+    transparent,
+    rgba(0,0,0,.88)
+  );
+}
+
+.gallery-overlay h3{
+  margin:0 0 7px;
+  font-size:22px;
+}
+
+.gallery-overlay p{
+  margin:0;
+  color:#e8edf0;
+  line-height:1.5;
+  font-size:14px;
+}
+
+/* =========================
+   JOURNEY
+   ========================= */
+
 .journey{
   background:#101820;
   color:#fff;
 }
 
-.journey .section-description{color:#bfc8cf}
+.journey .section-description{
+  color:#bfc8cf;
+}
 
 .journey-grid{
   display:grid;
@@ -360,6 +445,10 @@ section{padding:80px 0}
   font-size:14px;
   line-height:1.6;
 }
+
+/* =========================
+   TRACKING RESULT
+   ========================= */
 
 .result-section{
   display:none;
@@ -411,7 +500,9 @@ section{padding:80px 0}
   align-items:center;
 }
 
-.result-route strong{font-size:18px}
+.result-route strong{
+  font-size:18px;
+}
 
 .result-arrow{
   color:#f47b20;
@@ -445,18 +536,23 @@ section{padding:80px 0}
   border-radius:9px;
 }
 
-.package h3{margin-top:0}
+.package h3{
+  margin-top:0;
+}
 
 .package-image{
   display:none;
   width:100%;
-  max-height:430px;
+  max-height:500px;
   object-fit:cover;
-  border-radius:8px;
+  border-radius:10px;
   margin-top:18px;
+  cursor:pointer;
 }
 
-.timeline{margin-top:30px}
+.timeline{
+  margin-top:30px;
+}
 
 .timeline-item{
   display:flex;
@@ -489,7 +585,9 @@ section{padding:80px 0}
   background:#dfe3e6;
 }
 
-.timeline-item strong{display:block}
+.timeline-item strong{
+  display:block;
+}
 
 .timeline-item span{
   color:#77818a;
@@ -503,9 +601,17 @@ section{padding:80px 0}
   border-radius:8px;
 }
 
-.update p{color:#65717a}
+.update p{
+  color:#65717a;
+}
 
-.about{background:#fff}
+/* =========================
+   ABOUT
+   ========================= */
+
+.about{
+  background:#fff;
+}
 
 .about-grid{
   display:grid;
@@ -526,7 +632,9 @@ section{padding:80px 0}
   margin:20px 0 0;
 }
 
-.about-panel li{margin:13px 0}
+.about-panel li{
+  margin:13px 0;
+}
 
 .about-panel li:before{
   content:"✓";
@@ -534,6 +642,10 @@ section{padding:80px 0}
   font-weight:bold;
   margin-right:10px;
 }
+
+/* =========================
+   FOOTER
+   ========================= */
 
 footer{
   background:#0d1318;
@@ -572,8 +684,15 @@ footer a{
   font-size:12px;
 }
 
+/* =========================
+   RESPONSIVE
+   ========================= */
+
 @media(max-width:850px){
-  .nav-links{display:none}
+
+  .nav-links{
+    display:none;
+  }
 
   .hero-grid,
   .about-grid{
@@ -581,38 +700,61 @@ footer a{
   }
 
   .services,
-  .journey-grid{
+  .journey-grid,
+  .gallery-grid{
     grid-template-columns:1fr 1fr;
   }
 
-  .features-grid{grid-template-columns:1fr}
+  .features-grid{
+    grid-template-columns:1fr;
+  }
 
   .feature{
     border-right:0;
     border-bottom:1px solid #e7eaed;
   }
 
-  .feature:last-child{border-bottom:0}
+  .feature:last-child{
+    border-bottom:0;
+  }
 
-  .footer-grid{grid-template-columns:1fr}
+  .footer-grid{
+    grid-template-columns:1fr;
+  }
 }
 
 @media(max-width:600px){
-  .hero{padding:60px 0 85px}
 
-  .hero h1{font-size:43px}
+  .hero{
+    padding:60px 0 85px;
+  }
 
-  .track-form{flex-direction:column}
+  .hero h1{
+    font-size:43px;
+  }
 
-  .track-form button{padding:15px}
+  .track-form{
+    flex-direction:column;
+  }
+
+  .track-form button{
+    padding:15px;
+  }
 
   .services,
   .journey-grid,
+  .gallery-grid,
   .info-grid{
     grid-template-columns:1fr;
   }
 
-  .section-title{font-size:32px}
+  .section-title{
+    font-size:32px;
+  }
+
+  .gallery-card{
+    height:300px;
+  }
 
   .result-route{
     grid-template-columns:1fr;
@@ -628,7 +770,12 @@ footer a{
 
 <body>
 
+<!-- =========================
+     HEADER
+     ========================= -->
+
 <header>
+
   <div class="container nav">
 
     <div class="logo">
@@ -636,14 +783,40 @@ footer a{
     </div>
 
     <nav class="nav-links">
-      <a href="#services">Services</a>
-      <a href="#journey">How It Works</a>
-      <a href="#about">About</a>
-      <a href="#tracking" class="nav-button">Track Shipment</a>
+
+      <a href="#services">
+        Services
+      </a>
+
+      <a href="#gallery">
+        Delivery
+      </a>
+
+      <a href="#journey">
+        How It Works
+      </a>
+
+      <a href="#about">
+        About
+      </a>
+
+      <a
+        href="#tracking"
+        class="nav-button"
+      >
+        Track Shipment
+      </a>
+
     </nav>
 
   </div>
+
 </header>
+
+
+<!-- =========================
+     HERO
+     ========================= -->
 
 <section class="hero">
 
@@ -668,11 +841,17 @@ footer a{
 
       <div class="hero-buttons">
 
-        <a href="#tracking" class="button primary">
+        <a
+          href="#tracking"
+          class="button primary"
+        >
           Track Shipment
         </a>
 
-        <a href="#services" class="button secondary">
+        <a
+          href="#services"
+          class="button secondary"
+        >
           Explore Services
         </a>
 
@@ -680,11 +859,14 @@ footer a{
 
     </div>
 
+
     <div class="hero-card">
 
       <div class="hero-card-top">
 
-        <strong>Shipment Overview</strong>
+        <strong>
+          Shipment Overview
+        </strong>
 
         <span class="status">
           ACTIVE
@@ -692,27 +874,51 @@ footer a{
 
       </div>
 
+
       <div class="route">
 
         <div>
-          <small>Origin</small>
-          <strong>United Kingdom</strong>
+          <small>
+            Origin
+          </small>
+
+          <strong>
+            United Kingdom
+          </strong>
         </div>
 
-        <div class="route-arrow">→</div>
+        <div class="route-arrow">
+          →
+        </div>
 
         <div>
-          <small>Destination</small>
-          <strong>Indonesia</strong>
+          <small>
+            Destination
+          </small>
+
+          <strong>
+            Indonesia
+          </strong>
         </div>
 
       </div>
 
-      <hr style="border:0;border-top:1px solid #e5e8eb;">
 
-      <p style="color:#6d7780;font-size:14px;">
-        Shipment tracking, package information and delivery
-        updates are available through the tracking system.
+      <hr style="
+        border:0;
+        border-top:1px solid #e5e8eb;
+      ">
+
+
+      <p style="
+        color:#6d7780;
+        font-size:14px;
+      ">
+
+        Shipment tracking, package information
+        and delivery updates are available
+        through the tracking system.
+
       </p>
 
     </div>
@@ -721,13 +927,23 @@ footer a{
 
 </section>
 
-<section id="tracking" class="track-section">
+
+<!-- =========================
+     TRACKING SEARCH
+     ========================= -->
+
+<section
+  id="tracking"
+  class="track-section"
+>
 
   <div class="container">
 
     <div class="track-card">
 
-      <h2>Track Your Shipment</h2>
+      <h2>
+        Track Your Shipment
+      </h2>
 
       <p>
         Enter your shipment reference below.
@@ -751,93 +967,160 @@ footer a{
 
       </div>
 
-      <div id="error" class="error"></div>
+      <div
+        id="error"
+        class="error"
+      ></div>
 
     </div>
 
   </div>
 
 </section>
+
+
+<!-- =========================
+     FEATURES
+     ========================= -->
 
 <div class="features">
 
   <div class="container features-grid">
 
     <div class="feature">
-      <div class="feature-icon">📦</div>
-      <strong>Shipment Information</strong>
-      <span>View available package details.</span>
+
+      <div class="feature-icon">
+        📦
+      </div>
+
+      <strong>
+        Shipment Information
+      </strong>
+
+      <span>
+        View available package details.
+      </span>
+
     </div>
 
-    <div class="feature">
-      <div class="feature-icon">🌍</div>
-      <strong>International Routes</strong>
-      <span>View origin and destination information.</span>
-    </div>
 
     <div class="feature">
-      <div class="feature-icon">📍</div>
-      <strong>Status Updates</strong>
-      <span>Follow the shipment journey.</span>
+
+      <div class="feature-icon">
+        🌍
+      </div>
+
+      <strong>
+        International Routes
+      </strong>
+
+      <span>
+        View origin and destination information.
+      </span>
+
+    </div>
+
+
+    <div class="feature">
+
+      <div class="feature-icon">
+        📍
+      </div>
+
+      <strong>
+        Status Updates
+      </strong>
+
+      <span>
+        Follow the shipment journey.
+      </span>
+
     </div>
 
   </div>
 
 </div>
 
+
+<!-- =========================
+     SERVICES
+     ========================= -->
+
 <section id="services">
 
   <div class="container">
 
-    <div class="section-label">Our platform</div>
+    <div class="section-label">
+      Our platform
+    </div>
 
     <h2 class="section-title">
       Professional shipment management.
     </h2>
 
     <p class="section-description">
-      JESTILO is an independent delivery service platform
-      designed to manage shipment information and customer
-      tracking in one place.
+
+      JESTILO is an independent delivery service
+      platform designed to manage shipment information
+      and customer tracking in one place.
+
     </p>
+
 
     <div class="services">
 
+
       <div class="service">
 
-        <div class="service-icon">📦</div>
+        <div class="service-icon">
+          📦
+        </div>
 
-        <h3>Shipment Tracking</h3>
+        <h3>
+          Shipment Tracking
+        </h3>
 
         <p>
-          Customers can enter their shipment reference and
-          view the information associated with it.
+          Customers can enter their shipment
+          reference and view the information
+          associated with it.
         </p>
 
       </div>
 
+
       <div class="service">
 
-        <div class="service-icon">🚚</div>
+        <div class="service-icon">
+          🚚
+        </div>
 
-        <h3>Delivery Updates</h3>
+        <h3>
+          Delivery Updates
+        </h3>
 
         <p>
-          Shipment status and progress can be updated as
-          a delivery moves through its journey.
+          Shipment status and progress can be
+          updated as a delivery moves through
+          its journey.
         </p>
 
       </div>
 
+
       <div class="service">
 
-        <div class="service-icon">📸</div>
+        <div class="service-icon">
+          📸
+        </div>
 
-        <h3>Package Photos</h3>
+        <h3>
+          Package Photos
+        </h3>
 
         <p>
-          Package photographs can be added through the
-          private management dashboard.
+          Package photographs can be added
+          through the private management dashboard.
         </p>
 
       </div>
@@ -848,7 +1131,212 @@ footer a{
 
 </section>
 
-<section id="journey" class="journey">
+
+<!-- =========================
+     LARGE DELIVERY IMAGE GALLERY
+     ========================= -->
+
+<section
+  id="gallery"
+  class="jestilo-gallery"
+>
+
+  <div class="container">
+
+    <div class="gallery-heading">
+
+      <div class="section-label">
+        JESTILO DELIVERY SERVICE
+      </div>
+
+      <h2 class="section-title">
+        Delivery Solutions You Can Trust
+      </h2>
+
+      <p class="section-description">
+
+        Professional delivery and logistics services
+        designed to keep your shipments moving safely
+        and efficiently.
+
+      </p>
+
+    </div>
+
+
+    <div class="gallery-grid">
+
+
+      <!-- IMAGE 1 -->
+
+      <div class="gallery-card">
+
+        <img
+          src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=90"
+          alt="Air freight delivery"
+          loading="lazy"
+        >
+
+        <div class="gallery-overlay">
+
+          <h3>
+            ✈️ Air Freight
+          </h3>
+
+          <p>
+            Fast international transportation
+            for urgent shipments.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- IMAGE 2 -->
+
+      <div class="gallery-card">
+
+        <img
+          src="https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=1200&q=90"
+          alt="Sea freight delivery"
+          loading="lazy"
+        >
+
+        <div class="gallery-overlay">
+
+          <h3>
+            🚢 Sea Freight
+          </h3>
+
+          <p>
+            Reliable transportation for
+            larger international shipments.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- IMAGE 3 -->
+
+      <div class="gallery-card">
+
+        <img
+          src="https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&w=1200&q=90"
+          alt="Delivery truck"
+          loading="lazy"
+        >
+
+        <div class="gallery-overlay">
+
+          <h3>
+            🚚 Road Delivery
+          </h3>
+
+          <p>
+            Efficient ground transportation
+            from hub to destination.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- IMAGE 4 -->
+
+      <div class="gallery-card">
+
+        <img
+          src="https://images.unsplash.com/photo-1586528116493-da8b6f1b6c1c?auto=format&fit=crop&w=1200&q=90"
+          alt="Warehouse logistics"
+          loading="lazy"
+        >
+
+        <div class="gallery-overlay">
+
+          <h3>
+            📦 Warehouse Handling
+          </h3>
+
+          <p>
+            Organized package processing
+            and shipment preparation.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- IMAGE 5 -->
+
+      <div class="gallery-card">
+
+        <img
+          src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=1200&q=90"
+          alt="Package logistics"
+          loading="lazy"
+        >
+
+        <div class="gallery-overlay">
+
+          <h3>
+            📦 Package Handling
+          </h3>
+
+          <p>
+            Careful handling throughout
+            the delivery journey.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- IMAGE 6 -->
+
+      <div class="gallery-card">
+
+        <img
+          src="https://images.unsplash.com/photo-1616401784845-180882ba9ba8?auto=format&fit=crop&w=1200&q=90"
+          alt="Final delivery"
+          loading="lazy"
+        >
+
+        <div class="gallery-overlay">
+
+          <h3>
+            📍 Final Delivery
+          </h3>
+
+          <p>
+            The final stage of the shipment
+            journey to its destination.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     JOURNEY
+     ========================= -->
+
+<section
+  id="journey"
+  class="journey"
+>
 
   <div class="container">
 
@@ -861,42 +1349,85 @@ footer a{
     </h2>
 
     <p class="section-description">
-      Shipment information can be updated through the
-      authorized management dashboard.
+
+      Shipment information can be updated
+      through the authorized management dashboard.
+
     </p>
+
 
     <div class="journey-grid">
 
-      <div class="journey-card">
-        <div class="number">1</div>
-        <h3>Shipment Created</h3>
-        <p>
-          A shipment reference is created for the package.
-        </p>
-      </div>
 
       <div class="journey-card">
-        <div class="number">2</div>
-        <h3>Processing</h3>
+
+        <div class="number">
+          1
+        </div>
+
+        <h3>
+          Shipment Created
+        </h3>
+
         <p>
-          Shipment information is prepared for transportation.
+          A shipment reference is created
+          for the package.
         </p>
+
       </div>
 
-      <div class="journey-card">
-        <div class="number">3</div>
-        <h3>In Transit</h3>
-        <p>
-          The shipment is moving toward its destination.
-        </p>
-      </div>
 
       <div class="journey-card">
-        <div class="number">4</div>
-        <h3>Delivery</h3>
+
+        <div class="number">
+          2
+        </div>
+
+        <h3>
+          Processing
+        </h3>
+
         <p>
-          The shipment reaches the final delivery stage.
+          Shipment information is prepared
+          for transportation.
         </p>
+
+      </div>
+
+
+      <div class="journey-card">
+
+        <div class="number">
+          3
+        </div>
+
+        <h3>
+          In Transit
+        </h3>
+
+        <p>
+          The shipment is moving toward
+          its destination.
+        </p>
+
+      </div>
+
+
+      <div class="journey-card">
+
+        <div class="number">
+          4
+        </div>
+
+        <h3>
+          Delivery
+        </h3>
+
+        <p>
+          The shipment reaches the final
+          delivery stage.
+        </p>
+
       </div>
 
     </div>
@@ -904,302 +1435,12 @@ footer a{
   </div>
 
 </section>
-<!-- JESTILO DELIVERY IMAGE SHOWCASE -->
 
-<section class="jestilo-image-showcase">
 
-  <div class="container">
+<!-- =========================
+     TRACKING RESULT
+     ========================= -->
 
-    <div style="text-align:center;margin-bottom:40px;">
-
-      <div class="section-label">
-        JESTILO DELIVERY SERVICE
-      </div>
-
-      <h2 class="section-title">
-        Delivery Solutions You Can Trust
-      </h2>
-
-      <p class="section-description" style="margin-left:auto;margin-right:auto;">
-        Professional delivery and logistics services designed
-        to keep your shipments moving safely and efficiently.
-      </p>
-
-    </div>
-
-
-    <div style="
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:20px;
-    ">
-
-
-      <!-- AIR FREIGHT -->
-
-      <div style="
-        position:relative;
-        height:340px;
-        overflow:hidden;
-        border-radius:12px;
-        background:#101820;
-      ">
-
-        <img
-          src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1000&q=85"
-          alt="Air Freight Delivery"
-          style="
-            width:100%;
-            height:100%;
-            object-fit:cover;
-            display:block;
-          "
-        >
-
-        <div style="
-          position:absolute;
-          left:0;
-          right:0;
-          bottom:0;
-          padding:25px;
-          color:white;
-          background:linear-gradient(transparent,rgba(0,0,0,.9));
-        ">
-
-          <h3>✈️ Air Freight</h3>
-
-          <p>
-            Fast international transportation
-            for urgent shipments.
-          </p>
-
-        </div>
-
-      </div>
-
-
-      <!-- SEA FREIGHT -->
-
-      <div style="
-        position:relative;
-        height:340px;
-        overflow:hidden;
-        border-radius:12px;
-        background:#101820;
-      ">
-
-        <img
-          src="https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=1000&q=85"
-          alt="Sea Freight Delivery"
-          style="
-            width:100%;
-            height:100%;
-            object-fit:cover;
-            display:block;
-          "
-        >
-
-        <div style="
-          position:absolute;
-          left:0;
-          right:0;
-          bottom:0;
-          padding:25px;
-          color:white;
-          background:linear-gradient(transparent,rgba(0,0,0,.9));
-        ">
-
-          <h3>🚢 Sea Freight</h3>
-
-          <p>
-            Reliable transportation for larger
-            international shipments.
-          </p>
-
-        </div>
-
-      </div>
-
-
-      <!-- DOOR TO DOOR -->
-
-      <div style="
-        position:relative;
-        height:340px;
-        overflow:hidden;
-        border-radius:12px;
-        background:#101820;
-      ">
-
-        <img
-          src="https://images.unsplash.com/photo-1586528116493-da8b1f0c1d2e?auto=format&fit=crop&w=1000&q=85"
-          alt="Door to Door Delivery"
-          style="
-            width:100%;
-            height:100%;
-            object-fit:cover;
-            display:block;
-          "
-        >
-
-        <div style="
-          position:absolute;
-          left:0;
-          right:0;
-          bottom:0;
-          padding:25px;
-          color:white;
-          background:linear-gradient(transparent,rgba(0,0,0,.9));
-        ">
-
-          <h3>🚚 Door-to-Door Delivery</h3>
-
-          <p>
-            Convenient pickup and delivery
-            directly to your destination.
-          </p>
-
-        </div>
-
-      </div>
-
-
-      <!-- WAREHOUSING -->
-
-      <div style="
-        position:relative;
-        height:340px;
-        overflow:hidden;
-        border-radius:12px;
-        background:#101820;
-      ">
-
-        <img
-          src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1000&q=85"
-          alt="Warehousing"
-          style="
-            width:100%;
-            height:100%;
-            object-fit:cover;
-            display:block;
-          "
-        >
-
-        <div style="
-          position:absolute;
-          left:0;
-          right:0;
-          bottom:0;
-          padding:25px;
-          color:white;
-          background:linear-gradient(transparent,rgba(0,0,0,.9));
-        ">
-
-          <h3>🏢 Warehousing</h3>
-
-          <p>
-            Organized storage and professional
-            shipment preparation.
-          </p>
-
-        </div>
-
-      </div>
-
-
-      <!-- CUSTOMS SUPPORT -->
-
-      <div style="
-        position:relative;
-        height:340px;
-        overflow:hidden;
-        border-radius:12px;
-        background:#101820;
-      ">
-
-        <img
-          src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1000&q=85"
-          alt="Customs Support"
-          style="
-            width:100%;
-            height:100%;
-            object-fit:cover;
-            display:block;
-          "
-        >
-
-        <div style="
-          position:absolute;
-          left:0;
-          right:0;
-          bottom:0;
-          padding:25px;
-          color:white;
-          background:linear-gradient(transparent,rgba(0,0,0,.9));
-        ">
-
-          <h3>📋 Customs Support</h3>
-
-          <p>
-            Clear shipment documentation and
-            customs information.
-          </p>
-
-        </div>
-
-      </div>
-
-
-      <!-- GLOBAL DELIVERY -->
-
-      <div style="
-        position:relative;
-        height:340px;
-        overflow:hidden;
-        border-radius:12px;
-        background:#101820;
-      ">
-
-        <img
-          src="https://images.unsplash.com/photo-1494412651409-8963ce7935a7?auto=format&fit=crop&w=1000&q=85"
-          alt="Global Delivery"
-          style="
-            width:100%;
-            height:100%;
-            object-fit:cover;
-            display:block;
-          "
-        >
-
-        <div style="
-          position:absolute;
-          left:0;
-          right:0;
-          bottom:0;
-          padding:25px;
-          color:white;
-          background:linear-gradient(transparent,rgba(0,0,0,.9));
-        ">
-
-          <h3>🌍 Global Delivery</h3>
-
-          <p>
-            Connecting shipments with destinations
-            around the world.
-          </p>
-
-        </div>
-
-      </div>
-
-
-    </div>
-
-  </div>
-
-</section>
-
-<!-- END JESTILO DELIVERY IMAGE SHOWCASE -->
 <section
   id="resultSection"
   class="result-section"
@@ -1208,6 +1449,7 @@ footer a{
   <div class="container">
 
     <div class="result">
+
 
       <div class="result-header">
 
@@ -1226,6 +1468,7 @@ footer a{
 
         </div>
 
+
         <div
           id="resultStatus"
           class="result-status"
@@ -1235,57 +1478,115 @@ footer a{
 
       </div>
 
+
       <div class="result-route">
 
         <div>
-          <small>Origin</small>
-          <strong id="resultOrigin">-</strong>
+
+          <small>
+            Origin
+          </small>
+
+          <strong id="resultOrigin">
+            -
+          </strong>
+
         </div>
 
-        <div class="result-arrow">→</div>
+
+        <div class="result-arrow">
+          →
+        </div>
+
 
         <div>
-          <small>Destination</small>
-          <strong id="resultDestination">-</strong>
+
+          <small>
+            Destination
+          </small>
+
+          <strong id="resultDestination">
+            -
+          </strong>
+
         </div>
 
       </div>
+
 
       <div class="info-grid">
 
-        <div class="info">
-          <small>Customer</small>
-          <strong id="resultCustomer">-</strong>
-        </div>
 
         <div class="info">
-          <small>Current location</small>
-          <strong id="resultLocation">-</strong>
+
+          <small>
+            Customer
+          </small>
+
+          <strong id="resultCustomer">
+            -
+          </strong>
+
         </div>
 
-        <div class="info">
-          <small>Estimated delivery</small>
-          <strong id="resultDelivery">-</strong>
-        </div>
 
         <div class="info">
-          <small>Last updated</small>
-          <strong id="resultUpdated">-</strong>
+
+          <small>
+            Current location
+          </small>
+
+          <strong id="resultLocation">
+            -
+          </strong>
+
+        </div>
+
+
+        <div class="info">
+
+          <small>
+            Estimated delivery
+          </small>
+
+          <strong id="resultDelivery">
+            -
+          </strong>
+
+        </div>
+
+
+        <div class="info">
+
+          <small>
+            Last updated
+          </small>
+
+          <strong id="resultUpdated">
+            -
+          </strong>
+
         </div>
 
       </div>
 
+
       <div class="package">
 
-        <h3>Package Information</h3>
+        <h3>
+          Package Information
+        </h3>
 
         <p>
-          <strong id="resultItem">-</strong>
+          <strong id="resultItem">
+            -
+          </strong>
         </p>
 
         <p id="resultDescription">
           -
         </p>
+
 
         <img
           id="packageImage"
@@ -1295,99 +1596,159 @@ footer a{
 
       </div>
 
+
       <div class="timeline">
 
-        <h3>Shipment Progress</h3>
+        <h3>
+          Shipment Progress
+        </h3>
+
 
         <div class="timeline-item">
 
           <div class="timeline-marker">
+
             <div
               id="dotReceived"
               class="dot active"
             ></div>
+
             <div class="line"></div>
+
           </div>
 
           <div>
-            <strong>Shipment received</strong>
-            <span>Shipment reference created.</span>
+
+            <strong>
+              Shipment received
+            </strong>
+
+            <span>
+              Shipment reference created.
+            </span>
+
           </div>
 
         </div>
 
+
         <div class="timeline-item">
 
           <div class="timeline-marker">
+
             <div
               id="dotProcessing"
               class="dot"
             ></div>
+
             <div class="line"></div>
+
           </div>
 
           <div>
-            <strong>Processing</strong>
-            <span>Shipment is being prepared.</span>
+
+            <strong>
+              Processing
+            </strong>
+
+            <span>
+              Shipment is being prepared.
+            </span>
+
           </div>
 
         </div>
 
+
         <div class="timeline-item">
 
           <div class="timeline-marker">
+
             <div
               id="dotTransit"
               class="dot"
             ></div>
+
             <div class="line"></div>
+
           </div>
 
           <div>
-            <strong>In transit</strong>
-            <span>Shipment is moving toward its destination.</span>
+
+            <strong>
+              In transit
+            </strong>
+
+            <span>
+              Shipment is moving toward its destination.
+            </span>
+
           </div>
 
         </div>
 
+
         <div class="timeline-item">
 
           <div class="timeline-marker">
+
             <div
               id="dotDestination"
               class="dot"
             ></div>
+
             <div class="line"></div>
+
           </div>
 
           <div>
-            <strong>Destination</strong>
-            <span>Shipment has reached the destination area.</span>
+
+            <strong>
+              Destination
+            </strong>
+
+            <span>
+              Shipment has reached the destination area.
+            </span>
+
           </div>
 
         </div>
 
+
         <div class="timeline-item">
 
           <div class="timeline-marker">
+
             <div
               id="dotDelivery"
               class="dot"
             ></div>
+
           </div>
 
           <div>
-            <strong>Delivered</strong>
-            <span>Shipment has reached final delivery.</span>
+
+            <strong>
+              Delivered
+            </strong>
+
+            <span>
+              Shipment has reached final delivery.
+            </span>
+
           </div>
 
         </div>
 
       </div>
 
+
       <div class="update">
 
-        <strong>Latest shipment update</strong>
+        <strong>
+          Latest shipment update
+        </strong>
 
         <p id="resultNote">
           -
@@ -1401,9 +1762,18 @@ footer a{
 
 </section>
 
-<section id="about" class="about">
+
+<!-- =========================
+     ABOUT
+     ========================= -->
+
+<section
+  id="about"
+  class="about"
+>
 
   <div class="container about-grid">
+
 
     <div>
 
@@ -1416,24 +1786,52 @@ footer a{
       </h2>
 
       <p class="section-description">
-        JESTILO provides a customer-facing tracking experience
-        connected to a private shipment management system.
+
+        JESTILO provides a customer-facing tracking
+        experience connected to a private shipment
+        management system.
+
       </p>
 
     </div>
 
+
     <div class="about-panel">
 
-      <h3>Management features</h3>
+      <h3>
+        Management features
+      </h3>
 
       <ul>
-        <li>Create shipment records</li>
-        <li>Change shipment status</li>
-        <li>Add shipment updates</li>
-        <li>Upload package photographs</li>
-        <li>Update delivery information</li>
-        <li>Manage tracking references</li>
-        <li>Keep customer information organized</li>
+
+        <li>
+          Create shipment records
+        </li>
+
+        <li>
+          Change shipment status
+        </li>
+
+        <li>
+          Add shipment updates
+        </li>
+
+        <li>
+          Upload package photographs
+        </li>
+
+        <li>
+          Update delivery information
+        </li>
+
+        <li>
+          Manage tracking references
+        </li>
+
+        <li>
+          Keep customer information organized
+        </li>
+
       </ul>
 
     </div>
@@ -1442,54 +1840,100 @@ footer a{
 
 </section>
 
+
+<!-- =========================
+     FOOTER
+     ========================= -->
+
 <footer>
 
   <div class="container">
 
     <div class="footer-grid">
 
+
       <div>
 
-        <h3>JESTILO DELIVERY SERVICE</h3>
+        <h3>
+          JESTILO DELIVERY SERVICE
+        </h3>
 
         <p>
+
           Independent delivery-service and
           shipment-tracking platform.
+
         </p>
 
       </div>
 
-      <div>
-
-        <h3>Navigation</h3>
-
-        <p><a href="#services">Services</a></p>
-        <p><a href="#journey">How It Works</a></p>
-        <p><a href="#about">About</a></p>
-
-      </div>
 
       <div>
 
-        <h3>Tracking</h3>
+        <h3>
+          Navigation
+        </h3>
 
         <p>
-          <a href="#tracking">
-            Track Shipment
+          <a href="#services">
+            Services
+          </a>
+        </p>
+
+        <p>
+          <a href="#gallery">
+            Delivery
+          </a>
+        </p>
+
+        <p>
+          <a href="#journey">
+            How It Works
+          </a>
+        </p>
+
+        <p>
+          <a href="#about">
+            About
           </a>
         </p>
 
       </div>
 
+
+      <div>
+
+        <h3>
+          Tracking
+        </h3>
+
+        <p>
+
+          <a href="#tracking">
+            Track Shipment
+          </a>
+
+        </p>
+
+      </div>
+
     </div>
 
+
     <div class="footer-bottom">
+
       © 2026 JESTILO Delivery Service.
+
     </div>
 
   </div>
 
 </footer>
+
+
+<!-- =========================
+     TRACKING JAVASCRIPT
+     ========================= -->
 
 <script>
 
@@ -1517,9 +1961,11 @@ async function trackShipment(){
     errorBox.textContent =
       "Please enter a tracking number.";
 
-    errorBox.style.display = "block";
+    errorBox.style.display =
+      "block";
 
-    resultSection.style.display = "none";
+    resultSection.style.display =
+      "none";
 
     return;
   }
@@ -1548,9 +1994,11 @@ async function trackShipment(){
 
       }
 
-      errorBox.style.display = "block";
+      errorBox.style.display =
+        "block";
 
-      resultSection.style.display = "none";
+      resultSection.style.display =
+        "none";
 
       return;
     }
@@ -1615,7 +2063,8 @@ async function trackShipment(){
     document.getElementById(
       "resultItem"
     ).textContent =
-      shipment.item_name || "Shipment";
+      shipment.item_name ||
+      "Shipment";
 
 
     document.getElementById(
@@ -1653,7 +2102,8 @@ async function trackShipment(){
 
     }else{
 
-      image.src = "";
+      image.src =
+        "";
 
       image.style.display =
         "none";
@@ -1711,7 +2161,6 @@ function formatDate(value){
   ){
 
     return value;
-
   }
 
 
