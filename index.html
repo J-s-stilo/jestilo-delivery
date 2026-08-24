@@ -2646,6 +2646,316 @@ document
   );
 
 </script>
+<!-- =========================
+     LIVE SHIPMENT MAP
+     ========================= -->
 
+<style>
+.shipment-map-box{
+  margin-top:30px;
+  background:#fff;
+  border-radius:12px;
+  padding:20px;
+  box-shadow:0 10px 35px rgba(0,0,0,.08);
+}
+
+.shipment-map-title{
+  margin:0 0 6px;
+  font-size:22px;
+}
+
+.shipment-map-description{
+  margin:0 0 18px;
+  color:#6d7780;
+  font-size:14px;
+  line-height:1.6;
+}
+
+#shipmentMap{
+  width:100%;
+  height:430px;
+  border-radius:10px;
+  overflow:hidden;
+  background:#e9edf0;
+}
+
+.shipment-map-status{
+  margin-top:12px;
+  color:#6d7780;
+  font-size:13px;
+}
+
+.shipment-map-status strong{
+  color:#18733d;
+}
+</style>
+
+
+<div
+  id="shipmentMapBox"
+  class="shipment-map-box"
+  style="display:none;"
+>
+
+  <h3 class="shipment-map-title">
+    📍 Shipment Location
+  </h3>
+
+  <p class="shipment-map-description">
+    View the current shipment position on the map.
+  </p>
+
+  <div id="shipmentMap"></div>
+
+  <div
+    id="shipmentMapStatus"
+    class="shipment-map-status"
+  >
+    Waiting for shipment location...
+  </div>
+
+</div>
+
+
+<script>
+(function(){
+
+  let mapLoaded = false;
+  let shipmentMap = null;
+  let shipmentMarker = null;
+
+  function loadLeaflet(){
+
+    if(mapLoaded){
+      return Promise.resolve();
+    }
+
+    return new Promise(function(resolve,reject){
+
+      const css =
+        document.createElement("link");
+
+      css.rel = "stylesheet";
+
+      css.href =
+        "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
+
+      document.head.appendChild(css);
+
+
+      const script =
+        document.createElement("script");
+
+      script.src =
+        "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
+
+      script.onload = function(){
+
+        mapLoaded = true;
+        resolve();
+
+      };
+
+      script.onerror = function(){
+
+        reject();
+
+      };
+
+      document.body.appendChild(script);
+
+    });
+
+  }
+
+
+  function showShipmentMap(shipment){
+
+    const latitude =
+      parseFloat(
+        shipment.latitude
+      );
+
+    const longitude =
+      parseFloat(
+        shipment.longitude
+      );
+
+
+    if(
+      !Number.isFinite(latitude) ||
+      !Number.isFinite(longitude)
+    ){
+
+      return;
+
+    }
+
+
+    const mapBox =
+      document.getElementById(
+        "shipmentMapBox"
+      );
+
+    const status =
+      document.getElementById(
+        "shipmentMapStatus"
+      );
+
+
+    mapBox.style.display =
+      "block";
+
+
+    loadLeaflet()
+      .then(function(){
+
+        if(!shipmentMap){
+
+          shipmentMap =
+            L.map(
+              "shipmentMap",
+              {
+                zoomControl:true
+              }
+            );
+
+
+          L.tileLayer(
+            "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+            {
+              maxZoom:19,
+              attribution:
+                '&copy; OpenStreetMap contributors'
+            }
+          ).addTo(
+            shipmentMap
+          );
+
+        }
+
+
+        const position =
+          [
+            latitude,
+            longitude
+          ];
+
+
+        if(!shipmentMarker){
+
+          shipmentMarker =
+            L.marker(
+              position
+            )
+            .addTo(
+              shipmentMap
+            )
+            .bindPopup(
+              "<strong>📦 JESTILO Shipment</strong><br>Current shipment location"
+            );
+
+        }else{
+
+          shipmentMarker.setLatLng(
+            position
+          );
+
+        }
+
+
+        shipmentMap.setView(
+          position,
+          6
+        );
+
+
+        setTimeout(function(){
+
+          shipmentMap.invalidateSize();
+
+        },300);
+
+
+        status.innerHTML =
+          "📍 Current shipment coordinates: " +
+          latitude.toFixed(5) +
+          ", " +
+          longitude.toFixed(5);
+
+      })
+      .catch(function(){
+
+        status.innerHTML =
+          "The shipment map could not be loaded.";
+
+      });
+
+  }
+
+
+  const originalTrackShipment =
+    window.trackShipment;
+
+
+  window.trackShipment =
+    async function(){
+
+      await originalTrackShipment();
+
+
+      const input =
+        document.getElementById(
+          "trackingCode"
+        );
+
+      const code =
+        input.value
+          .trim()
+          .toUpperCase();
+
+
+      if(!code){
+        return;
+      }
+
+
+      try{
+
+        const response =
+          await fetch(
+            "/api/shipments/" +
+            encodeURIComponent(code)
+          );
+
+
+        if(!response.ok){
+          return;
+        }
+
+
+        const shipment =
+          await response.json();
+
+
+        showShipmentMap(
+          shipment
+        );
+
+
+      }catch(error){
+
+        console.error(
+          "Shipment map error:",
+          error
+        );
+
+      }
+
+    };
+
+
+})();
+</script>
 </body>
 </html>
