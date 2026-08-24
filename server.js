@@ -6,20 +6,15 @@ const crypto = require("crypto");
 const app = express();
 
 app.use(express.json({ limit: "2mb" }));
-
-// Serve files from the project folder
 app.use(express.static(__dirname));
 
-// Explicitly serve the customer homepage
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
-// Explicitly serve the admin page
 app.get("/admin", (req, res) => {
   res.sendFile(path.join(__dirname, "admin.html"));
 });
-
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -36,7 +31,6 @@ if (!PASSWORD) {
 
 const sessions = new Set();
 
-
 async function setupDatabase() {
 
   await pool.query(`
@@ -52,6 +46,8 @@ async function setupDatabase() {
       destination TEXT DEFAULT '',
       status TEXT DEFAULT 'Order received',
       location TEXT DEFAULT '',
+      latitude DOUBLE PRECISION,
+      longitude DOUBLE PRECISION,
       estimated_delivery TEXT DEFAULT '',
       note TEXT DEFAULT '',
       updated TEXT NOT NULL
@@ -69,29 +65,26 @@ async function setupDatabase() {
     ["destination", "TEXT DEFAULT ''"],
     ["status", "TEXT DEFAULT 'Order received'"],
     ["location", "TEXT DEFAULT ''"],
+    ["latitude", "DOUBLE PRECISION"],
+    ["longitude", "DOUBLE PRECISION"],
     ["estimated_delivery", "TEXT DEFAULT ''"],
     ["note", "TEXT DEFAULT ''"],
     ["updated", "TEXT"]
   ];
 
   for (const [name, definition] of columns) {
-
     await pool.query(`
       ALTER TABLE shipments
       ADD COLUMN IF NOT EXISTS ${name} ${definition}
     `);
-
   }
 
   console.log("Database ready.");
 }
 
-
 function escapeHtml(value) {
-
   return String(value || "").replace(
     /[&<>"']/g,
-
     m => ({
       "&": "&amp;",
       "<": "&lt;",
@@ -100,9 +93,7 @@ function escapeHtml(value) {
       "'": "&#039;"
     }[m])
   );
-
 }
-
 
 async function sendShipmentEmail(shipment) {
 
@@ -116,14 +107,11 @@ async function sendShipmentEmail(shipment) {
       "https://api.resend.com/emails",
       {
         method: "POST",
-
         headers: {
           "Authorization": `Bearer ${RESEND_API_KEY}`,
           "Content-Type": "application/json"
         },
-
         body: JSON.stringify({
-
           from:
             "JESTILO Delivery Service <onboarding@resend.dev>",
 
@@ -133,7 +121,6 @@ async function sendShipmentEmail(shipment) {
             `Shipment update - ${shipment.code}`,
 
           html: `
-
             <h2>JESTILO Delivery Service</h2>
 
             <p>
@@ -229,16 +216,13 @@ async function sendShipmentEmail(shipment) {
               JESTILO Delivery Service website to view
               the latest available shipment information.
             </p>
-
           `
         })
       }
     );
 
     if (!response.ok) {
-
-      const errorText =
-        await response.text();
+      const errorText = await response.text();
 
       console.error(
         "Resend email failed:",
@@ -260,9 +244,7 @@ async function sendShipmentEmail(shipment) {
     );
 
   }
-
 }
-
 
 function auth(req, res, next) {
 
@@ -279,9 +261,7 @@ function auth(req, res, next) {
   }
 
   next();
-
 }
-
 
 app.post(
   "/api/admin/login",
@@ -305,7 +285,6 @@ app.post(
   }
 );
 
-
 app.get(
   "/api/shipments/:code",
   async (req, res) => {
@@ -322,9 +301,7 @@ app.get(
         );
 
       if (result.rows.length === 0) {
-
         return res.sendStatus(404);
-
       }
 
       res.json(result.rows[0]);
@@ -341,7 +318,6 @@ app.get(
 
   }
 );
-
 
 app.get(
   "/api/admin/shipments",
@@ -370,7 +346,6 @@ app.get(
   }
 );
 
-
 app.post(
   "/api/admin/shipments",
   auth,
@@ -389,6 +364,46 @@ app.post(
 
         return res.status(400).json({
           error: "Tracking number required"
+        });
+
+      }
+
+      const latitude =
+        data.latitude === "" ||
+        data.latitude === null ||
+        data.latitude === undefined
+          ? null
+          : Number(data.latitude);
+
+      const longitude =
+        data.longitude === "" ||
+        data.longitude === null ||
+        data.longitude === undefined
+          ? null
+          : Number(data.longitude);
+
+      if (
+        latitude !== null &&
+        (!Number.isFinite(latitude) ||
+         latitude < -90 ||
+         latitude > 90)
+      ) {
+
+        return res.status(400).json({
+          error: "Invalid latitude"
+        });
+
+      }
+
+      if (
+        longitude !== null &&
+        (!Number.isFinite(longitude) ||
+         longitude < -180 ||
+         longitude > 180)
+      ) {
+
+        return res.status(400).json({
+          error: "Invalid longitude"
         });
 
       }
@@ -430,6 +445,10 @@ app.post(
         location:
           String(data.location || "").trim(),
 
+        latitude,
+
+        longitude,
+
         estimated_delivery:
           String(
             data.estimated_delivery || ""
@@ -442,7 +461,6 @@ app.post(
           new Date().toISOString()
 
       };
-
 
       await pool.query(
 
@@ -460,6 +478,8 @@ app.post(
           destination,
           status,
           location,
+          latitude,
+          longitude,
           estimated_delivery,
           note,
           updated
@@ -468,7 +488,7 @@ app.post(
         VALUES
         (
           $1,$2,$3,$4,$5,$6,$7,
-          $8,$9,$10,$11,$12,$13,$14
+          $8,$9,$10,$11,$12,$13,$14,$15,$16
         )
 
         ON CONFLICT (code)
@@ -505,6 +525,12 @@ app.post(
           location =
             EXCLUDED.location,
 
+          latitude =
+            EXCLUDED.latitude,
+
+          longitude =
+            EXCLUDED.longitude,
+
           estimated_delivery =
             EXCLUDED.estimated_delivery,
 
@@ -527,13 +553,14 @@ app.post(
           shipment.destination,
           shipment.status,
           shipment.location,
+          shipment.latitude,
+          shipment.longitude,
           shipment.estimated_delivery,
           shipment.note,
           shipment.updated
         ]
 
       );
-
 
       await sendShipmentEmail(shipment);
 
@@ -551,7 +578,6 @@ app.post(
 
   }
 );
-
 
 app.delete(
   "/api/admin/shipments/:code",
@@ -580,10 +606,8 @@ app.delete(
   }
 );
 
-
 const port =
   process.env.PORT || 3000;
-
 
 setupDatabase()
 
