@@ -9,6 +9,12 @@
 <meta name="description"
 content="JESTILO Delivery Service shipment information and tracking.">
 
+<!-- Leaflet map -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
+
 <style>
 *{box-sizing:border-box}
 
@@ -330,9 +336,7 @@ section{
   line-height:1.6;
 }
 
-/* =========================
-   DELIVERY IMAGE GALLERY
-   ========================= */
+/* GALLERY */
 
 .jestilo-gallery{
   background:#fff;
@@ -361,7 +365,6 @@ section{
   border-radius:14px;
   background:#101820;
   box-shadow:0 12px 30px rgba(0,0,0,.12);
-  cursor:pointer;
 }
 
 .gallery-card img{
@@ -401,9 +404,7 @@ section{
   font-size:14px;
 }
 
-/* =========================
-   JOURNEY
-   ========================= */
+/* JOURNEY */
 
 .journey{
   background:#101820;
@@ -446,9 +447,7 @@ section{
   line-height:1.6;
 }
 
-/* =========================
-   TRACKING RESULT
-   ========================= */
+/* RESULT */
 
 .result-section{
   display:none;
@@ -550,6 +549,42 @@ section{
   cursor:pointer;
 }
 
+/* MAP */
+
+.shipment-map-box{
+  margin-top:22px;
+  background:#fff;
+  border:1px solid #e4e8eb;
+  border-radius:12px;
+  padding:20px;
+}
+
+.shipment-map-title{
+  margin:0 0 6px;
+  font-size:22px;
+}
+
+.shipment-map-description{
+  margin:0 0 18px;
+  color:#6d7780;
+  font-size:14px;
+  line-height:1.6;
+}
+
+#shipmentMap{
+  width:100%;
+  height:430px;
+  border-radius:10px;
+  overflow:hidden;
+  background:#e9edf0;
+}
+
+.shipment-map-status{
+  margin-top:12px;
+  color:#6d7780;
+  font-size:13px;
+}
+
 .timeline{
   margin-top:30px;
 }
@@ -605,9 +640,7 @@ section{
   color:#65717a;
 }
 
-/* =========================
-   ABOUT
-   ========================= */
+/* ABOUT */
 
 .about{
   background:#fff;
@@ -642,7 +675,8 @@ section{
   font-weight:bold;
   margin-right:10px;
 }
-/* WHATSAPP CUSTOMER SERVICE */
+
+/* WHATSAPP */
 
 .whatsapp-button{
   display:inline-block;
@@ -664,9 +698,8 @@ section{
   font-size:13px;
   line-height:1.6;
 }
-/* =========================
-   FOOTER
-   ========================= */
+
+/* FOOTER */
 
 footer{
   background:#0d1318;
@@ -704,9 +737,8 @@ footer a{
   color:#68727a;
   font-size:12px;
 }
-/* =========================
-   DELIVERY VIDEO STYLING
-   ========================= */
+
+/* VIDEO */
 
 .delivery-video{
   background:#f4f6f8;
@@ -765,9 +797,8 @@ footer a{
   color:#e1e6e9;
   font-size:14px;
 }
-/* =========================
-   RESPONSIVE
-   ========================= */
+
+/* RESPONSIVE */
 
 @media(max-width:850px){
 
@@ -845,18 +876,17 @@ footer a{
   .result-arrow{
     transform:rotate(90deg);
   }
+
+  #shipmentMap{
+    height:330px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- =========================
-     HEADER
-     ========================= -->
-
 <header>
-
   <div class="container nav">
 
     <div class="logo">
@@ -864,40 +894,17 @@ footer a{
     </div>
 
     <nav class="nav-links">
-
-      <a href="#services">
-        Services
-      </a>
-
-      <a href="#gallery">
-        Delivery
-      </a>
-
-      <a href="#journey">
-        How It Works
-      </a>
-
-      <a href="#about">
-        About
-      </a>
-
-      <a
-        href="#tracking"
-        class="nav-button"
-      >
+      <a href="#services">Services</a>
+      <a href="#gallery">Delivery</a>
+      <a href="#journey">How It Works</a>
+      <a href="#about">About</a>
+      <a href="#tracking" class="nav-button">
         Track Shipment
       </a>
-
     </nav>
 
   </div>
-
 </header>
-
-
-<!-- =========================
-     HERO
-     ========================= -->
 
 <section class="hero">
 
@@ -922,17 +929,11 @@ footer a{
 
       <div class="hero-buttons">
 
-        <a
-          href="#tracking"
-          class="button primary"
-        >
+        <a href="#tracking" class="button primary">
           Track Shipment
         </a>
 
-        <a
-          href="#services"
-          class="button secondary"
-        >
+        <a href="#services" class="button secondary">
           Explore Services
         </a>
 
@@ -940,14 +941,11 @@ footer a{
 
     </div>
 
-
     <div class="hero-card">
 
       <div class="hero-card-top">
 
-        <strong>
-          Shipment Overview
-        </strong>
+        <strong>Shipment Overview</strong>
 
         <span class="status">
           ACTIVE
@@ -955,17 +953,11 @@ footer a{
 
       </div>
 
-
       <div class="route">
 
         <div>
-          <small>
-            Origin
-          </small>
-
-          <strong>
-            United Kingdom
-          </strong>
+          <small>Origin</small>
+          <strong>United Kingdom</strong>
         </div>
 
         <div class="route-arrow">
@@ -973,33 +965,24 @@ footer a{
         </div>
 
         <div>
-          <small>
-            Destination
-          </small>
-
-          <strong>
-            Indonesia
-          </strong>
+          <small>Destination</small>
+          <strong>Indonesia</strong>
         </div>
 
       </div>
-
 
       <hr style="
         border:0;
         border-top:1px solid #e5e8eb;
       ">
 
-
       <p style="
         color:#6d7780;
         font-size:14px;
       ">
-
         Shipment tracking, package information
         and delivery updates are available
         through the tracking system.
-
       </p>
 
     </div>
@@ -1008,15 +991,7 @@ footer a{
 
 </section>
 
-
-<!-- =========================
-     TRACKING SEARCH
-     ========================= -->
-
-<section
-  id="tracking"
-  class="track-section"
->
+<section id="tracking" class="track-section">
 
   <div class="container">
 
@@ -1048,10 +1023,7 @@ footer a{
 
       </div>
 
-      <div
-        id="error"
-        class="error"
-      ></div>
+      <div id="error" class="error"></div>
 
     </div>
 
@@ -1059,73 +1031,31 @@ footer a{
 
 </section>
 
-
-<!-- =========================
-     FEATURES
-     ========================= -->
-
 <div class="features">
 
   <div class="container features-grid">
 
     <div class="feature">
-
-      <div class="feature-icon">
-        📦
-      </div>
-
-      <strong>
-        Shipment Information
-      </strong>
-
-      <span>
-        View available package details.
-      </span>
-
+      <div class="feature-icon">📦</div>
+      <strong>Shipment Information</strong>
+      <span>View available package details.</span>
     </div>
 
-
     <div class="feature">
-
-      <div class="feature-icon">
-        🌍
-      </div>
-
-      <strong>
-        International Routes
-      </strong>
-
-      <span>
-        View origin and destination information.
-      </span>
-
+      <div class="feature-icon">🌍</div>
+      <strong>International Routes</strong>
+      <span>View origin and destination information.</span>
     </div>
 
-
     <div class="feature">
-
-      <div class="feature-icon">
-        📍
-      </div>
-
-      <strong>
-        Status Updates
-      </strong>
-
-      <span>
-        Follow the shipment journey.
-      </span>
-
+      <div class="feature-icon">📍</div>
+      <strong>Status Updates</strong>
+      <span>Follow the shipment journey.</span>
     </div>
 
   </div>
 
 </div>
-
-
-<!-- =========================
-     SERVICES
-     ========================= -->
 
 <section id="services">
 
@@ -1140,16 +1070,12 @@ footer a{
     </h2>
 
     <p class="section-description">
-
       JESTILO is an independent delivery service
       platform designed to manage shipment information
       and customer tracking in one place.
-
     </p>
 
-
     <div class="services">
-
 
       <div class="service">
 
@@ -1169,7 +1095,6 @@ footer a{
 
       </div>
 
-
       <div class="service">
 
         <div class="service-icon">
@@ -1187,7 +1112,6 @@ footer a{
         </p>
 
       </div>
-
 
       <div class="service">
 
@@ -1212,15 +1136,7 @@ footer a{
 
 </section>
 
-
-<!-- =========================
-     LARGE DELIVERY IMAGE GALLERY
-     ========================= -->
-
-<section
-  id="gallery"
-  class="jestilo-gallery"
->
+<section id="gallery" class="jestilo-gallery">
 
   <div class="container">
 
@@ -1235,23 +1151,16 @@ footer a{
       </h2>
 
       <p class="section-description">
-
         Professional delivery and logistics services
         designed to keep your shipments moving safely
         and efficiently.
-
       </p>
 
     </div>
 
-
     <div class="gallery-grid">
 
-
-      <!-- IMAGE 1 -->
-
       <div class="gallery-card">
-
         <img
           src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=90"
           alt="Air freight delivery"
@@ -1259,25 +1168,15 @@ footer a{
         >
 
         <div class="gallery-overlay">
-
-          <h3>
-            ✈️ Air Freight
-          </h3>
-
+          <h3>✈️ Air Freight</h3>
           <p>
             Fast international transportation
             for urgent shipments.
           </p>
-
         </div>
-
       </div>
 
-
-      <!-- IMAGE 2 -->
-
       <div class="gallery-card">
-
         <img
           src="https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=1200&q=90"
           alt="Sea freight delivery"
@@ -1285,25 +1184,15 @@ footer a{
         >
 
         <div class="gallery-overlay">
-
-          <h3>
-            🚢 Sea Freight
-          </h3>
-
+          <h3>🚢 Sea Freight</h3>
           <p>
             Reliable transportation for
             larger international shipments.
           </p>
-
         </div>
-
       </div>
 
-
-      <!-- IMAGE 3 -->
-
       <div class="gallery-card">
-
         <img
           src="https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&w=1200&q=90"
           alt="Delivery truck"
@@ -1311,25 +1200,15 @@ footer a{
         >
 
         <div class="gallery-overlay">
-
-          <h3>
-            🚚 Road Delivery
-          </h3>
-
+          <h3>🚚 Road Delivery</h3>
           <p>
             Efficient ground transportation
             from hub to destination.
           </p>
-
         </div>
-
       </div>
 
-
-      <!-- IMAGE 4 -->
-
       <div class="gallery-card">
-
         <img
           src="https://images.unsplash.com/photo-1586528116493-da8b6f1b6c1c?auto=format&fit=crop&w=1200&q=90"
           alt="Warehouse logistics"
@@ -1337,25 +1216,15 @@ footer a{
         >
 
         <div class="gallery-overlay">
-
-          <h3>
-            📦 Warehouse Handling
-          </h3>
-
+          <h3>📦 Warehouse Handling</h3>
           <p>
             Organized package processing
             and shipment preparation.
           </p>
-
         </div>
-
       </div>
 
-
-      <!-- IMAGE 5 -->
-
       <div class="gallery-card">
-
         <img
           src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=1200&q=90"
           alt="Package logistics"
@@ -1363,25 +1232,15 @@ footer a{
         >
 
         <div class="gallery-overlay">
-
-          <h3>
-            📦 Package Handling
-          </h3>
-
+          <h3>📦 Package Handling</h3>
           <p>
             Careful handling throughout
             the delivery journey.
           </p>
-
         </div>
-
       </div>
 
-
-      <!-- IMAGE 6 -->
-
       <div class="gallery-card">
-
         <img
           src="https://images.unsplash.com/photo-1616401784845-180882ba9ba8?auto=format&fit=crop&w=1200&q=90"
           alt="Final delivery"
@@ -1389,171 +1248,115 @@ footer a{
         >
 
         <div class="gallery-overlay">
-
-          <h3>
-            📍 Final Delivery
-          </h3>
-
+          <h3>📍 Final Delivery</h3>
           <p>
             The final stage of the shipment
             journey to its destination.
           </p>
-
         </div>
-
       </div>
-<!-- ADDITIONAL DELIVERY IMAGES -->
 
-<div class="gallery-card">
+      <div class="gallery-card">
+        <img
+          src="https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?auto=format&fit=crop&w=1200&q=90"
+          alt="Packages ready for delivery"
+          loading="lazy"
+        >
 
-  <img
-    src="https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?auto=format&fit=crop&w=1200&q=90"
-    alt="Packages ready for delivery"
-    loading="lazy"
-  >
+        <div class="gallery-overlay">
+          <h3>📦 Package Preparation</h3>
+          <p>
+            Shipments are carefully prepared
+            and organized before transportation.
+          </p>
+        </div>
+      </div>
 
-  <div class="gallery-overlay">
+      <div class="gallery-card">
+        <img
+          src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d8?auto=format&fit=crop&w=1200&q=90"
+          alt="Delivery logistics"
+          loading="lazy"
+        >
 
-    <h3>
-      📦 Package Preparation
-    </h3>
+        <div class="gallery-overlay">
+          <h3>🚚 Logistics Operations</h3>
+          <p>
+            Efficient transportation helps keep
+            shipments moving toward their destination.
+          </p>
+        </div>
+      </div>
 
-    <p>
-      Shipments are carefully prepared and organized
-      before transportation.
-    </p>
+      <div class="gallery-card">
+        <img
+          src="https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?auto=format&fit=crop&w=1200&q=90"
+          alt="Warehouse package handling"
+          loading="lazy"
+        >
 
-  </div>
+        <div class="gallery-overlay">
+          <h3>🏭 Warehouse Handling</h3>
+          <p>
+            Packages are organized and prepared
+            for the next stage of their journey.
+          </p>
+        </div>
+      </div>
 
-</div>
+      <div class="gallery-card">
+        <img
+          src="https://images.unsplash.com/photo-1616401784845-180882ba9ba8?auto=format&fit=crop&w=1200&q=90"
+          alt="Shipment transportation"
+          loading="lazy"
+        >
 
+        <div class="gallery-overlay">
+          <h3>🌍 International Shipping</h3>
+          <p>
+            Shipment information can be followed
+            throughout the international journey.
+          </p>
+        </div>
+      </div>
 
-<div class="gallery-card">
+      <div class="gallery-card">
+        <img
+          src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=1200&q=90"
+          alt="Package sorting"
+          loading="lazy"
+        >
 
-  <img
-    src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d8?auto=format&fit=crop&w=1200&q=90"
-    alt="Delivery logistics"
-    loading="lazy"
-  >
+        <div class="gallery-overlay">
+          <h3>📋 Package Sorting</h3>
+          <p>
+            Shipments are organized for efficient
+            processing and transportation.
+          </p>
+        </div>
+      </div>
 
-  <div class="gallery-overlay">
+      <div class="gallery-card">
+        <img
+          src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1200&q=90"
+          alt="Global logistics"
+          loading="lazy"
+        >
 
-    <h3>
-      🚚 Logistics Operations
-    </h3>
+        <div class="gallery-overlay">
+          <h3>🌐 Global Logistics</h3>
+          <p>
+            Connecting shipments with destinations
+            around the world.
+          </p>
+        </div>
+      </div>
 
-    <p>
-      Efficient transportation helps keep shipments
-      moving toward their destination.
-    </p>
-
-  </div>
-
-</div>
-
-
-<div class="gallery-card">
-
-  <img
-    src="https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?auto=format&fit=crop&w=1200&q=90"
-    alt="Warehouse package handling"
-    loading="lazy"
-  >
-
-  <div class="gallery-overlay">
-
-    <h3>
-      🏭 Warehouse Handling
-    </h3>
-
-    <p>
-      Packages are organized and prepared for the
-      next stage of their journey.
-    </p>
-
-  </div>
-
-</div>
-
-
-<div class="gallery-card">
-
-  <img
-    src="https://images.unsplash.com/photo-1616401784845-180882ba9ba8?auto=format&fit=crop&w=1200&q=90"
-    alt="Shipment transportation"
-    loading="lazy"
-  >
-
-  <div class="gallery-overlay">
-
-    <h3>
-      🌍 International Shipping
-    </h3>
-
-    <p>
-      Shipment information can be followed throughout
-      the international delivery journey.
-    </p>
-
-  </div>
-
-</div>
-
-
-<div class="gallery-card">
-
-  <img
-    src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=1200&q=90"
-    alt="Package sorting"
-    loading="lazy"
-  >
-
-  <div class="gallery-overlay">
-
-    <h3>
-      📋 Package Sorting
-    </h3>
-
-    <p>
-      Shipments are organized for efficient processing
-      and transportation.
-    </p>
-
-  </div>
-
-</div>
-
-
-<div class="gallery-card">
-
-  <img
-    src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1200&q=90"
-    alt="Global logistics"
-    loading="lazy"
-  >
-
-  <div class="gallery-overlay">
-
-    <h3>
-      🌐 Global Logistics
-    </h3>
-
-    <p>
-      Connecting shipments with destinations around
-      the world.
-    </p>
-
-  </div>
-
-</div>
     </div>
 
   </div>
 
 </section>
-<!-- =========================
-     DELIVERY IN MOTION
-     ========================= -->
 
 <section class="delivery-video">
 
@@ -1614,14 +1417,7 @@ footer a{
 
 </section>
 
-<!-- =========================
-     JOURNEY
-     ========================= -->
-
-<section
-  id="journey"
-  class="journey"
->
+<section id="journey" class="journey">
 
   <div class="container">
 
@@ -1634,85 +1430,46 @@ footer a{
     </h2>
 
     <p class="section-description">
-
       Shipment information can be updated
       through the authorized management dashboard.
-
     </p>
-
 
     <div class="journey-grid">
 
-
       <div class="journey-card">
-
-        <div class="number">
-          1
-        </div>
-
-        <h3>
-          Shipment Created
-        </h3>
-
+        <div class="number">1</div>
+        <h3>Shipment Created</h3>
         <p>
           A shipment reference is created
           for the package.
         </p>
-
       </div>
 
-
       <div class="journey-card">
-
-        <div class="number">
-          2
-        </div>
-
-        <h3>
-          Processing
-        </h3>
-
+        <div class="number">2</div>
+        <h3>Processing</h3>
         <p>
           Shipment information is prepared
           for transportation.
         </p>
-
       </div>
 
-
       <div class="journey-card">
-
-        <div class="number">
-          3
-        </div>
-
-        <h3>
-          In Transit
-        </h3>
-
+        <div class="number">3</div>
+        <h3>In Transit</h3>
         <p>
           The shipment is moving toward
           its destination.
         </p>
-
       </div>
 
-
       <div class="journey-card">
-
-        <div class="number">
-          4
-        </div>
-
-        <h3>
-          Delivery
-        </h3>
-
+        <div class="number">4</div>
+        <h3>Delivery</h3>
         <p>
           The shipment reaches the final
           delivery stage.
         </p>
-
       </div>
 
     </div>
@@ -1721,20 +1478,13 @@ footer a{
 
 </section>
 
+<!-- TRACKING RESULT -->
 
-<!-- =========================
-     TRACKING RESULT
-     ========================= -->
-
-<section
-  id="resultSection"
-  class="result-section"
->
+<section id="resultSection" class="result-section">
 
   <div class="container">
 
     <div class="result">
-
 
       <div class="result-header">
 
@@ -1744,117 +1494,59 @@ footer a{
             Tracking number
           </div>
 
-          <h2
-            id="resultCode"
-            class="result-code"
-          >
+          <h2 id="resultCode" class="result-code">
             -
           </h2>
 
         </div>
 
-
-        <div
-          id="resultStatus"
-          class="result-status"
-        >
+        <div id="resultStatus" class="result-status">
           -
         </div>
 
       </div>
 
-
       <div class="result-route">
 
         <div>
-
-          <small>
-            Origin
-          </small>
-
-          <strong id="resultOrigin">
-            -
-          </strong>
-
+          <small>Origin</small>
+          <strong id="resultOrigin">-</strong>
         </div>
-
 
         <div class="result-arrow">
           →
         </div>
 
-
         <div>
-
-          <small>
-            Destination
-          </small>
-
-          <strong id="resultDestination">
-            -
-          </strong>
-
+          <small>Destination</small>
+          <strong id="resultDestination">-</strong>
         </div>
 
       </div>
-
 
       <div class="info-grid">
 
-
         <div class="info">
-
-          <small>
-            Customer
-          </small>
-
-          <strong id="resultCustomer">
-            -
-          </strong>
-
+          <small>Customer</small>
+          <strong id="resultCustomer">-</strong>
         </div>
 
-
         <div class="info">
-
-          <small>
-            Current location
-          </small>
-
-          <strong id="resultLocation">
-            -
-          </strong>
-
+          <small>Current location</small>
+          <strong id="resultLocation">-</strong>
         </div>
 
-
         <div class="info">
-
-          <small>
-            Estimated delivery
-          </small>
-
-          <strong id="resultDelivery">
-            -
-          </strong>
-
+          <small>Estimated delivery</small>
+          <strong id="resultDelivery">-</strong>
         </div>
 
-
         <div class="info">
-
-          <small>
-            Last updated
-          </small>
-
-          <strong id="resultUpdated">
-            -
-          </strong>
-
+          <small>Last updated</small>
+          <strong id="resultUpdated">-</strong>
         </div>
 
       </div>
-
 
       <div class="package">
 
@@ -1872,7 +1564,6 @@ footer a{
           -
         </p>
 
-
         <img
           id="packageImage"
           class="package-image"
@@ -1881,13 +1572,38 @@ footer a{
 
       </div>
 
+      <!-- MAP IS NOW INSIDE THE TRACKING RESULT -->
+
+      <div
+        id="shipmentMapBox"
+        class="shipment-map-box"
+        style="display:none;"
+      >
+
+        <h3 class="shipment-map-title">
+          📍 Shipment Location
+        </h3>
+
+        <p class="shipment-map-description">
+          View the current shipment position on the map.
+        </p>
+
+        <div id="shipmentMap"></div>
+
+        <div
+          id="shipmentMapStatus"
+          class="shipment-map-status"
+        >
+          Waiting for shipment location...
+        </div>
+
+      </div>
 
       <div class="timeline">
 
         <h3>
           Shipment Progress
         </h3>
-
 
         <div class="timeline-item">
 
@@ -1916,7 +1632,6 @@ footer a{
 
         </div>
 
-
         <div class="timeline-item">
 
           <div class="timeline-marker">
@@ -1943,7 +1658,6 @@ footer a{
           </div>
 
         </div>
-
 
         <div class="timeline-item">
 
@@ -1972,7 +1686,6 @@ footer a{
 
         </div>
 
-
         <div class="timeline-item">
 
           <div class="timeline-marker">
@@ -1999,7 +1712,6 @@ footer a{
           </div>
 
         </div>
-
 
         <div class="timeline-item">
 
@@ -2028,7 +1740,6 @@ footer a{
 
       </div>
 
-
       <div class="update">
 
         <strong>
@@ -2047,18 +1758,9 @@ footer a{
 
 </section>
 
-
-<!-- =========================
-     ABOUT
-     ========================= -->
-
-<section
-  id="about"
-  class="about"
->
+<section id="about" class="about">
 
   <div class="container about-grid">
-
 
     <div>
 
@@ -2071,15 +1773,12 @@ footer a{
       </h2>
 
       <p class="section-description">
-
         JESTILO provides a customer-facing tracking
         experience connected to a private shipment
         management system.
-
       </p>
 
     </div>
-
 
     <div class="about-panel">
 
@@ -2089,33 +1788,13 @@ footer a{
 
       <ul>
 
-        <li>
-          Create shipment records
-        </li>
-
-        <li>
-          Change shipment status
-        </li>
-
-        <li>
-          Add shipment updates
-        </li>
-
-        <li>
-          Upload package photographs
-        </li>
-
-        <li>
-          Update delivery information
-        </li>
-
-        <li>
-          Manage tracking references
-        </li>
-
-        <li>
-          Keep customer information organized
-        </li>
+        <li>Create shipment records</li>
+        <li>Change shipment status</li>
+        <li>Add shipment updates</li>
+        <li>Upload package photographs</li>
+        <li>Update delivery information</li>
+        <li>Manage tracking references</li>
+        <li>Keep customer information organized</li>
 
       </ul>
 
@@ -2125,17 +1804,11 @@ footer a{
 
 </section>
 
-
-<!-- =========================
-     FOOTER
-     ========================= -->
-
 <footer>
 
   <div class="container">
 
     <div class="footer-grid">
-
 
       <div>
 
@@ -2144,14 +1817,11 @@ footer a{
         </h3>
 
         <p>
-
           Independent delivery-service and
           shipment-tracking platform.
-
         </p>
 
       </div>
-
 
       <div>
 
@@ -2160,88 +1830,82 @@ footer a{
         </h3>
 
         <p>
-          <a href="#services">
-            Services
-          </a>
+          <a href="#services">Services</a>
         </p>
 
         <p>
-          <a href="#gallery">
-            Delivery
-          </a>
+          <a href="#gallery">Delivery</a>
         </p>
 
         <p>
-          <a href="#journey">
-            How It Works
-          </a>
+          <a href="#journey">How It Works</a>
         </p>
 
         <p>
-          <a href="#about">
-            About
+          <a href="#about">About</a>
+        </p>
+
+      </div>
+
+      <div>
+
+        <h3>
+          Customer Service
+        </h3>
+
+        <a
+          href="https://wa.me/639658674185"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="whatsapp-button"
+        >
+          💬 Chat With Customer Service
+        </a>
+
+        <p class="whatsapp-description">
+          Need help with your shipment?
+          Tap the button above to message
+          JESTILO Delivery Service on WhatsApp.
+        </p>
+
+        <p>
+          Customer support for shipment questions
+          and assistance.
+        </p>
+
+        <p>
+          <a href="#tracking">
+            📦 Track Shipment
           </a>
         </p>
 
       </div>
 
-
-      <div>
-
-        <h3>
-          Tracking
-        </h3>
-
-        <p>
-
-         <h3>
-  Customer Service
-</h3>
-
-<a
-  href="https://wa.me/639658674185"
-  target="_blank"
-  rel="noopener noreferrer"
-  class="whatsapp-button"
->
-  💬 Chat With Customer Service
-</a>
-
-<p class="whatsapp-description">
-  Need help with your shipment?
-  Tap the button above to message JESTILO
-  Delivery Service on WhatsApp.
-</p>
-
-<p>
-  Customer support for shipment questions and assistance.
-</p>
-
-<p>
-  <a href="#tracking">
-    📦 Track Shipment
-  </a>
-</p>
-
-</div> 
-
+    </div>
 
     <div class="footer-bottom">
-
       © 2026 JESTILO Delivery Service.
-
     </div>
 
   </div>
 
 </footer>
 
+<!-- LEAFLET MAP LIBRARY -->
 
-<!-- =========================
-     TRACKING JAVASCRIPT
-     ========================= -->
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
 
 <script>
+
+let shipmentMap = null;
+let shipmentMarker = null;
+
+
+/* =========================
+   TRACK SHIPMENT
+   ========================= */
 
 async function trackShipment(){
 
@@ -2253,6 +1917,9 @@ async function trackShipment(){
 
   const resultSection =
     document.getElementById("resultSection");
+
+  const mapBox =
+    document.getElementById("shipmentMapBox");
 
   const code =
     input.value.trim().toUpperCase();
@@ -2304,6 +1971,9 @@ async function trackShipment(){
         "block";
 
       resultSection.style.display =
+        "none";
+
+      mapBox.style.display =
         "none";
 
       return;
@@ -2387,6 +2057,8 @@ async function trackShipment(){
       "No additional update available.";
 
 
+    /* PACKAGE IMAGE */
+
     const image =
       document.getElementById(
         "packageImage"
@@ -2417,8 +2089,17 @@ async function trackShipment(){
     }
 
 
+    /* TIMELINE */
+
     updateTimeline(
       shipment.status
+    );
+
+
+    /* MAP */
+
+    showShipmentMap(
+      shipment
     );
 
 
@@ -2444,10 +2125,153 @@ async function trackShipment(){
 
     resultSection.style.display =
       "none";
+
   }
 
 }
 
+
+/* =========================
+   MAP
+   ========================= */
+
+function showShipmentMap(shipment){
+
+  const mapBox =
+    document.getElementById(
+      "shipmentMapBox"
+    );
+
+  const status =
+    document.getElementById(
+      "shipmentMapStatus"
+    );
+
+
+  const latitude =
+    parseFloat(
+      shipment.latitude
+    );
+
+  const longitude =
+    parseFloat(
+      shipment.longitude
+    );
+
+
+  /*
+    If the shipment has no coordinates,
+    hide the map.
+  */
+
+  if(
+    !Number.isFinite(latitude) ||
+    !Number.isFinite(longitude)
+  ){
+
+    mapBox.style.display =
+      "none";
+
+    return;
+
+  }
+
+
+  mapBox.style.display =
+    "block";
+
+
+  const position = [
+    latitude,
+    longitude
+  ];
+
+
+  /*
+    Create map only once.
+  */
+
+  if(!shipmentMap){
+
+    shipmentMap =
+      L.map(
+        "shipmentMap",
+        {
+          zoomControl:true
+        }
+      );
+
+
+    L.tileLayer(
+      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      {
+        maxZoom:19,
+        attribution:
+          '&copy; OpenStreetMap contributors'
+      }
+    ).addTo(
+      shipmentMap
+    );
+
+  }
+
+
+  /*
+    Move existing marker or create it.
+  */
+
+  if(!shipmentMarker){
+
+    shipmentMarker =
+      L.marker(
+        position
+      )
+      .addTo(
+        shipmentMap
+      )
+      .bindPopup(
+        "<strong>📦 JESTILO Shipment</strong><br>Current shipment location"
+      );
+
+  }else{
+
+    shipmentMarker.setLatLng(
+      position
+    );
+
+  }
+
+
+  shipmentMap.setView(
+    position,
+    6
+  );
+
+
+  /*
+    Fix Leaflet rendering when
+    the map becomes visible.
+  */
+
+  setTimeout(function(){
+
+    shipmentMap.invalidateSize();
+
+  },300);
+
+
+  status.innerHTML =
+    "📍 Current shipment coordinates: " +
+    latitude.toFixed(5) +
+    ", " +
+    longitude.toFixed(5);
+
+}
+
+
+/* =========================
+   DATE FORMAT
+   ========================= */
 
 function formatDate(value){
 
@@ -2483,6 +2307,10 @@ function formatDate(value){
 
 }
 
+
+/* =========================
+   TIMELINE
+   ========================= */
 
 function updateTimeline(status){
 
@@ -2630,6 +2458,10 @@ function updateTimeline(status){
 }
 
 
+/* =========================
+   ENTER KEY
+   ========================= */
+
 document
   .getElementById("trackingCode")
   .addEventListener(
@@ -2646,316 +2478,6 @@ document
   );
 
 </script>
-<!-- =========================
-     LIVE SHIPMENT MAP
-     ========================= -->
 
-<style>
-.shipment-map-box{
-  margin-top:30px;
-  background:#fff;
-  border-radius:12px;
-  padding:20px;
-  box-shadow:0 10px 35px rgba(0,0,0,.08);
-}
-
-.shipment-map-title{
-  margin:0 0 6px;
-  font-size:22px;
-}
-
-.shipment-map-description{
-  margin:0 0 18px;
-  color:#6d7780;
-  font-size:14px;
-  line-height:1.6;
-}
-
-#shipmentMap{
-  width:100%;
-  height:430px;
-  border-radius:10px;
-  overflow:hidden;
-  background:#e9edf0;
-}
-
-.shipment-map-status{
-  margin-top:12px;
-  color:#6d7780;
-  font-size:13px;
-}
-
-.shipment-map-status strong{
-  color:#18733d;
-}
-</style>
-
-
-<div
-  id="shipmentMapBox"
-  class="shipment-map-box"
-  style="display:none;"
->
-
-  <h3 class="shipment-map-title">
-    📍 Shipment Location
-  </h3>
-
-  <p class="shipment-map-description">
-    View the current shipment position on the map.
-  </p>
-
-  <div id="shipmentMap"></div>
-
-  <div
-    id="shipmentMapStatus"
-    class="shipment-map-status"
-  >
-    Waiting for shipment location...
-  </div>
-
-</div>
-
-
-<script>
-(function(){
-
-  let mapLoaded = false;
-  let shipmentMap = null;
-  let shipmentMarker = null;
-
-  function loadLeaflet(){
-
-    if(mapLoaded){
-      return Promise.resolve();
-    }
-
-    return new Promise(function(resolve,reject){
-
-      const css =
-        document.createElement("link");
-
-      css.rel = "stylesheet";
-
-      css.href =
-        "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
-
-      document.head.appendChild(css);
-
-
-      const script =
-        document.createElement("script");
-
-      script.src =
-        "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
-
-      script.onload = function(){
-
-        mapLoaded = true;
-        resolve();
-
-      };
-
-      script.onerror = function(){
-
-        reject();
-
-      };
-
-      document.body.appendChild(script);
-
-    });
-
-  }
-
-
-  function showShipmentMap(shipment){
-
-    const latitude =
-      parseFloat(
-        shipment.latitude
-      );
-
-    const longitude =
-      parseFloat(
-        shipment.longitude
-      );
-
-
-    if(
-      !Number.isFinite(latitude) ||
-      !Number.isFinite(longitude)
-    ){
-
-      return;
-
-    }
-
-
-    const mapBox =
-      document.getElementById(
-        "shipmentMapBox"
-      );
-
-    const status =
-      document.getElementById(
-        "shipmentMapStatus"
-      );
-
-
-    mapBox.style.display =
-      "block";
-
-
-    loadLeaflet()
-      .then(function(){
-
-        if(!shipmentMap){
-
-          shipmentMap =
-            L.map(
-              "shipmentMap",
-              {
-                zoomControl:true
-              }
-            );
-
-
-          L.tileLayer(
-            "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-            {
-              maxZoom:19,
-              attribution:
-                '&copy; OpenStreetMap contributors'
-            }
-          ).addTo(
-            shipmentMap
-          );
-
-        }
-
-
-        const position =
-          [
-            latitude,
-            longitude
-          ];
-
-
-        if(!shipmentMarker){
-
-          shipmentMarker =
-            L.marker(
-              position
-            )
-            .addTo(
-              shipmentMap
-            )
-            .bindPopup(
-              "<strong>📦 JESTILO Shipment</strong><br>Current shipment location"
-            );
-
-        }else{
-
-          shipmentMarker.setLatLng(
-            position
-          );
-
-        }
-
-
-        shipmentMap.setView(
-          position,
-          6
-        );
-
-
-        setTimeout(function(){
-
-          shipmentMap.invalidateSize();
-
-        },300);
-
-
-        status.innerHTML =
-          "📍 Current shipment coordinates: " +
-          latitude.toFixed(5) +
-          ", " +
-          longitude.toFixed(5);
-
-      })
-      .catch(function(){
-
-        status.innerHTML =
-          "The shipment map could not be loaded.";
-
-      });
-
-  }
-
-
-  const originalTrackShipment =
-    window.trackShipment;
-
-
-  window.trackShipment =
-    async function(){
-
-      await originalTrackShipment();
-
-
-      const input =
-        document.getElementById(
-          "trackingCode"
-        );
-
-      const code =
-        input.value
-          .trim()
-          .toUpperCase();
-
-
-      if(!code){
-        return;
-      }
-
-
-      try{
-
-        const response =
-          await fetch(
-            "/api/shipments/" +
-            encodeURIComponent(code)
-          );
-
-
-        if(!response.ok){
-          return;
-        }
-
-
-        const shipment =
-          await response.json();
-
-
-        showShipmentMap(
-          shipment
-        );
-
-
-      }catch(error){
-
-        console.error(
-          "Shipment map error:",
-          error
-        );
-
-      }
-
-    };
-
-
-})();
-</script>
 </body>
 </html>
