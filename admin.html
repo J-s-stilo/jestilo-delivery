@@ -7,9 +7,7 @@
 <title>JESTILO Admin</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   font-family:Arial,sans-serif;
@@ -32,13 +30,10 @@ body{
   margin-bottom:20px;
 }
 
-input,
-select,
-textarea{
+input,select,textarea{
   width:100%;
   padding:12px;
   margin:7px 0 15px;
-  box-sizing:border-box;
   border:1px solid #ddd;
   border-radius:8px;
   font-family:Arial,sans-serif;
@@ -59,26 +54,13 @@ button{
   cursor:pointer;
 }
 
-button.delete{
-  background:#a93226;
-}
+button.delete{background:#a93226}
+button.clear{background:#777;margin-left:8px}
 
-button.clear{
-  background:#777;
-  margin-left:8px;
-}
+.hidden{display:none}
 
-.hidden{
-  display:none;
-}
-
-.success{
-  color:green;
-}
-
-.error{
-  color:#a93226;
-}
+.success{color:green}
+.error{color:#a93226}
 
 .help{
   color:#666;
@@ -91,8 +73,7 @@ table{
   border-collapse:collapse;
 }
 
-th,
-td{
+th,td{
   padding:10px;
   border-bottom:1px solid #ddd;
   text-align:left;
@@ -115,19 +96,17 @@ td{
   border-radius:10px;
 }
 
+.location-box{
+  background:#f8f5f1;
+  padding:15px;
+  border-radius:10px;
+  margin-bottom:15px;
+}
+
 @media(max-width:600px){
-
-  body{
-    padding:15px;
-  }
-
-  .card{
-    padding:18px;
-  }
-
-  table{
-    font-size:12px;
-  }
+  body{padding:15px}
+  .card{padding:18px}
+  table{font-size:12px}
 }
 </style>
 </head>
@@ -137,7 +116,6 @@ td{
 <div class="container">
 
 <h1>JESTILO DELIVERY SERVICE</h1>
-
 
 <!-- LOGIN -->
 
@@ -151,10 +129,7 @@ td{
   placeholder="Admin password"
 >
 
-<button
-  type="button"
-  onclick="login()"
->
+<button type="button" onclick="login()">
 Login
 </button>
 
@@ -165,19 +140,15 @@ Login
 
 <!-- ADMIN -->
 
-<div
-  class="card hidden"
-  id="adminBox"
->
+<div class="card hidden" id="adminBox">
 
 <h2>Create / Update Shipment</h2>
-
 
 <label>Tracking Number</label>
 
 <input
   id="code"
-  placeholder="Example: JST-2026-001"
+  placeholder="Example: RT_61_818"
 >
 
 
@@ -225,8 +196,6 @@ Include the country code.
   placeholder="Describe the package contents"
 ></textarea>
 
-
-<!-- NEW IMAGE UPLOAD -->
 
 <label>Package Photo</label>
 
@@ -288,6 +257,38 @@ Choose the package photo directly from your phone.
   id="location"
   placeholder="Example: Jakarta, Indonesia"
 >
+
+
+<!-- NEW MAP LOCATION -->
+
+<div class="location-box">
+
+<h3>📍 Map Coordinates</h3>
+
+<p class="help">
+Enter the latitude and longitude for the shipment's current position.
+</p>
+
+<label>Latitude</label>
+
+<input
+  id="latitude"
+  type="number"
+  step="any"
+  placeholder="Example: -6.2088"
+>
+
+
+<label>Longitude</label>
+
+<input
+  id="longitude"
+  type="number"
+  step="any"
+  placeholder="Example: 106.8456"
+>
+
+</div>
 
 
 <label>Estimated Delivery</label>
@@ -357,7 +358,6 @@ async function login(){
   if(!password){
 
     message.className = "error";
-
     message.textContent =
       "Enter your admin password.";
 
@@ -371,71 +371,59 @@ async function login(){
         "/api/admin/login",
         {
           method:"POST",
-
           headers:{
             "Content-Type":"application/json"
           },
-
           body:JSON.stringify({
             password:password
           })
         }
       );
 
-
     const data =
       await response.json();
-
 
     if(!response.ok){
 
       message.className = "error";
-
       message.textContent =
         data.error || "Incorrect password.";
 
       return;
     }
 
-
     if(!data.token){
 
       message.className = "error";
-
       message.textContent =
         "Login failed.";
 
       return;
     }
 
-
     token = data.token;
-
 
     document
       .getElementById("loginBox")
       .classList.add("hidden");
 
-
     document
       .getElementById("adminBox")
       .classList.remove("hidden");
 
-
     loadShipments();
-
 
   }catch(error){
 
     console.error(error);
 
     message.className = "error";
-
     message.textContent =
       "Could not connect to the server.";
-  }
-}
 
+  }
+
+}
 
 
 // ===============================
@@ -448,40 +436,27 @@ document
     "change",
     function(){
 
-      const file =
-        this.files[0];
+      const file = this.files[0];
 
       const preview =
         document.getElementById("imagePreview");
 
-
       if(!file){
 
         preview.src = "";
-
         preview.classList.add("hidden");
 
         return;
       }
 
-
       if(!file.type.startsWith("image/")){
 
-        alert(
-          "Please choose an image file."
-        );
+        alert("Please choose an image file.");
 
         this.value = "";
 
         return;
       }
-
-
-      /*
-        Keep the image reasonably small
-        because it is being stored with
-        the shipment record.
-      */
 
       if(file.size > 800000){
 
@@ -490,18 +465,14 @@ document
         );
 
         this.value = "";
-
         preview.src = "";
-
         preview.classList.add("hidden");
 
         return;
       }
 
-
       const reader =
         new FileReader();
-
 
       reader.onload =
         function(event){
@@ -509,18 +480,14 @@ document
           preview.src =
             event.target.result;
 
-          preview.classList.remove(
-            "hidden"
-          );
+          preview.classList.remove("hidden");
 
         };
-
 
       reader.readAsDataURL(file);
 
     }
   );
-
 
 
 // ===============================
@@ -532,7 +499,6 @@ async function saveShipment(){
   const message =
     document.getElementById("saveMessage");
 
-
   const imagePreview =
     document.getElementById("imagePreview");
 
@@ -540,77 +506,63 @@ async function saveShipment(){
   const shipment = {
 
     code:
-      document
-        .getElementById("code")
-        .value
-        .trim(),
+      document.getElementById("code")
+        .value.trim(),
 
     customer:
-      document
-        .getElementById("customer")
-        .value
-        .trim(),
+      document.getElementById("customer")
+        .value.trim(),
 
     email:
-      document
-        .getElementById("email")
-        .value
-        .trim(),
+      document.getElementById("email")
+        .value.trim(),
 
     whatsapp:
-      document
-        .getElementById("whatsapp")
-        .value
-        .trim(),
+      document.getElementById("whatsapp")
+        .value.trim(),
 
     item_name:
-      document
-        .getElementById("item_name")
-        .value
-        .trim(),
+      document.getElementById("item_name")
+        .value.trim(),
 
     item_description:
-      document
-        .getElementById("item_description")
-        .value
-        .trim(),
+      document.getElementById("item_description")
+        .value.trim(),
 
     image_url:
       imagePreview.src || "",
 
     origin:
-      document
-        .getElementById("origin")
-        .value
-        .trim(),
+      document.getElementById("origin")
+        .value.trim(),
 
     destination:
-      document
-        .getElementById("destination")
-        .value
-        .trim(),
+      document.getElementById("destination")
+        .value.trim(),
 
     status:
-      document
-        .getElementById("status")
+      document.getElementById("status")
         .value,
 
     location:
-      document
-        .getElementById("location")
-        .value
-        .trim(),
+      document.getElementById("location")
+        .value.trim(),
+
+    latitude:
+      document.getElementById("latitude")
+        .value,
+
+    longitude:
+      document.getElementById("longitude")
+        .value,
 
     estimated_delivery:
-      document
-        .getElementById("estimated_delivery")
+      document.getElementById("estimated_delivery")
         .value,
 
     note:
-      document
-        .getElementById("note")
-        .value
-        .trim()
+      document.getElementById("note")
+        .value.trim()
 
   };
 
@@ -675,9 +627,7 @@ async function saveShipment(){
     message.textContent =
       "Shipment saved successfully.";
 
-
     clearForm();
-
 
     loadShipments();
 
@@ -691,9 +641,10 @@ async function saveShipment(){
 
     message.textContent =
       "Could not connect to the server.";
-  }
-}
 
+  }
+
+}
 
 
 // ===============================
@@ -704,7 +655,6 @@ async function loadShipments(){
 
   const box =
     document.getElementById("records");
-
 
   try{
 
@@ -718,7 +668,6 @@ async function loadShipments(){
           }
         }
       );
-
 
     const data =
       await response.json();
@@ -751,6 +700,7 @@ async function loadShipments(){
           <th>Customer</th>
           <th>Status</th>
           <th>Destination</th>
+          <th>Map</th>
           <th>Action</th>
         </tr>
 
@@ -763,21 +713,24 @@ async function loadShipments(){
             </td>
 
             <td>
-              ${escapeHtml(
-                x.customer || "-"
-              )}
+              ${escapeHtml(x.customer || "-")}
             </td>
 
             <td>
-              ${escapeHtml(
-                x.status || "-"
-              )}
+              ${escapeHtml(x.status || "-")}
             </td>
 
             <td>
-              ${escapeHtml(
-                x.destination || "-"
-              )}
+              ${escapeHtml(x.destination || "-")}
+            </td>
+
+            <td>
+              ${
+                x.latitude &&
+                x.longitude
+                ? "📍 Ready"
+                : "—"
+              }
             </td>
 
             <td>
@@ -809,32 +762,24 @@ async function loadShipments(){
 
     box.innerHTML =
       "<p class='error'>Could not load shipments.</p>";
-  }
-}
 
+  }
+
+}
 
 
 // ===============================
 // DELETE
 // ===============================
 
-async function deleteShipment(
-  encodedCode
-){
+async function deleteShipment(encodedCode){
 
   const code =
-    decodeURIComponent(
-      encodedCode
-    );
+    decodeURIComponent(encodedCode);
 
-
-  if(!confirm(
-    "Delete this shipment?"
-  )){
-
+  if(!confirm("Delete this shipment?")){
     return;
   }
-
 
   try{
 
@@ -862,18 +807,17 @@ async function deleteShipment(
       return;
     }
 
-
     loadShipments();
-
 
   }catch(error){
 
     alert(
       "Could not delete shipment."
     );
-  }
-}
 
+  }
+
+}
 
 
 // ===============================
@@ -882,74 +826,30 @@ async function deleteShipment(
 
 function clearForm(){
 
-  document.getElementById(
-    "code"
-  ).value = "";
-
-  document.getElementById(
-    "customer"
-  ).value = "";
-
-  document.getElementById(
-    "email"
-  ).value = "";
-
-  document.getElementById(
-    "whatsapp"
-  ).value = "";
-
-  document.getElementById(
-    "item_name"
-  ).value = "";
-
-  document.getElementById(
-    "item_description"
-  ).value = "";
-
-  document.getElementById(
-    "origin"
-  ).value = "";
-
-  document.getElementById(
-    "destination"
-  ).value = "";
-
-  document.getElementById(
-    "status"
-  ).value =
-    "Order received";
-
-  document.getElementById(
-    "location"
-  ).value = "";
-
-  document.getElementById(
-    "estimated_delivery"
-  ).value = "";
-
-  document.getElementById(
-    "note"
-  ).value = "";
-
-
-  document.getElementById(
-    "image_file"
-  ).value = "";
-
+  document.getElementById("code").value = "";
+  document.getElementById("customer").value = "";
+  document.getElementById("email").value = "";
+  document.getElementById("whatsapp").value = "";
+  document.getElementById("item_name").value = "";
+  document.getElementById("item_description").value = "";
+  document.getElementById("origin").value = "";
+  document.getElementById("destination").value = "";
+  document.getElementById("status").value = "Order received";
+  document.getElementById("location").value = "";
+  document.getElementById("latitude").value = "";
+  document.getElementById("longitude").value = "";
+  document.getElementById("estimated_delivery").value = "";
+  document.getElementById("note").value = "";
+  document.getElementById("image_file").value = "";
 
   const preview =
-    document.getElementById(
-      "imagePreview"
-    );
-
+    document.getElementById("imagePreview");
 
   preview.src = "";
 
-  preview.classList.add(
-    "hidden"
-  );
-}
+  preview.classList.add("hidden");
 
+}
 
 
 // ===============================
@@ -958,11 +858,8 @@ function clearForm(){
 
 function escapeHtml(value){
 
-  return String(
-    value || ""
-  ).replace(
+  return String(value || "").replace(
     /[&<>"']/g,
-
     function(m){
 
       return {
@@ -975,9 +872,10 @@ function escapeHtml(value){
 
     }
   );
+
 }
 
 </script>
 
 </body>
-  </html>
+</html>
