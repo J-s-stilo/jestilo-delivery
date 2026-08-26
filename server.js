@@ -16,20 +16,54 @@ app.get("/admin", (req, res) => {
   res.sendFile(path.join(__dirname, "admin.html"));
 });
 
+
+/* =========================================
+   DATABASE
+========================================= */
+
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: { rejectUnauthorized: false }
 });
 
+
+/* =========================================
+   ENVIRONMENT
+========================================= */
+
 const PASSWORD = process.env.ADMIN_PASSWORD;
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
+
+/*
+  Optional but recommended:
+
+  ADMIN_SESSION_SECRET
+
+  If you don't create this variable, the
+  ADMIN_PASSWORD is used as the signing secret.
+
+  If ADMIN_SESSION_SECRET already exists,
+  it is preferred.
+*/
+
+const SESSION_SECRET =
+  process.env.ADMIN_SESSION_SECRET || PASSWORD;
+
 
 if (!PASSWORD) {
   console.error("ADMIN_PASSWORD is not set.");
   process.exit(1);
 }
 
-const sessions = new Set();
+if (!SESSION_SECRET) {
+  console.error("ADMIN_SESSION_SECRET is not set.");
+  process.exit(1);
+}
+
+
+/* =========================================
+   DATABASE SETUP
+========================================= */
 
 async function setupDatabase() {
 
@@ -54,6 +88,7 @@ async function setupDatabase() {
     )
   `);
 
+
   const columns = [
     ["customer", "TEXT DEFAULT ''"],
     ["email", "TEXT DEFAULT ''"],
@@ -72,17 +107,27 @@ async function setupDatabase() {
     ["updated", "TEXT"]
   ];
 
+
   for (const [name, definition] of columns) {
+
     await pool.query(`
       ALTER TABLE shipments
       ADD COLUMN IF NOT EXISTS ${name} ${definition}
     `);
+
   }
+
 
   console.log("Database ready.");
 }
 
+
+/* =========================================
+   HTML ESCAPE
+========================================= */
+
 function escapeHtml(value) {
+
   return String(value || "").replace(
     /[&<>"']/g,
     m => ({
@@ -93,136 +138,347 @@ function escapeHtml(value) {
       "'": "&#039;"
     }[m])
   );
+
 }
 
-async function sendShipmentEmail(shipment) {
 
-  if (!RESEND_API_KEY || !shipment.email) {
-    return;
+/* =========================================
+   ADMIN TOKEN
+   Stateless signed token.
+   Survives server restarts/redeploys.
+========================================= */
+
+function createAdminToken() {
+
+  const payload = {
+    type: "admin",
+    exp: Date.now() + (7 * 24 * 60 * 60 * 1000)
+  };
+
+
+  const payloadString =
+    JSON.stringify(payload);
+
+
+  const encodedPayload =
+    Buffer.from(payloadString)
+      .toString("base64url");
+
+
+  const signature =
+    crypto
+      .createHmac(
+        "sha256",
+        SESSION_SECRET
+      )
+      .update(encodedPayload)
+      .digest("base64url");
+
+
+  return `${encodedPayload}.${signature}`;
+}
+
+
+function verifyAdminToken(token) {
+
+  if (!token || typeof token !== "string") {
+    return false;
   }
+
+
+  const parts =
+    token.split(".");
+
+
+  if (parts.length !== 2) {
+    return false;
+  }
+
+
+  const [
+    encodedPayload,
+    providedSignature
+  ] = parts;
+
+
+  const expectedSignature =
+    crypto
+      .createHmac(
+        "sha256",
+        SESSION_SECRET
+      )
+      .update(encodedPayload)
+      .digest("base64url");
+
+
+  const providedBuffer =
+    Buffer.from(
+      providedSignature
+    );
+
+
+  const expectedBuffer =
+    Buffer.from(
+      expectedSignature
+    );
+
+
+  if (
+    providedBuffer.length !==
+    expectedBuffer.length
+  ) {
+    return false;
+  }
+
+
+  if (
+    !crypto.timingSafeEqual(
+      providedBuffer,
+      expectedBuffer
+    )
+  ) {
+    return false;
+  }
+
 
   try {
 
-    const response = await fetch(
-      "https://api.resend.com/emails",
-      {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${RESEND_API_KEY}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          from:
-            "JESTILO Delivery Service <onboarding@resend.dev>",
+    const payload =
+      JSON.parse(
+        Buffer.from(
+          encodedPayload,
+          "base64url"
+        ).toString("utf8")
+      );
 
-          to: [shipment.email],
 
-          subject:
-            `Shipment update - ${shipment.code}`,
+    if (payload.type !== "admin") {
+      return false;
+    }
 
-          html: `
-            <h2>JESTILO Delivery Service</h2>
 
-            <p>
-              Hello ${escapeHtml(
-                shipment.customer || "Customer"
-              )},
-            </p>
+    if (
+      !payload.exp ||
+      Date.now() > payload.exp
+    ) {
+      return false;
+    }
 
-            <p>
-              Your shipment information has been updated.
-            </p>
 
-            <p>
-              <strong>Tracking:</strong>
-              ${escapeHtml(shipment.code)}
-            </p>
+    return true;
 
-            ${
-              shipment.item_name
-              ? `
-                <p>
-                  <strong>Item:</strong>
-                  ${escapeHtml(shipment.item_name)}
-                </p>
-              `
-              : ""
-            }
+  } catch (error) {
 
-            <p>
-              <strong>Status:</strong>
-              ${escapeHtml(shipment.status)}
-            </p>
+    return false;
 
-            ${
-              shipment.origin
-              ? `
-                <p>
-                  <strong>Origin:</strong>
-                  ${escapeHtml(shipment.origin)}
-                </p>
-              `
-              : ""
-            }
+  }
 
-            ${
-              shipment.destination
-              ? `
-                <p>
-                  <strong>Destination:</strong>
-                  ${escapeHtml(shipment.destination)}
-                </p>
-              `
-              : ""
-            }
+}
 
-            ${
-              shipment.location
-              ? `
-                <p>
-                  <strong>Current location:</strong>
-                  ${escapeHtml(shipment.location)}
-                </p>
-              `
-              : ""
-            }
 
-            ${
-              shipment.estimated_delivery
-              ? `
-                <p>
-                  <strong>Estimated delivery:</strong>
-                  ${escapeHtml(
-                    shipment.estimated_delivery
-                  )}
-                </p>
-              `
-              : ""
-            }
+/* =========================================
+   AUTHENTICATION
+========================================= */
 
-            ${
-              shipment.note
-              ? `
-                <p>
-                  <strong>Update:</strong>
-                  ${escapeHtml(shipment.note)}
-                </p>
-              `
-              : ""
-            }
+function auth(req, res, next) {
 
-            <p>
-              Please use your tracking number on the
-              JESTILO Delivery Service website to view
-              the latest available shipment information.
-            </p>
-          `
-        })
-      }
-    );
+  const authorization =
+    req.headers.authorization || "";
+
+
+  if (
+    !authorization.startsWith("Bearer ")
+  ) {
+
+    return res.status(401).json({
+      error: "Unauthorized"
+    });
+
+  }
+
+
+  const token =
+    authorization.slice(7).trim();
+
+
+  if (!verifyAdminToken(token)) {
+
+    return res.status(401).json({
+      error: "Unauthorized"
+    });
+
+  }
+
+
+  next();
+}
+
+
+/* =========================================
+   RESEND EMAIL
+========================================= */
+
+async function sendShipmentEmail(shipment) {
+
+  if (
+    !RESEND_API_KEY ||
+    !shipment.email
+  ) {
+    return;
+  }
+
+
+  try {
+
+    const response =
+      await fetch(
+        "https://api.resend.com/emails",
+        {
+          method: "POST",
+
+          headers: {
+            "Authorization":
+              `Bearer ${RESEND_API_KEY}`,
+
+            "Content-Type":
+              "application/json"
+          },
+
+          body: JSON.stringify({
+
+            from:
+              "JESTILO Delivery Service <onboarding@resend.dev>",
+
+            to: [
+              shipment.email
+            ],
+
+            subject:
+              `Shipment update - ${shipment.code}`,
+
+            html: `
+
+              <h2>
+                JESTILO Delivery Service
+              </h2>
+
+              <p>
+                Hello ${escapeHtml(
+                  shipment.customer ||
+                  "Customer"
+                )},
+              </p>
+
+              <p>
+                Your shipment information has been updated.
+              </p>
+
+              <p>
+                <strong>Tracking:</strong>
+                ${escapeHtml(shipment.code)}
+              </p>
+
+              ${
+                shipment.item_name
+                ? `
+                  <p>
+                    <strong>Item:</strong>
+                    ${escapeHtml(
+                      shipment.item_name
+                    )}
+                  </p>
+                `
+                : ""
+              }
+
+              <p>
+                <strong>Status:</strong>
+                ${escapeHtml(
+                  shipment.status
+                )}
+              </p>
+
+              ${
+                shipment.origin
+                ? `
+                  <p>
+                    <strong>Origin:</strong>
+                    ${escapeHtml(
+                      shipment.origin
+                    )}
+                  </p>
+                `
+                : ""
+              }
+
+              ${
+                shipment.destination
+                ? `
+                  <p>
+                    <strong>Destination:</strong>
+                    ${escapeHtml(
+                      shipment.destination
+                    )}
+                  </p>
+                `
+                : ""
+              }
+
+              ${
+                shipment.location
+                ? `
+                  <p>
+                    <strong>Current location:</strong>
+                    ${escapeHtml(
+                      shipment.location
+                    )}
+                  </p>
+                `
+                : ""
+              }
+
+              ${
+                shipment.estimated_delivery
+                ? `
+                  <p>
+                    <strong>Estimated delivery:</strong>
+                    ${escapeHtml(
+                      shipment.estimated_delivery
+                    )}
+                  </p>
+                `
+                : ""
+              }
+
+              ${
+                shipment.note
+                ? `
+                  <p>
+                    <strong>Update:</strong>
+                    ${escapeHtml(
+                      shipment.note
+                    )}
+                  </p>
+                `
+                : ""
+              }
+
+              <p>
+                Please use your tracking number on the
+                JESTILO Delivery Service website to view
+                the latest available shipment information.
+              </p>
+
+            `
+          })
+        }
+      );
+
 
     if (!response.ok) {
-      const errorText = await response.text();
+
+      const errorText =
+        await response.text();
 
       console.error(
         "Resend email failed:",
@@ -232,9 +488,11 @@ async function sendShipmentEmail(shipment) {
       return;
     }
 
+
     console.log(
       "Shipment notification email sent."
     );
+
 
   } catch (error) {
 
@@ -244,30 +502,25 @@ async function sendShipmentEmail(shipment) {
     );
 
   }
+
 }
 
-function auth(req, res, next) {
 
-  const token =
-    (req.headers.authorization || "")
-      .replace("Bearer ", "");
-
-  if (!sessions.has(token)) {
-
-    return res.status(401).json({
-      error: "Unauthorized"
-    });
-
-  }
-
-  next();
-}
+/* =========================================
+   ADMIN LOGIN
+========================================= */
 
 app.post(
   "/api/admin/login",
   (req, res) => {
 
-    if (req.body.password !== PASSWORD) {
+    const password =
+      String(
+        req.body?.password || ""
+      );
+
+
+    if (password !== PASSWORD) {
 
       return res.status(401).json({
         error: "Invalid password"
@@ -275,15 +528,22 @@ app.post(
 
     }
 
+
     const token =
-      crypto.randomBytes(32).toString("hex");
+      createAdminToken();
 
-    sessions.add(token);
 
-    res.json({ token });
+    res.json({
+      token
+    });
 
   }
 );
+
+
+/* =========================================
+   CUSTOMER TRACKING
+========================================= */
 
 app.get(
   "/api/shipments/:code",
@@ -292,19 +552,35 @@ app.get(
     try {
 
       const code =
-        req.params.code.toUpperCase();
+        req.params.code
+          .trim()
+          .toUpperCase();
+
 
       const result =
         await pool.query(
-          "SELECT * FROM shipments WHERE code = $1",
+          `
+          SELECT *
+          FROM shipments
+          WHERE code = $1
+          `,
           [code]
         );
 
-      if (result.rows.length === 0) {
+
+      if (
+        result.rows.length === 0
+      ) {
+
         return res.sendStatus(404);
+
       }
 
-      res.json(result.rows[0]);
+
+      res.json(
+        result.rows[0]
+      );
+
 
     } catch (error) {
 
@@ -318,6 +594,11 @@ app.get(
 
   }
 );
+
+
+/* =========================================
+   ADMIN — LIST SHIPMENTS
+========================================= */
 
 app.get(
   "/api/admin/shipments",
@@ -328,10 +609,18 @@ app.get(
 
       const result =
         await pool.query(
-          "SELECT * FROM shipments ORDER BY updated DESC"
+          `
+          SELECT *
+          FROM shipments
+          ORDER BY updated DESC
+          `
         );
 
-      res.json(result.rows);
+
+      res.json(
+        result.rows
+      );
+
 
     } catch (error) {
 
@@ -346,6 +635,11 @@ app.get(
   }
 );
 
+
+/* =========================================
+   ADMIN — CREATE / UPDATE SHIPMENT
+========================================= */
+
 app.post(
   "/api/admin/shipments",
   auth,
@@ -353,20 +647,31 @@ app.post(
 
     try {
 
-      const data = req.body || {};
+      const data =
+        req.body || {};
+
 
       const code =
-        String(data.code || "")
+        String(
+          data.code || ""
+        )
           .trim()
           .toUpperCase();
+
 
       if (!code) {
 
         return res.status(400).json({
-          error: "Tracking number required"
+          error:
+            "Tracking number required"
         });
 
       }
+
+
+      /* -------------------------
+         LATITUDE
+      ------------------------- */
 
       const latitude =
         data.latitude === "" ||
@@ -375,6 +680,11 @@ app.post(
           ? null
           : Number(data.latitude);
 
+
+      /* -------------------------
+         LONGITUDE
+      ------------------------- */
+
       const longitude =
         data.longitude === "" ||
         data.longitude === null ||
@@ -382,68 +692,103 @@ app.post(
           ? null
           : Number(data.longitude);
 
+
+      /* -------------------------
+         VALIDATE LATITUDE
+      ------------------------- */
+
       if (
         latitude !== null &&
-        (!Number.isFinite(latitude) ||
-         latitude < -90 ||
-         latitude > 90)
+        (
+          !Number.isFinite(latitude) ||
+          latitude < -90 ||
+          latitude > 90
+        )
       ) {
 
         return res.status(400).json({
-          error: "Invalid latitude"
+          error:
+            "Invalid latitude"
         });
 
       }
+
+
+      /* -------------------------
+         VALIDATE LONGITUDE
+      ------------------------- */
 
       if (
         longitude !== null &&
-        (!Number.isFinite(longitude) ||
-         longitude < -180 ||
-         longitude > 180)
+        (
+          !Number.isFinite(longitude) ||
+          longitude < -180 ||
+          longitude > 180
+        )
       ) {
 
         return res.status(400).json({
-          error: "Invalid longitude"
+          error:
+            "Invalid longitude"
         });
 
       }
+
 
       const shipment = {
 
         code,
 
         customer:
-          String(data.customer || ""),
+          String(
+            data.customer || ""
+          ).trim(),
 
         email:
-          String(data.email || "").trim(),
+          String(
+            data.email || ""
+          ).trim(),
 
         whatsapp:
-          String(data.whatsapp || "").trim(),
+          String(
+            data.whatsapp || ""
+          ).trim(),
 
         item_name:
-          String(data.item_name || "").trim(),
+          String(
+            data.item_name || ""
+          ).trim(),
 
         item_description:
-          String(data.item_description || "").trim(),
+          String(
+            data.item_description || ""
+          ).trim(),
 
         image_url:
-          String(data.image_url || "").trim(),
+          String(
+            data.image_url || ""
+          ).trim(),
 
         origin:
-          String(data.origin || "").trim(),
+          String(
+            data.origin || ""
+          ).trim(),
 
         destination:
-          String(data.destination || "").trim(),
+          String(
+            data.destination || ""
+          ).trim(),
 
         status:
           String(
             data.status ||
             "Order received"
-          ),
+          ).trim(),
 
         location:
-          String(data.location || "").trim(),
+          String(
+            data.location || ""
+          ).trim(),
 
         latitude,
 
@@ -455,12 +800,15 @@ app.post(
           ).trim(),
 
         note:
-          String(data.note || "").trim(),
+          String(
+            data.note || ""
+          ).trim(),
 
         updated:
           new Date().toISOString()
 
       };
+
 
       await pool.query(
 
@@ -562,22 +910,43 @@ app.post(
 
       );
 
-      await sendShipmentEmail(shipment);
 
-      res.json(shipment);
+      /*
+        Send notification after successful
+        database save.
+      */
+
+      await sendShipmentEmail(
+        shipment
+      );
+
+
+      res.json(
+        shipment
+      );
+
 
     } catch (error) {
 
-      console.error(error);
+      console.error(
+        "Save shipment error:",
+        error
+      );
 
       res.status(500).json({
-        error: "Could not save shipment"
+        error:
+          "Could not save shipment"
       });
 
     }
 
   }
 );
+
+
+/* =========================================
+   ADMIN — DELETE SHIPMENT
+========================================= */
 
 app.delete(
   "/api/admin/shipments/:code",
@@ -586,19 +955,31 @@ app.delete(
 
     try {
 
+      const code =
+        req.params.code
+          .trim()
+          .toUpperCase();
+
+
       await pool.query(
-        "DELETE FROM shipments WHERE code = $1",
-        [req.params.code.toUpperCase()]
+        `
+        DELETE FROM shipments
+        WHERE code = $1
+        `,
+        [code]
       );
 
+
       res.sendStatus(204);
+
 
     } catch (error) {
 
       console.error(error);
 
       res.status(500).json({
-        error: "Could not delete shipment"
+        error:
+          "Could not delete shipment"
       });
 
     }
@@ -606,8 +987,14 @@ app.delete(
   }
 );
 
+
+/* =========================================
+   START SERVER
+========================================= */
+
 const port =
   process.env.PORT || 3000;
+
 
 setupDatabase()
 
