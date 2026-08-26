@@ -557,6 +557,8 @@ section{
   border:1px solid #e4e8eb;
   border-radius:12px;
   padding:20px;
+  position:relative;
+  z-index:1;
 }
 
 .shipment-map-title{
@@ -574,15 +576,59 @@ section{
 #shipmentMap{
   width:100%;
   height:430px;
+  min-height:330px;
   border-radius:10px;
   overflow:hidden;
   background:#e9edf0;
+  position:relative;
+  z-index:1;
+}
+
+#shipmentMap .leaflet-container{
+  width:100%;
+  height:100%;
 }
 
 .shipment-map-status{
   margin-top:12px;
   color:#6d7780;
   font-size:13px;
+}
+
+/* EXTRA MAP DETAILS */
+
+.map-route-summary{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-bottom:15px;
+  padding:14px 16px;
+  background:#f7f8f9;
+  border-radius:8px;
+  flex-wrap:wrap;
+}
+
+.map-route-point{
+  flex:1;
+  min-width:140px;
+}
+
+.map-route-point small{
+  display:block;
+  color:#7c858d;
+  font-size:12px;
+  margin-bottom:4px;
+}
+
+.map-route-point strong{
+  font-size:14px;
+}
+
+.map-route-arrow{
+  color:#f47b20;
+  font-size:22px;
+  font-weight:bold;
 }
 
 .timeline{
@@ -879,6 +925,17 @@ footer a{
 
   #shipmentMap{
     height:330px;
+    min-height:330px;
+  }
+
+  .map-route-summary{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .map-route-arrow{
+    text-align:center;
+    transform:rotate(90deg);
   }
 }
 </style>
@@ -1572,7 +1629,7 @@ footer a{
 
       </div>
 
-      <!-- MAP IS NOW INSIDE THE TRACKING RESULT -->
+      <!-- MAP -->
 
       <div
         id="shipmentMapBox"
@@ -1587,6 +1644,60 @@ footer a{
         <p class="shipment-map-description">
           View the current shipment position on the map.
         </p>
+
+        <!-- ADDED: ROUTE INFORMATION -->
+
+        <div
+          id="mapRouteSummary"
+          class="map-route-summary"
+          style="display:none;"
+        >
+
+          <div class="map-route-point">
+
+            <small>
+              Origin
+            </small>
+
+            <strong id="mapOrigin">
+              -
+            </strong>
+
+          </div>
+
+          <div class="map-route-arrow">
+            →
+          </div>
+
+          <div class="map-route-point">
+
+            <small>
+              Current location
+            </small>
+
+            <strong id="mapCurrentLocation">
+              -
+            </strong>
+
+          </div>
+
+          <div class="map-route-arrow">
+            →
+          </div>
+
+          <div class="map-route-point">
+
+            <small>
+              Destination
+            </small>
+
+            <strong id="mapDestination">
+              -
+            </strong>
+
+          </div>
+
+        </div>
 
         <div id="shipmentMap"></div>
 
@@ -2096,15 +2207,27 @@ async function trackShipment(){
     );
 
 
-    /* MAP */
+    /*
+      IMPORTANT MAP FIX
+
+      The result section is made visible
+      BEFORE Leaflet initializes the map.
+
+      This prevents Leaflet from calculating
+      the map size while its container is hidden.
+    */
+
+    resultSection.style.display =
+      "block";
+
+
+    /*
+      Now show and initialize the map.
+    */
 
     showShipmentMap(
       shipment
     );
-
-
-    resultSection.style.display =
-      "block";
 
 
     resultSection.scrollIntoView({
@@ -2177,8 +2300,80 @@ function showShipmentMap(shipment){
   }
 
 
+  /*
+    SHOW MAP BOX FIRST
+  */
+
   mapBox.style.display =
     "block";
+
+
+  /*
+    ADD ROUTE SUMMARY
+
+    This uses the origin, current location
+    and destination information that already
+    exists in your shipment record.
+
+    Nothing is removed from the system.
+  */
+
+  const routeSummary =
+    document.getElementById(
+      "mapRouteSummary"
+    );
+
+  const mapOrigin =
+    document.getElementById(
+      "mapOrigin"
+    );
+
+  const mapCurrentLocation =
+    document.getElementById(
+      "mapCurrentLocation"
+    );
+
+  const mapDestination =
+    document.getElementById(
+      "mapDestination"
+    );
+
+
+  if(routeSummary){
+
+    routeSummary.style.display =
+      "flex";
+
+  }
+
+
+  if(mapOrigin){
+
+    mapOrigin.textContent =
+      shipment.origin ||
+      "Origin not specified";
+
+  }
+
+
+  if(mapCurrentLocation){
+
+    mapCurrentLocation.textContent =
+      shipment.location ||
+      latitude.toFixed(5) +
+      ", " +
+      longitude.toFixed(5);
+
+  }
+
+
+  if(mapDestination){
+
+    mapDestination.textContent =
+      shipment.destination ||
+      "Destination not specified";
+
+  }
 
 
   const position = [
@@ -2188,7 +2383,7 @@ function showShipmentMap(shipment){
 
 
   /*
-    Create map only once.
+    CREATE MAP ONLY ONCE
   */
 
   if(!shipmentMap){
@@ -2197,7 +2392,8 @@ function showShipmentMap(shipment){
       L.map(
         "shipmentMap",
         {
-          zoomControl:true
+          zoomControl:true,
+          attributionControl:true
         }
       );
 
@@ -2206,6 +2402,7 @@ function showShipmentMap(shipment){
       "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
       {
         maxZoom:19,
+        minZoom:2,
         attribution:
           '&copy; OpenStreetMap contributors'
       }
@@ -2217,7 +2414,7 @@ function showShipmentMap(shipment){
 
 
   /*
-    Move existing marker or create it.
+    MOVE EXISTING MARKER OR CREATE IT
   */
 
   if(!shipmentMarker){
@@ -2230,7 +2427,8 @@ function showShipmentMap(shipment){
         shipmentMap
       )
       .bindPopup(
-        "<strong>📦 JESTILO Shipment</strong><br>Current shipment location"
+        "<strong>📦 JESTILO Shipment</strong><br>" +
+        "Current shipment location"
       );
 
   }else{
@@ -2242,23 +2440,87 @@ function showShipmentMap(shipment){
   }
 
 
+  /*
+    CENTER MAP ON SHIPMENT
+  */
+
   shipmentMap.setView(
     position,
-    6
+    6,
+    {
+      animate:false
+    }
   );
 
 
   /*
-    Fix Leaflet rendering when
-    the map becomes visible.
+    FORCE LEAFLET TO RECALCULATE
+    THE SIZE OF THE VISIBLE MAP.
+
+    This is the important part that fixes
+    blank/partially-rendered maps.
   */
 
   setTimeout(function(){
 
-    shipmentMap.invalidateSize();
+    if(shipmentMap){
 
-  },300);
+      shipmentMap.invalidateSize(
+        true
+      );
 
+      shipmentMap.setView(
+        position,
+        6,
+        {
+          animate:false
+        }
+      );
+
+    }
+
+  },100);
+
+
+  /*
+    SECOND SIZE FIX AFTER THE
+    BROWSER HAS FINISHED PAINTING.
+  */
+
+  setTimeout(function(){
+
+    if(shipmentMap){
+
+      shipmentMap.invalidateSize(
+        true
+      );
+
+    }
+
+  },500);
+
+
+  /*
+    THIRD SIZE FIX FOR SLOW PHONES
+    AND SLOW CONNECTIONS.
+  */
+
+  setTimeout(function(){
+
+    if(shipmentMap){
+
+      shipmentMap.invalidateSize(
+        true
+      );
+
+    }
+
+  },1200);
+
+
+  /*
+    SHOW COORDINATES
+  */
 
   status.innerHTML =
     "📍 Current shipment coordinates: " +
@@ -2456,6 +2718,30 @@ function updateTimeline(status){
   }
 
 }
+
+
+/* =========================
+   WINDOW RESIZE MAP FIX
+   ========================= */
+
+window.addEventListener(
+  "resize",
+  function(){
+
+    if(shipmentMap){
+
+      setTimeout(function(){
+
+        shipmentMap.invalidateSize(
+          true
+        );
+
+      },200);
+
+    }
+
+  }
+);
 
 
 /* =========================
