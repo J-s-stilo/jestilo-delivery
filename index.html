@@ -1645,7 +1645,7 @@ footer a{
           View the current shipment position on the map.
         </p>
 
-        <!-- ADDED: ROUTE INFORMATION -->
+        <!-- ROUTE INFORMATION -->
 
         <div
           id="mapRouteSummary"
@@ -2260,268 +2260,202 @@ async function trackShipment(){
 
 function showShipmentMap(shipment){
 
-  const mapBox =
-    document.getElementById(
-      "shipmentMapBox"
-    );
+  const mapBox = document.getElementById("shipmentMapBox");
+  const status = document.getElementById("shipmentMapStatus");
 
-  const status =
-    document.getElementById(
-      "shipmentMapStatus"
-    );
-
-
-  const latitude =
-    parseFloat(
-      shipment.latitude
-    );
-
-  const longitude =
-    parseFloat(
-      shipment.longitude
-    );
-
+  const latitude = Number(shipment.latitude);
+  const longitude = Number(shipment.longitude);
 
   /*
-    If the shipment has no coordinates,
-    hide the map.
+    No coordinates from admin:
+    keep the rest of the tracking page,
+    but don't show an empty map.
   */
-
-  if(
+  if (
     !Number.isFinite(latitude) ||
-    !Number.isFinite(longitude)
-  ){
-
-    mapBox.style.display =
-      "none";
-
+    !Number.isFinite(longitude) ||
+    latitude < -90 ||
+    latitude > 90 ||
+    longitude < -180 ||
+    longitude > 180
+  ) {
+    mapBox.style.display = "none";
     return;
-
   }
 
-
   /*
-    SHOW MAP BOX FIRST
+    SHOW THE MAP BOX BEFORE LEAFLET
+    CALCULATES ITS SIZE.
   */
+  mapBox.style.display = "block";
 
-  mapBox.style.display =
-    "block";
-
-
-  /*
-    ADD ROUTE SUMMARY
-
-    This uses the origin, current location
-    and destination information that already
-    exists in your shipment record.
-
-    Nothing is removed from the system.
-  */
+  /* ROUTE INFORMATION */
 
   const routeSummary =
-    document.getElementById(
-      "mapRouteSummary"
-    );
+    document.getElementById("mapRouteSummary");
 
   const mapOrigin =
-    document.getElementById(
-      "mapOrigin"
-    );
+    document.getElementById("mapOrigin");
 
   const mapCurrentLocation =
-    document.getElementById(
-      "mapCurrentLocation"
-    );
+    document.getElementById("mapCurrentLocation");
 
   const mapDestination =
-    document.getElementById(
-      "mapDestination"
-    );
-
+    document.getElementById("mapDestination");
 
   if(routeSummary){
-
-    routeSummary.style.display =
-      "flex";
-
+    routeSummary.style.display = "flex";
   }
-
 
   if(mapOrigin){
-
     mapOrigin.textContent =
-      shipment.origin ||
-      "Origin not specified";
-
+      shipment.origin || "Origin not specified";
   }
-
 
   if(mapCurrentLocation){
-
     mapCurrentLocation.textContent =
       shipment.location ||
-      latitude.toFixed(5) +
-      ", " +
-      longitude.toFixed(5);
-
+      latitude.toFixed(5) + ", " + longitude.toFixed(5);
   }
-
 
   if(mapDestination){
-
     mapDestination.textContent =
-      shipment.destination ||
-      "Destination not specified";
-
+      shipment.destination || "Destination not specified";
   }
 
+  /*
+    MAKE SURE LEAFLET HAS LOADED
+  */
+  if(typeof L === "undefined"){
+
+    status.textContent =
+      "Map could not load. Please refresh the page.";
+
+    return;
+  }
 
   const position = [
     latitude,
     longitude
   ];
 
-
   /*
-    CREATE MAP ONLY ONCE
+    CREATE MAP THE FIRST TIME
   */
-
   if(!shipmentMap){
 
-    shipmentMap =
-      L.map(
-        "shipmentMap",
-        {
-          zoomControl:true,
-          attributionControl:true
-        }
-      );
-
+    shipmentMap = L.map(
+      "shipmentMap",
+      {
+        zoomControl: true,
+        attributionControl: true
+      }
+    );
 
     L.tileLayer(
       "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
       {
-        maxZoom:19,
-        minZoom:2,
+        maxZoom: 19,
+        minZoom: 2,
         attribution:
-          '&copy; OpenStreetMap contributors'
+          "&copy; OpenStreetMap contributors"
       }
-    ).addTo(
-      shipmentMap
-    );
-
+    ).addTo(shipmentMap);
   }
 
-
   /*
-    MOVE EXISTING MARKER OR CREATE IT
+    CREATE MARKER OR MOVE EXISTING MARKER
   */
-
   if(!shipmentMarker){
 
-    shipmentMarker =
-      L.marker(
-        position
-      )
-      .addTo(
-        shipmentMap
-      )
-      .bindPopup(
-        "<strong>📦 JESTILO Shipment</strong><br>" +
-        "Current shipment location"
-      );
+    shipmentMarker = L.marker(position)
+      .addTo(shipmentMap);
 
   }else{
 
-    shipmentMarker.setLatLng(
-      position
-    );
+    shipmentMarker.setLatLng(position);
 
   }
 
+  /*
+    UPDATE MARKER INFORMATION
+  */
+  shipmentMarker.bindPopup(
+    "<strong>📦 JESTILO Shipment</strong><br>" +
+    "Current shipment location<br><br>" +
+    "<strong>Coordinates:</strong><br>" +
+    latitude.toFixed(5) +
+    ", " +
+    longitude.toFixed(5)
+  );
 
   /*
-    CENTER MAP ON SHIPMENT
+    CENTER MAP ON THE ADMIN-SUPPLIED
+    LATITUDE AND LONGITUDE.
   */
-
   shipmentMap.setView(
     position,
     6,
     {
-      animate:false
+      animate: false
     }
   );
 
+  /*
+    LEAFLET NEEDS THE MAP TO BE INVALIDATED
+    AFTER THE HIDDEN SECTION BECOMES VISIBLE.
+  */
+  requestAnimationFrame(function(){
+
+    shipmentMap.invalidateSize(true);
+
+    shipmentMap.setView(
+      position,
+      6,
+      {
+        animate: false
+      }
+    );
+
+  });
 
   /*
-    FORCE LEAFLET TO RECALCULATE
-    THE SIZE OF THE VISIBLE MAP.
-
-    This is the important part that fixes
-    blank/partially-rendered maps.
+    EXTRA FIX FOR ANDROID/CHROME AND
+    SLOW CONNECTIONS.
   */
+  setTimeout(function(){
+
+    if(shipmentMap){
+
+      shipmentMap.invalidateSize(true);
+
+    }
+
+  }, 300);
+
 
   setTimeout(function(){
 
     if(shipmentMap){
 
-      shipmentMap.invalidateSize(
-        true
-      );
+      shipmentMap.invalidateSize(true);
 
       shipmentMap.setView(
         position,
         6,
         {
-          animate:false
+          animate: false
         }
       );
 
     }
 
-  },100);
+  }, 1000);
 
 
   /*
-    SECOND SIZE FIX AFTER THE
-    BROWSER HAS FINISHED PAINTING.
+    SHOW COORDINATES UNDER THE MAP.
   */
-
-  setTimeout(function(){
-
-    if(shipmentMap){
-
-      shipmentMap.invalidateSize(
-        true
-      );
-
-    }
-
-  },500);
-
-
-  /*
-    THIRD SIZE FIX FOR SLOW PHONES
-    AND SLOW CONNECTIONS.
-  */
-
-  setTimeout(function(){
-
-    if(shipmentMap){
-
-      shipmentMap.invalidateSize(
-        true
-      );
-
-    }
-
-  },1200);
-
-
-  /*
-    SHOW COORDINATES
-  */
-
   status.innerHTML =
     "📍 Current shipment coordinates: " +
     latitude.toFixed(5) +
