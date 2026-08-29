@@ -2256,38 +2256,53 @@ async function trackShipment(){
 
 /* =========================
    MAP
-   ========================= */
-
+   =============
 function showShipmentMap(shipment){
 
-  const mapBox = document.getElementById("shipmentMapBox");
-  const status = document.getElementById("shipmentMapStatus");
+  const mapBox =
+    document.getElementById("shipmentMapBox");
+
+  const status =
+    document.getElementById("shipmentMapStatus");
+
+  /*
+    USE THE COORDINATES BELONGING TO THIS SHIPMENT.
+    No customer/location is hard-coded here.
+  */
 
   const latitude = Number(shipment.latitude);
   const longitude = Number(shipment.longitude);
 
   /*
-    No coordinates from admin:
-    keep the rest of the tracking page,
-    but don't show an empty map.
+    If this shipment does not have valid coordinates,
+    don't create a fake location.
   */
-  if (
+
+  if(
     !Number.isFinite(latitude) ||
     !Number.isFinite(longitude) ||
     latitude < -90 ||
     latitude > 90 ||
     longitude < -180 ||
     longitude > 180
-  ) {
+  ){
+
     mapBox.style.display = "none";
+
+    if(status){
+      status.textContent =
+        "Shipment location is not currently available.";
+    }
+
     return;
   }
 
   /*
-    SHOW THE MAP BOX BEFORE LEAFLET
-    CALCULATES ITS SIZE.
+    SHOW MAP
   */
+
   mapBox.style.display = "block";
+
 
   /* ROUTE INFORMATION */
 
@@ -2303,29 +2318,37 @@ function showShipmentMap(shipment){
   const mapDestination =
     document.getElementById("mapDestination");
 
+
   if(routeSummary){
     routeSummary.style.display = "flex";
   }
 
+
   if(mapOrigin){
     mapOrigin.textContent =
-      shipment.origin || "Origin not specified";
+      shipment.origin ||
+      "Origin not specified";
   }
+
 
   if(mapCurrentLocation){
     mapCurrentLocation.textContent =
       shipment.location ||
-      latitude.toFixed(5) + ", " + longitude.toFixed(5);
+      "Current location not specified";
   }
+
 
   if(mapDestination){
     mapDestination.textContent =
-      shipment.destination || "Destination not specified";
+      shipment.destination ||
+      "Destination not specified";
   }
+
 
   /*
     MAKE SURE LEAFLET HAS LOADED
   */
+
   if(typeof L === "undefined"){
 
     status.textContent =
@@ -2334,42 +2357,49 @@ function showShipmentMap(shipment){
     return;
   }
 
+
   const position = [
     latitude,
     longitude
   ];
 
+
   /*
     CREATE MAP THE FIRST TIME
   */
+
   if(!shipmentMap){
 
-    shipmentMap = L.map(
-      "shipmentMap",
-      {
-        zoomControl: true,
-        attributionControl: true
-      }
-    );
+    shipmentMap =
+      L.map(
+        "shipmentMap",
+        {
+          zoomControl:true,
+          attributionControl:true
+        }
+      );
 
     L.tileLayer(
       "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
       {
-        maxZoom: 19,
-        minZoom: 2,
+        maxZoom:19,
+        minZoom:2,
         attribution:
           "&copy; OpenStreetMap contributors"
       }
     ).addTo(shipmentMap);
   }
 
+
   /*
-    CREATE MARKER OR MOVE EXISTING MARKER
+    CREATE OR MOVE MARKER
   */
+
   if(!shipmentMarker){
 
-    shipmentMarker = L.marker(position)
-      .addTo(shipmentMap);
+    shipmentMarker =
+      L.marker(position)
+        .addTo(shipmentMap);
 
   }else{
 
@@ -2377,52 +2407,60 @@ function showShipmentMap(shipment){
 
   }
 
+
   /*
-    UPDATE MARKER INFORMATION
+    POPUP USES THIS SHIPMENT'S INFORMATION
   */
+
   shipmentMarker.bindPopup(
     "<strong>📦 JESTILO Shipment</strong><br>" +
     "Current shipment location<br><br>" +
+    "<strong>Location:</strong><br>" +
+    (shipment.location || "Not specified") +
+    "<br><br>" +
     "<strong>Coordinates:</strong><br>" +
     latitude.toFixed(5) +
     ", " +
     longitude.toFixed(5)
   );
 
+
   /*
-    CENTER MAP ON THE ADMIN-SUPPLIED
-    LATITUDE AND LONGITUDE.
+    CENTER MAP ON THIS SHIPMENT
   */
+
   shipmentMap.setView(
     position,
-    6,
+    12,
     {
-      animate: false
+      animate:false
     }
   );
 
-  /*
-    LEAFLET NEEDS THE MAP TO BE INVALIDATED
-    AFTER THE HIDDEN SECTION BECOMES VISIBLE.
-  */
+
   requestAnimationFrame(function(){
 
-    shipmentMap.invalidateSize(true);
+    if(shipmentMap){
 
-    shipmentMap.setView(
-      position,
-      6,
-      {
-        animate: false
-      }
-    );
+      shipmentMap.invalidateSize(true);
+
+      shipmentMap.setView(
+        position,
+        12,
+        {
+          animate:false
+        }
+      );
+
+    }
 
   });
 
+
   /*
-    EXTRA FIX FOR ANDROID/CHROME AND
-    SLOW CONNECTIONS.
+    ANDROID / CHROME MAP FIX
   */
+
   setTimeout(function(){
 
     if(shipmentMap){
@@ -2431,7 +2469,7 @@ function showShipmentMap(shipment){
 
     }
 
-  }, 300);
+  },300);
 
 
   setTimeout(function(){
@@ -2442,20 +2480,21 @@ function showShipmentMap(shipment){
 
       shipmentMap.setView(
         position,
-        6,
+        12,
         {
-          animate: false
+          animate:false
         }
       );
 
     }
 
-  }, 1000);
+  },1000);
 
 
   /*
-    SHOW COORDINATES UNDER THE MAP.
+    SHOW THIS SHIPMENT'S ACTUAL COORDINATES
   */
+
   status.innerHTML =
     "📍 Current shipment coordinates: " +
     latitude.toFixed(5) +
@@ -2463,6 +2502,7 @@ function showShipmentMap(shipment){
     longitude.toFixed(5);
 
 }
+
 
 
 /* =========================
