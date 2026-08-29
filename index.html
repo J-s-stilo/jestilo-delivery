@@ -2252,6 +2252,7 @@ async function trackShipment(){
   }
 
 }
+
 /* =========================
    MAP
    ========================= */
@@ -2264,18 +2265,25 @@ function showShipmentMap(shipment){
   const status =
     document.getElementById("shipmentMapStatus");
 
-  /*
-    USE THE COORDINATES BELONGING TO THIS SHIPMENT.
-    No customer/location is hard-coded here.
-  */
+  const routeSummary =
+    document.getElementById("mapRouteSummary");
 
-  const latitude = Number(shipment.latitude);
-  const longitude = Number(shipment.longitude);
+  const mapOrigin =
+    document.getElementById("mapOrigin");
 
-  /*
-    If this shipment does not have valid coordinates,
-    don't create a fake location.
-  */
+  const mapCurrentLocation =
+    document.getElementById("mapCurrentLocation");
+
+  const mapDestination =
+    document.getElementById("mapDestination");
+
+
+  const latitude =
+    Number(shipment.latitude);
+
+  const longitude =
+    Number(shipment.longitude);
+
 
   if(
     !Number.isFinite(latitude) ||
@@ -2296,26 +2304,8 @@ function showShipmentMap(shipment){
     return;
   }
 
-  /*
-    SHOW MAP
-  */
 
   mapBox.style.display = "block";
-
-
-  /* ROUTE INFORMATION */
-
-  const routeSummary =
-    document.getElementById("mapRouteSummary");
-
-  const mapOrigin =
-    document.getElementById("mapOrigin");
-
-  const mapCurrentLocation =
-    document.getElementById("mapCurrentLocation");
-
-  const mapDestination =
-    document.getElementById("mapDestination");
 
 
   if(routeSummary){
@@ -2333,7 +2323,7 @@ function showShipmentMap(shipment){
   if(mapCurrentLocation){
     mapCurrentLocation.textContent =
       shipment.location ||
-      "Current location not specified";
+      "Current location";
   }
 
 
@@ -2344,28 +2334,16 @@ function showShipmentMap(shipment){
   }
 
 
-  /*
-    MAKE SURE LEAFLET HAS LOADED
-  */
-
   if(typeof L === "undefined"){
 
-    status.textContent =
-      "Map could not load. Please refresh the page.";
+    if(status){
+      status.textContent =
+        "Map could not load. Please refresh the page.";
+    }
 
     return;
   }
 
-
-  const position = [
-    latitude,
-    longitude
-  ];
-
-
-  /*
-    CREATE MAP THE FIRST TIME
-  */
 
   if(!shipmentMap){
 
@@ -2378,6 +2356,7 @@ function showShipmentMap(shipment){
         }
       );
 
+
     L.tileLayer(
       "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
       {
@@ -2387,120 +2366,406 @@ function showShipmentMap(shipment){
           "&copy; OpenStreetMap contributors"
       }
     ).addTo(shipmentMap);
-  }
-
-
-  /*
-    CREATE OR MOVE MARKER
-  */
-
-  if(!shipmentMarker){
-
-    shipmentMarker =
-      L.marker(position)
-        .addTo(shipmentMap);
-
-  }else{
-
-    shipmentMarker.setLatLng(position);
 
   }
 
 
-  /*
-    POPUP USES THIS SHIPMENT'S INFORMATION
-  */
+  if(window.shipmentMapLayers){
+
+    window.shipmentMapLayers.forEach(
+      function(layer){
+
+        try{
+          shipmentMap.removeLayer(layer);
+        }catch(e){}
+
+      }
+    );
+
+  }
+
+
+  window.shipmentMapLayers = [];
+
+
+  const currentPosition = [
+    latitude,
+    longitude
+  ];
+
+
+  async function geocodeLocation(location){
+
+    if(!location){
+      return null;
+    }
+
+
+    try{
+
+      const url =
+        "https://nominatim.openstreetmap.org/search" +
+        "?format=json" +
+        "&limit=1" +
+        "&q=" +
+        encodeURIComponent(location);
+
+
+      const response =
+        await fetch(url);
+
+
+      if(!response.ok){
+        return null;
+      }
+
+
+      const results =
+        await response.json();
+
+
+      if(
+        !Array.isArray(results) ||
+        results.length === 0
+      ){
+        return null;
+      }
+
+
+      const lat =
+        Number(results[0].lat);
+
+      const lon =
+        Number(results[0].lon);
+
+
+      if(
+        !Number.isFinite(lat) ||
+        !Number.isFinite(lon)
+      ){
+        return null;
+      }
+
+
+      return {
+        lat,
+        lon,
+        display:
+          results[0].display_name || location
+      };
+
+
+    }catch(error){
+
+      console.error(
+        "Location lookup failed:",
+        error
+      );
+
+      return null;
+
+    }
+
+  }
+
+
+  if(status){
+    status.textContent =
+      "📍 Loading shipment route...";
+  }
+
+
+  const originResult =
+    await geocodeLocation(
+      shipment.origin
+    );
+
+
+  const destinationResult =
+    await geocodeLocation(
+      shipment.destination
+    );
+
+
+  if(originResult){
+
+    const originPosition = [
+      originResult.lat,
+      originResult.lon
+    ];
+
+
+    const originMarker =
+      L.marker(
+        originPosition
+      ).addTo(shipmentMap);
+
+
+    originMarker.bindPopup(
+
+      "<strong>🟢 Shipment Origin</strong><br><br>" +
+
+      "<strong>From:</strong><br>" +
+
+      escapeMapHtml(
+        shipment.origin ||
+        originResult.display
+      )
+
+    );
+
+
+    window.shipmentMapLayers.push(
+      originMarker
+    );
+
+  }
+
+
+  shipmentMarker =
+    L.marker(
+      currentPosition
+    ).addTo(shipmentMap);
+
 
   shipmentMarker.bindPopup(
-    "<strong>📦 JESTILO Shipment</strong><br>" +
-    "Current shipment location<br><br>" +
-    "<strong>Location:</strong><br>" +
-    (shipment.location || "Not specified") +
+
+    "<strong>📦 JESTILO Shipment</strong><br><br>" +
+
+    "<strong>Current location:</strong><br>" +
+
+    escapeMapHtml(
+      shipment.location ||
+      "Current shipment position"
+    ) +
+
     "<br><br>" +
+
     "<strong>Coordinates:</strong><br>" +
+
     latitude.toFixed(5) +
     ", " +
     longitude.toFixed(5)
+
   );
 
 
-  /*
-    CENTER MAP ON THIS SHIPMENT
-  */
+  window.shipmentMapLayers.push(
+    shipmentMarker
+  );
 
-  shipmentMap.setView(
-    position,
-    12,
-    {
-      animate:false
+
+  if(destinationResult){
+
+    const destinationPosition = [
+      destinationResult.lat,
+      destinationResult.lon
+    ];
+
+
+    const destinationMarker =
+      L.marker(
+        destinationPosition
+      ).addTo(shipmentMap);
+
+
+    destinationMarker.bindPopup(
+
+      "<strong>🔴 Shipment Destination</strong><br><br>" +
+
+      "<strong>To:</strong><br>" +
+
+      escapeMapHtml(
+        shipment.destination ||
+        destinationResult.display
+      )
+
+    );
+
+
+    window.shipmentMapLayers.push(
+      destinationMarker
+    );
+
+  }
+
+
+  const routePoints = [];
+
+
+  if(originResult){
+
+    routePoints.push([
+      originResult.lat,
+      originResult.lon
+    ]);
+
+  }
+
+
+  routePoints.push(
+    currentPosition
+  );
+
+
+  if(destinationResult){
+
+    routePoints.push([
+      destinationResult.lat,
+      destinationResult.lon
+    ]);
+
+  }
+
+
+  if(routePoints.length >= 2){
+
+    const routeLine =
+      L.polyline(
+        routePoints,
+        {
+          weight:4,
+          opacity:.85,
+          dashArray:"10 8"
+        }
+      ).addTo(shipmentMap);
+
+
+    window.shipmentMapLayers.push(
+      routeLine
+    );
+
+  }
+
+
+  const bounds =
+    L.latLngBounds(
+      routePoints
+    );
+
+
+  if(bounds.isValid()){
+
+    shipmentMap.fitBounds(
+      bounds,
+      {
+        padding:[45,45],
+        maxZoom:12,
+        animate:false
+      }
+    );
+
+  }else{
+
+    shipmentMap.setView(
+      currentPosition,
+      12,
+      {
+        animate:false
+      }
+    );
+
+  }
+
+
+  requestAnimationFrame(
+    function(){
+
+      if(shipmentMap){
+        shipmentMap.invalidateSize(true);
+      }
+
     }
   );
 
 
-  requestAnimationFrame(function(){
+  setTimeout(
+    function(){
 
-    if(shipmentMap){
+      if(shipmentMap){
+        shipmentMap.invalidateSize(true);
+      }
 
-      shipmentMap.invalidateSize(true);
-
-      shipmentMap.setView(
-        position,
-        12,
-        {
-          animate:false
-        }
-      );
-
-    }
-
-  });
+    },
+    300
+  );
 
 
-  /*
-    ANDROID / CHROME MAP FIX
-  */
+  setTimeout(
+    function(){
 
-  setTimeout(function(){
+      if(shipmentMap){
+        shipmentMap.invalidateSize(true);
+      }
 
-    if(shipmentMap){
-
-      shipmentMap.invalidateSize(true);
-
-    }
-
-  },300);
+    },
+    1000
+  );
 
 
-  setTimeout(function(){
-
-    if(shipmentMap){
-
-      shipmentMap.invalidateSize(true);
-
-      shipmentMap.setView(
-        position,
-        12,
-        {
-          animate:false
-        }
-      );
-
-    }
-
-  },1000);
-
-
-  /*
-    SHOW THIS SHIPMENT'S ACTUAL COORDINATES
-  */
-
-  status.innerHTML =
+  let statusText =
     "📍 Current shipment coordinates: " +
     latitude.toFixed(5) +
     ", " +
     longitude.toFixed(5);
 
+
+  if(originResult && destinationResult){
+
+    statusText +=
+      " • Origin and destination displayed.";
+
+  }else if(originResult){
+
+    statusText +=
+      " • Origin displayed; destination location unavailable.";
+
+  }else if(destinationResult){
+
+    statusText +=
+      " • Destination displayed; origin location unavailable.";
+
+  }else{
+
+    statusText +=
+      " • Origin/destination coordinates could not be located.";
+
+  }
+
+
+  if(status){
+    status.textContent =
+      statusText;
+  }
+
 }
+
+
+/* =========================
+   MAP POPUP SECURITY
+   ========================= */
+
+function escapeMapHtml(value){
+
+  return String(
+    value || ""
+  ).replace(
+    /[&<>"']/g,
+    function(m){
+
+      return {
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#039;"
+      }[m];
+
+    }
+  );
+
+}
+      
 
 
 
