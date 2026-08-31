@@ -63,6 +63,11 @@ button.clear{
   margin-left:8px;
 }
 
+button.edit{
+  background:#1769aa;
+  margin-right:6px;
+}
+
 .hidden{
   display:none;
 }
@@ -636,6 +641,122 @@ document
 
 
 /* =========================================
+   EDIT SHIPMENT
+   ONLY ADDED FUNCTION
+========================================= */
+
+function editShipment(encodedShipment){
+
+  try{
+
+    const shipment =
+      JSON.parse(
+        decodeURIComponent(
+          encodedShipment
+        )
+      );
+
+
+    document.getElementById("code").value =
+      shipment.code || "";
+
+    document.getElementById("customer").value =
+      shipment.customer || "";
+
+    document.getElementById("email").value =
+      shipment.email || "";
+
+    document.getElementById("whatsapp").value =
+      shipment.whatsapp || "";
+
+    document.getElementById("item_name").value =
+      shipment.item_name || "";
+
+    document.getElementById("item_description").value =
+      shipment.item_description || "";
+
+    document.getElementById("origin").value =
+      shipment.origin || "";
+
+    document.getElementById("destination").value =
+      shipment.destination || "";
+
+    document.getElementById("status").value =
+      shipment.status || "Order received";
+
+    document.getElementById("location").value =
+      shipment.location || "";
+
+    document.getElementById("latitude").value =
+      shipment.latitude ?? "";
+
+    document.getElementById("longitude").value =
+      shipment.longitude ?? "";
+
+    document.getElementById("estimated_delivery").value =
+      shipment.estimated_delivery || "";
+
+    document.getElementById("note").value =
+      shipment.note || "";
+
+
+    const preview =
+      document.getElementById(
+        "imagePreview"
+      );
+
+
+    if(shipment.image_url){
+
+      preview.src =
+        shipment.image_url;
+
+      preview.classList.remove(
+        "hidden"
+      );
+
+    }else{
+
+      preview.src = "";
+
+      preview.classList.add(
+        "hidden"
+      );
+
+    }
+
+
+    document
+      .getElementById("saveMessage")
+      .className =
+        "success";
+
+    document
+      .getElementById("saveMessage")
+      .textContent =
+        "Shipment loaded. Change the status and save.";
+
+
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    });
+
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "Could not load shipment for editing."
+    );
+
+  }
+
+}
+
+
+/* =========================================
    SAVE SHIPMENT
 ========================================= */
 
@@ -703,8 +824,7 @@ async function saveShipment(){
     destination:
       document
         .getElementById("destination")
-        .value
-        .trim(),
+        .value,
 
     status:
       document
@@ -784,12 +904,6 @@ async function saveShipment(){
         }
       );
 
-
-    /*
-      If the server rejects the token,
-      remove the old token and return
-      to login.
-    */
 
     if(response.status === 401){
 
@@ -968,7 +1082,15 @@ async function loadShipments(){
         </tr>
 
 
-        ${data.map(x => `
+        ${data.map(x => {
+
+          const shipmentData =
+            encodeURIComponent(
+              JSON.stringify(x)
+            );
+
+
+          return `
 
           <tr>
 
@@ -1011,6 +1133,16 @@ async function loadShipments(){
 
               <button
                 type="button"
+                class="edit"
+                onclick="editShipment(
+                  '${shipmentData}'
+                )"
+              >
+                Edit
+              </button>
+
+              <button
+                type="button"
                 class="delete"
                 onclick="deleteShipment(
                   '${encodeURIComponent(
@@ -1025,7 +1157,9 @@ async function loadShipments(){
 
           </tr>
 
-        `).join("")}
+          `;
+
+        }).join("")}
 
       </table>
 
