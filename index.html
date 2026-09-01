@@ -784,7 +784,9 @@ footer a{
   font-size:12px;
 }
 
-/* VIDEO */
+/* =========================
+   THREE VIDEOS
+   ========================= */
 
 .delivery-video{
   background:#f4f6f8;
@@ -803,10 +805,14 @@ footer a{
   line-height:1.7;
 }
 
+.video-gallery{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
 .video-box{
   position:relative;
-  max-width:1000px;
-  margin:auto;
   overflow:hidden;
   border-radius:16px;
   background:#101820;
@@ -816,8 +822,9 @@ footer a{
 .video-box video{
   display:block;
   width:100%;
-  height:520px;
+  height:360px;
   object-fit:cover;
+  background:#101820;
 }
 
 .video-message{
@@ -825,23 +832,112 @@ footer a{
   left:0;
   right:0;
   bottom:0;
-  padding:55px 25px 25px;
+  padding:55px 20px 20px;
   color:#fff;
   background:linear-gradient(
     transparent,
     rgba(0,0,0,.85)
   );
+  pointer-events:none;
 }
 
 .video-message strong{
   display:block;
-  font-size:20px;
-  margin-bottom:7px;
+  font-size:17px;
+  margin-bottom:6px;
 }
 
 .video-message span{
   color:#e1e6e9;
-  font-size:14px;
+  font-size:13px;
+}
+
+/* =========================
+   CUSTOMER TESTIMONIALS
+   ========================= */
+
+.customer-testimonials{
+  background:#fff;
+  padding:80px 0;
+}
+
+.testimonial-heading{
+  text-align:center;
+  margin-bottom:35px;
+}
+
+.testimonial-heading p{
+  color:#6d7780;
+  max-width:650px;
+  margin:0 auto;
+  line-height:1.7;
+}
+
+.testimonial-note{
+  color:#8a939a;
+  font-size:11px;
+  margin-top:10px;
+}
+
+.testimonial-display{
+  max-width:800px;
+  margin:auto;
+  position:relative;
+  min-height:245px;
+}
+
+.testimonial-card{
+  display:none;
+  background:#f7f8f9;
+  border:1px solid #e4e8eb;
+  border-radius:14px;
+  padding:35px;
+  text-align:center;
+  box-shadow:0 12px 30px rgba(0,0,0,.08);
+  animation:testimonialFade .7s ease;
+}
+
+.testimonial-card.active{
+  display:block;
+}
+
+.testimonial-stars{
+  color:#f47b20;
+  font-size:20px;
+  letter-spacing:3px;
+  margin-bottom:15px;
+}
+
+.testimonial-card p{
+  color:#4f5a63;
+  font-size:17px;
+  line-height:1.8;
+  margin:0 auto 20px;
+}
+
+.testimonial-card strong{
+  display:block;
+  font-size:16px;
+  color:#18202a;
+}
+
+.testimonial-card span{
+  display:block;
+  color:#7b858d;
+  font-size:13px;
+  margin-top:5px;
+}
+
+@keyframes testimonialFade{
+  from{
+    opacity:0;
+    transform:translateY(8px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
 
 /* RESPONSIVE */
@@ -863,6 +959,10 @@ footer a{
     grid-template-columns:1fr 1fr;
   }
 
+  .video-gallery{
+    grid-template-columns:1fr;
+  }
+
   .features-grid{
     grid-template-columns:1fr;
   }
@@ -878,6 +978,10 @@ footer a{
 
   .footer-grid{
     grid-template-columns:1fr;
+  }
+
+  .video-box video{
+    height:430px;
   }
 }
 
@@ -937,6 +1041,19 @@ footer a{
     text-align:center;
     transform:rotate(90deg);
   }
+
+  .video-box video{
+    height:300px;
+  }
+
+  .testimonial-card{
+    padding:28px 20px;
+  }
+
+  .testimonial-card p{
+    font-size:15px;
+  }
+
 }
 </style>
 </head>
@@ -1415,6 +1532,8 @@ footer a{
 
 </section>
 
+<!-- THREE DELIVERY VIDEOS -->
+
 <section class="delivery-video">
 
   <div class="container">
@@ -1436,34 +1555,271 @@ footer a{
 
     </div>
 
-    <div class="video-box">
+    <div class="video-gallery">
 
-      <video
-        autoplay
-        muted
-        loop
-        playsinline
-        controls
-        poster="https://images.unsplash.com/photo-1586528116493-da8b6f1b6c1c?auto=format&fit=crop&w=1600&q=90"
-      >
+      <!-- VIDEO 1 -->
 
-        <source
-          src="https://storage.googleapis.com/coverr-main/mp4/Mt_Baker.mp4"
-          type="video/mp4"
+      <div class="video-box">
+
+        <video
+          controls
+          playsinline
+          preload="metadata"
         >
 
-        Your browser does not support video playback.
+          <source
+            src="VID_20260825_200229_599.mp4"
+            type="video/mp4"
+          >
 
-      </video>
+          Your browser does not support video playback.
 
-      <div class="video-message">
+        </video>
+
+        <div class="video-message">
+
+          <strong>
+            📦 eGlobal DELIVERY SERVICE
+          </strong>
+
+          <span>
+            Your shipment is being handled with care.
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- VIDEO 2 -->
+
+      <div class="video-box">
+
+        <video
+          controls
+          playsinline
+          preload="metadata"
+        >
+
+          <source
+            src="VID_20260825_200229_379.mp4"
+            type="video/mp4"
+          >
+
+          Your browser does not support video playback.
+
+        </video>
+
+        <div class="video-message">
+
+          <strong>
+            🚚 eGlobal DELIVERY SERVICE
+          </strong>
+
+          <span>
+            Reliable delivery from sender to receiver.
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- VIDEO 3 -->
+
+      <div class="video-box">
+
+        <video
+          controls
+          playsinline
+          preload="metadata"
+        >
+
+          <source
+            src="VID_20260825_200228_938.mp4"
+            type="video/mp4"
+          >
+
+          Your browser does not support video playback.
+
+        </video>
+
+        <div class="video-message">
+
+          <strong>
+            🌍 eGlobal DELIVERY SERVICE
+          </strong>
+
+          <span>
+            Your shipment journey, handled with care.
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- CUSTOMER TESTIMONIALS -->
+
+<section class="customer-testimonials">
+
+  <div class="container">
+
+    <div class="testimonial-heading">
+
+      <div class="section-label">
+        CUSTOMER EXPERIENCES
+      </div>
+
+      <h2 class="section-title">
+        What Customers Say
+      </h2>
+
+      <p>
+        Sample customer feedback about the shipment
+        tracking experience.
+      </p>
+
+      <div class="testimonial-note">
+        Sample testimonials — replace with verified customer feedback when available.
+      </div>
+
+    </div>
+
+    <div class="testimonial-display">
+
+      <div class="testimonial-card active">
+
+        <div class="testimonial-stars">
+          ★★★★★
+        </div>
+
+        <p>
+          “The shipment tracking experience was simple
+          and easy to understand.”
+        </p>
 
         <strong>
-          📦 eGlobal DELIVERY SERVICE
+          Daniel M.
         </strong>
 
         <span>
-          Your shipment is being handled with care.
+          Customer
+        </span>
+
+      </div>
+
+
+      <div class="testimonial-card">
+
+        <div class="testimonial-stars">
+          ★★★★★
+        </div>
+
+        <p>
+          “I liked being able to check the shipment
+          information and follow its progress.”
+        </p>
+
+        <strong>
+          Sarah K.
+        </strong>
+
+        <span>
+          Customer
+        </span>
+
+      </div>
+
+
+      <div class="testimonial-card">
+
+        <div class="testimonial-stars">
+          ★★★★★
+        </div>
+
+        <p>
+          “The delivery information was presented clearly
+          and was convenient to access.”
+        </p>
+
+        <strong>
+          Michael R.
+        </strong>
+
+        <span>
+          Customer
+        </span>
+
+      </div>
+
+
+      <div class="testimonial-card">
+
+        <div class="testimonial-stars">
+          ★★★★★
+        </div>
+
+        <p>
+          “Being able to check the status of a shipment
+          made the delivery process easier to follow.”
+        </p>
+
+        <strong>
+          Amanda T.
+        </strong>
+
+        <span>
+          Customer
+        </span>
+
+      </div>
+
+
+      <div class="testimonial-card">
+
+        <div class="testimonial-stars">
+          ★★★★★
+        </div>
+
+        <p>
+          “The tracking page was straightforward and gave
+          me the shipment information I needed.”
+        </p>
+
+        <strong>
+          James W.
+        </strong>
+
+        <span>
+          Customer
+        </span>
+
+      </div>
+
+
+      <div class="testimonial-card">
+
+        <div class="testimonial-stars">
+          ★★★★★
+        </div>
+
+        <p>
+          “I found the shipment tracking experience
+          convenient and easy to use.”
+        </p>
+
+        <strong>
+          Olivia P.
+        </strong>
+
+        <span>
+          Customer
         </span>
 
       </div>
@@ -2251,9 +2607,11 @@ async function trackShipment(){
 
 }
 
+
 /* =========================
    MAP
    ========================= */
+
 async function showShipmentMap(shipment){
 
   const mapBox =
@@ -2764,8 +3122,6 @@ function escapeMapHtml(value){
 }
 
 
-
-
 /* =========================
    DATE FORMAT
    ========================= */
@@ -2997,6 +3353,40 @@ document
 
     }
   );
+
+
+/* =========================
+   AUTOMATIC TESTIMONIAL ROTATION
+   ========================= */
+
+(function(){
+
+  const testimonials =
+    document.querySelectorAll(
+      ".testimonial-card"
+    );
+
+  if(!testimonials.length){
+    return;
+  }
+
+  let current = 0;
+
+  setInterval(function(){
+
+    testimonials[current]
+      .classList.remove("active");
+
+    current =
+      (current + 1) %
+      testimonials.length;
+
+    testimonials[current]
+      .classList.add("active");
+
+  },5000);
+
+})();
 
 </script>
 
