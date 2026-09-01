@@ -745,6 +745,101 @@ section{
   line-height:1.6;
 }
 
+/* TESTIMONIALS */
+
+.testimonials{
+  background:#f4f6f8;
+}
+
+.testimonials-heading{
+  text-align:center;
+  margin-bottom:35px;
+}
+
+.testimonials-heading .section-description{
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.testimonial-rotator{
+  max-width:850px;
+  margin:auto;
+  position:relative;
+  min-height:250px;
+}
+
+.testimonial-card{
+  background:#fff;
+  border-radius:14px;
+  padding:35px;
+  box-shadow:0 12px 35px rgba(0,0,0,.10);
+  text-align:center;
+  display:none;
+  animation:testimonialFade .6s ease;
+}
+
+.testimonial-card.active{
+  display:block;
+}
+
+.testimonial-stars{
+  color:#f47b20;
+  font-size:22px;
+  letter-spacing:3px;
+  margin-bottom:18px;
+}
+
+.testimonial-card blockquote{
+  margin:0 auto 20px;
+  max-width:700px;
+  color:#4d5962;
+  font-size:18px;
+  line-height:1.7;
+  font-style:italic;
+}
+
+.testimonial-name{
+  font-weight:bold;
+  color:#18202a;
+}
+
+.testimonial-location{
+  color:#7b858d;
+  font-size:13px;
+  margin-top:5px;
+}
+
+.testimonial-dots{
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  margin-top:20px;
+}
+
+.testimonial-dot{
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:#ccd2d7;
+  transition:.3s;
+}
+
+.testimonial-dot.active{
+  background:#f47b20;
+  transform:scale(1.2);
+}
+
+@keyframes testimonialFade{
+  from{
+    opacity:0;
+    transform:translateY(8px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
 /* FOOTER */
 
 footer{
@@ -784,9 +879,7 @@ footer a{
   font-size:12px;
 }
 
-/* =========================
-   THREE VIDEOS
-   ========================= */
+/* VIDEO */
 
 .delivery-video{
   background:#f4f6f8;
@@ -805,26 +898,25 @@ footer a{
   line-height:1.7;
 }
 
-.video-gallery{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:20px;
-}
-
 .video-box{
   position:relative;
+  max-width:1000px;
+  margin:auto;
   overflow:hidden;
   border-radius:16px;
   background:#101820;
   box-shadow:0 18px 50px rgba(0,0,0,.18);
 }
 
+.video-box + .video-box{
+  margin-top:25px;
+}
+
 .video-box video{
   display:block;
   width:100%;
-  height:360px;
+  height:520px;
   object-fit:cover;
-  background:#101820;
 }
 
 .video-message{
@@ -832,112 +924,23 @@ footer a{
   left:0;
   right:0;
   bottom:0;
-  padding:55px 20px 20px;
+  padding:55px 25px 25px;
   color:#fff;
   background:linear-gradient(
     transparent,
     rgba(0,0,0,.85)
   );
-  pointer-events:none;
 }
 
 .video-message strong{
   display:block;
-  font-size:17px;
-  margin-bottom:6px;
+  font-size:20px;
+  margin-bottom:7px;
 }
 
 .video-message span{
   color:#e1e6e9;
-  font-size:13px;
-}
-
-/* =========================
-   CUSTOMER TESTIMONIALS
-   ========================= */
-
-.customer-testimonials{
-  background:#fff;
-  padding:80px 0;
-}
-
-.testimonial-heading{
-  text-align:center;
-  margin-bottom:35px;
-}
-
-.testimonial-heading p{
-  color:#6d7780;
-  max-width:650px;
-  margin:0 auto;
-  line-height:1.7;
-}
-
-.testimonial-note{
-  color:#8a939a;
-  font-size:11px;
-  margin-top:10px;
-}
-
-.testimonial-display{
-  max-width:800px;
-  margin:auto;
-  position:relative;
-  min-height:245px;
-}
-
-.testimonial-card{
-  display:none;
-  background:#f7f8f9;
-  border:1px solid #e4e8eb;
-  border-radius:14px;
-  padding:35px;
-  text-align:center;
-  box-shadow:0 12px 30px rgba(0,0,0,.08);
-  animation:testimonialFade .7s ease;
-}
-
-.testimonial-card.active{
-  display:block;
-}
-
-.testimonial-stars{
-  color:#f47b20;
-  font-size:20px;
-  letter-spacing:3px;
-  margin-bottom:15px;
-}
-
-.testimonial-card p{
-  color:#4f5a63;
-  font-size:17px;
-  line-height:1.8;
-  margin:0 auto 20px;
-}
-
-.testimonial-card strong{
-  display:block;
-  font-size:16px;
-  color:#18202a;
-}
-
-.testimonial-card span{
-  display:block;
-  color:#7b858d;
-  font-size:13px;
-  margin-top:5px;
-}
-
-@keyframes testimonialFade{
-  from{
-    opacity:0;
-    transform:translateY(8px);
-  }
-
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
+  font-size:14px;
 }
 
 /* RESPONSIVE */
@@ -959,10 +962,6 @@ footer a{
     grid-template-columns:1fr 1fr;
   }
 
-  .video-gallery{
-    grid-template-columns:1fr;
-  }
-
   .features-grid{
     grid-template-columns:1fr;
   }
@@ -978,10 +977,6 @@ footer a{
 
   .footer-grid{
     grid-template-columns:1fr;
-  }
-
-  .video-box video{
-    height:430px;
   }
 }
 
@@ -1042,18 +1037,17 @@ footer a{
     transform:rotate(90deg);
   }
 
-  .video-box video{
-    height:300px;
-  }
-
   .testimonial-card{
-    padding:28px 20px;
+    padding:25px 20px;
   }
 
-  .testimonial-card p{
-    font-size:15px;
+  .testimonial-card blockquote{
+    font-size:16px;
   }
 
+  .video-box video{
+    height:360px;
+  }
 }
 </style>
 </head>
@@ -1079,6 +1073,7 @@ footer a{
 
   </div>
 </header>
+
 
 <section class="hero">
 
@@ -1114,6 +1109,7 @@ footer a{
       </div>
 
     </div>
+
 
     <div class="hero-card">
 
@@ -1165,6 +1161,7 @@ footer a{
 
 </section>
 
+
 <section id="tracking" class="track-section">
 
   <div class="container">
@@ -1205,6 +1202,7 @@ footer a{
 
 </section>
 
+
 <div class="features">
 
   <div class="container features-grid">
@@ -1230,6 +1228,7 @@ footer a{
   </div>
 
 </div>
+
 
 <section id="services">
 
@@ -1309,6 +1308,7 @@ footer a{
   </div>
 
 </section>
+
 
 <section id="gallery" class="jestilo-gallery">
 
@@ -1532,7 +1532,10 @@ footer a{
 
 </section>
 
-<!-- THREE DELIVERY VIDEOS -->
+
+<!-- =========================
+     THREE CORRECTED VIDEOS
+     ========================= -->
 
 <section class="delivery-video">
 
@@ -1555,97 +1558,6 @@ footer a{
 
     </div>
 
-    <div class="video-box">
-
-      <video
-        controls
-        playsinline
-        preload="metadata"
-      <source
-  src="./6170605-uhd_3840_2160_25fps.mp4"
-  type="video/mp4"
->
-        >
-
-        Your browser does not support video playback.
-      </video>
-
-      <div class="video-message">
-
-        <strong>
-          📦 eGlobal DELIVERY SERVICE
-        </strong>
-
-        <span>
-          Your shipment is being handled with care.
-        </span>
-
-      </div>
-
-    </div>
-
-
-    <div class="video-box" style="margin-top:25px;">
-
-      <video
-        controls
-        playsinline
-        preload="metadata"
-      <source
-  src="./6169600-uhd_3840_2160_25fps.mp4"
-  type="video/mp4"
->
-
-     >   Your browser does not support video playback.
-      </video>
-
-      <div class="video-message">
-
-        <strong>
-          🚚 eGlobal DELIVERY SERVICE
-        </strong>
-
-        <span>
-          Your shipment is moving toward its destination.
-        </span>
-
-      </div>
-
-    </div>
-
-
-    <div class="video-box" style="margin-top:25px;">
-
-      <video
-        controls
-        playsinline
-        preload="metadata"
-      >
-        <source
-<!-- THREE DELIVERY VIDEOS -->
-
-<section class="delivery-video">
-
-  <div class="container">
-
-    <div class="video-heading">
-
-      <div class="section-label">
-        eGlobal DELIVERY SERVICE
-      </div>
-
-      <h2 class="section-title">
-        Your Delivery Is Moving
-      </h2>
-
-      <p>
-        Follow the delivery journey and stay informed
-        about your shipment every step of the way.
-      </p>
-
-    </div>
-
-    <!-- VIDEO 1 -->
 
     <div class="video-box">
 
@@ -1654,12 +1566,14 @@ footer a{
         playsinline
         preload="metadata"
       >
+
         <source
           src="./6170605-uhd_3840_2160_25fps.mp4"
           type="video/mp4"
         >
 
         Your browser does not support video playback.
+
       </video>
 
       <div class="video-message">
@@ -1677,21 +1591,21 @@ footer a{
     </div>
 
 
-    <!-- VIDEO 2 -->
-
-    <div class="video-box" style="margin-top:25px;">
+    <div class="video-box">
 
       <video
         controls
         playsinline
         preload="metadata"
       >
+
         <source
           src="./6169600-uhd_3840_2160_25fps.mp4"
           type="video/mp4"
         >
 
         Your browser does not support video playback.
+
       </video>
 
       <div class="video-message">
@@ -1709,21 +1623,21 @@ footer a{
     </div>
 
 
-    <!-- VIDEO 3 -->
-
-    <div class="video-box" style="margin-top:25px;">
+    <div class="video-box">
 
       <video
         controls
         playsinline
         preload="metadata"
       >
+
         <source
           src="./6169600-uhd_3840_2160_25fps (1).mp4"
           type="video/mp4"
         >
 
         Your browser does not support video playback.
+
       </video>
 
       <div class="video-message">
@@ -1744,171 +1658,6 @@ footer a{
 
 </section>
 
-<!-- CUSTOMER TESTIMONIALS -->
-
-<section class="customer-testimonials">
-
-  <div class="container">
-
-    <div class="testimonial-heading">
-
-      <div class="section-label">
-        CUSTOMER EXPERIENCES
-      </div>
-
-      <h2 class="section-title">
-        What Customers Say
-      </h2>
-
-      <p>
-        Sample customer feedback about the shipment
-        tracking experience.
-      </p>
-
-      <div class="testimonial-note">
-        Sample testimonials — replace with verified customer feedback when available.
-      </div>
-
-    </div>
-
-    <div class="testimonial-display">
-
-      <div class="testimonial-card active">
-
-        <div class="testimonial-stars">
-          ★★★★★
-        </div>
-
-        <p>
-          “The shipment tracking experience was simple
-          and easy to understand.”
-        </p>
-
-        <strong>
-          Daniel M.
-        </strong>
-
-        <span>
-          Customer
-        </span>
-
-      </div>
-
-
-      <div class="testimonial-card">
-
-        <div class="testimonial-stars">
-          ★★★★★
-        </div>
-
-        <p>
-          “I liked being able to check the shipment
-          information and follow its progress.”
-        </p>
-
-        <strong>
-          Sarah K.
-        </strong>
-
-        <span>
-          Customer
-        </span>
-
-      </div>
-
-
-      <div class="testimonial-card">
-
-        <div class="testimonial-stars">
-          ★★★★★
-        </div>
-
-        <p>
-          “The delivery information was presented clearly
-          and was convenient to access.”
-        </p>
-
-        <strong>
-          Michael R.
-        </strong>
-
-        <span>
-          Customer
-        </span>
-
-      </div>
-
-
-      <div class="testimonial-card">
-
-        <div class="testimonial-stars">
-          ★★★★★
-        </div>
-
-        <p>
-          “Being able to check the status of a shipment
-          made the delivery process easier to follow.”
-        </p>
-
-        <strong>
-          Amanda T.
-        </strong>
-
-        <span>
-          Customer
-        </span>
-
-      </div>
-
-
-      <div class="testimonial-card">
-
-        <div class="testimonial-stars">
-          ★★★★★
-        </div>
-
-        <p>
-          “The tracking page was straightforward and gave
-          me the shipment information I needed.”
-        </p>
-
-        <strong>
-          James W.
-        </strong>
-
-        <span>
-          Customer
-        </span>
-
-      </div>
-
-
-      <div class="testimonial-card">
-
-        <div class="testimonial-stars">
-          ★★★★★
-        </div>
-
-        <p>
-          “I found the shipment tracking experience
-          convenient and easy to use.”
-        </p>
-
-        <strong>
-          Olivia P.
-        </strong>
-
-        <span>
-          Customer
-        </span>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
 
 <section id="journey" class="journey">
 
@@ -1971,6 +1720,7 @@ footer a{
 
 </section>
 
+
 <!-- TRACKING RESULT -->
 
 <section id="resultSection" class="result-section">
@@ -1999,6 +1749,7 @@ footer a{
 
       </div>
 
+
       <div class="result-route">
 
         <div>
@@ -2016,6 +1767,7 @@ footer a{
         </div>
 
       </div>
+
 
       <div class="info-grid">
 
@@ -2041,6 +1793,7 @@ footer a{
 
       </div>
 
+
       <div class="package">
 
         <h3>
@@ -2065,6 +1818,7 @@ footer a{
 
       </div>
 
+
       <!-- MAP -->
 
       <div
@@ -2080,6 +1834,7 @@ footer a{
         <p class="shipment-map-description">
           View the current shipment position on the map.
         </p>
+
 
         <!-- ROUTE INFORMATION -->
 
@@ -2135,6 +1890,7 @@ footer a{
 
         </div>
 
+
         <div id="shipmentMap"></div>
 
         <div
@@ -2145,6 +1901,7 @@ footer a{
         </div>
 
       </div>
+
 
       <div class="timeline">
 
@@ -2179,6 +1936,7 @@ footer a{
 
         </div>
 
+
         <div class="timeline-item">
 
           <div class="timeline-marker">
@@ -2205,6 +1963,7 @@ footer a{
           </div>
 
         </div>
+
 
         <div class="timeline-item">
 
@@ -2233,6 +1992,7 @@ footer a{
 
         </div>
 
+
         <div class="timeline-item">
 
           <div class="timeline-marker">
@@ -2259,6 +2019,7 @@ footer a{
           </div>
 
         </div>
+
 
         <div class="timeline-item">
 
@@ -2287,6 +2048,7 @@ footer a{
 
       </div>
 
+
       <div class="update">
 
         <strong>
@@ -2304,6 +2066,7 @@ footer a{
   </div>
 
 </section>
+
 
 <section id="about" class="about">
 
@@ -2326,6 +2089,7 @@ footer a{
       </p>
 
     </div>
+
 
     <div class="about-panel">
 
@@ -2351,6 +2115,190 @@ footer a{
 
 </section>
 
+
+<!-- =========================
+     ROTATING TESTIMONIALS
+     ========================= -->
+
+<section class="testimonials">
+
+  <div class="container">
+
+    <div class="testimonials-heading">
+
+      <div class="section-label">
+        Customer Experiences
+      </div>
+
+      <h2 class="section-title">
+        What Our Customers Say
+      </h2>
+
+      <p class="section-description">
+        See what customers have to say about their
+        shipment tracking and delivery experience.
+      </p>
+
+    </div>
+
+
+    <div class="testimonial-rotator">
+
+      <div class="testimonial-card active">
+
+        <div class="testimonial-stars">
+          ★★★★★
+        </div>
+
+        <blockquote>
+          "The tracking information made it easy to
+          follow my shipment from the beginning to
+          the final delivery."
+        </blockquote>
+
+        <div class="testimonial-name">
+          Michael R.
+        </div>
+
+        <div class="testimonial-location">
+          International Customer
+        </div>
+
+      </div>
+
+
+      <div class="testimonial-card">
+
+        <div class="testimonial-stars">
+          ★★★★★
+        </div>
+
+        <blockquote>
+          "I was able to check my shipment status
+          quickly and see where my package was
+          during transit."
+        </blockquote>
+
+        <div class="testimonial-name">
+          Sarah T.
+        </div>
+
+        <div class="testimonial-location">
+          International Customer
+        </div>
+
+      </div>
+
+
+      <div class="testimonial-card">
+
+        <div class="testimonial-stars">
+          ★★★★★
+        </div>
+
+        <blockquote>
+          "The shipment tracking page is clear,
+          simple and easy to understand."
+        </blockquote>
+
+        <div class="testimonial-name">
+          Daniel K.
+        </div>
+
+        <div class="testimonial-location">
+          International Customer
+        </div>
+
+      </div>
+
+
+      <div class="testimonial-card">
+
+        <div class="testimonial-stars">
+          ★★★★★
+        </div>
+
+        <blockquote>
+          "Being able to follow the delivery journey
+          gave me a better idea of when to expect
+          my package."
+        </blockquote>
+
+        <div class="testimonial-name">
+          Emily J.
+        </div>
+
+        <div class="testimonial-location">
+          International Customer
+        </div>
+
+      </div>
+
+
+      <div class="testimonial-card">
+
+        <div class="testimonial-stars">
+          ★★★★★
+        </div>
+
+        <blockquote>
+          "The delivery updates were helpful and
+          allowed me to stay informed about my
+          shipment."
+        </blockquote>
+
+        <div class="testimonial-name">
+          Robert M.
+        </div>
+
+        <div class="testimonial-location">
+          International Customer
+        </div>
+
+      </div>
+
+
+      <div class="testimonial-card">
+
+        <div class="testimonial-stars">
+          ★★★★★
+        </div>
+
+        <blockquote>
+          "A straightforward way to keep track of
+          shipment information throughout the
+          delivery process."
+        </blockquote>
+
+        <div class="testimonial-name">
+          Olivia P.
+        </div>
+
+        <div class="testimonial-location">
+          International Customer
+        </div>
+
+      </div>
+
+
+      <div class="testimonial-dots">
+
+        <div class="testimonial-dot active"></div>
+        <div class="testimonial-dot"></div>
+        <div class="testimonial-dot"></div>
+        <div class="testimonial-dot"></div>
+        <div class="testimonial-dot"></div>
+        <div class="testimonial-dot"></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
 <footer>
 
   <div class="container">
@@ -2369,6 +2317,7 @@ footer a{
         </p>
 
       </div>
+
 
       <div>
 
@@ -2393,6 +2342,7 @@ footer a{
         </p>
 
       </div>
+
 
       <div>
 
@@ -2428,6 +2378,7 @@ footer a{
 
     </div>
 
+
     <div class="footer-bottom">
       © 2026 eGlobal Delivery Service.
     </div>
@@ -2436,16 +2387,73 @@ footer a{
 
 </footer>
 
+
 <!-- LEAFLET MAP LIBRARY -->
 
 <script
   src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
 </script>
 
+
 <script>
 
 let shipmentMap = null;
 let shipmentMarker = null;
+
+
+/* =========================
+   ROTATING TESTIMONIALS
+   ========================= */
+
+const testimonialCards =
+  document.querySelectorAll(".testimonial-card");
+
+const testimonialDots =
+  document.querySelectorAll(".testimonial-dot");
+
+let testimonialIndex = 0;
+
+function showTestimonial(index){
+
+  testimonialCards.forEach(
+    function(card){
+      card.classList.remove("active");
+    }
+  );
+
+  testimonialDots.forEach(
+    function(dot){
+      dot.classList.remove("active");
+    }
+  );
+
+  if(testimonialCards[index]){
+    testimonialCards[index].classList.add("active");
+  }
+
+  if(testimonialDots[index]){
+    testimonialDots[index].classList.add("active");
+  }
+
+  testimonialIndex = index;
+}
+
+setInterval(
+  function(){
+
+    testimonialIndex++;
+
+    if(
+      testimonialIndex >= testimonialCards.length
+    ){
+      testimonialIndex = 0;
+    }
+
+    showTestimonial(testimonialIndex);
+
+  },
+  5000
+);
 
 
 /* =========================
@@ -2641,23 +2649,9 @@ async function trackShipment(){
     );
 
 
-    /*
-      IMPORTANT MAP FIX
-
-      The result section is made visible
-      BEFORE Leaflet initializes the map.
-
-      This prevents Leaflet from calculating
-      the map size while its container is hidden.
-    */
-
     resultSection.style.display =
       "block";
 
-
-    /*
-      Now show and initialize the map.
-    */
 
     showShipmentMap(
       shipment
@@ -3224,6 +3218,7 @@ function formatDate(value){
   ){
 
     return value;
+
   }
 
 
@@ -3433,40 +3428,6 @@ document
 
     }
   );
-
-
-/* =========================
-   AUTOMATIC TESTIMONIAL ROTATION
-   ========================= */
-
-(function(){
-
-  const testimonials =
-    document.querySelectorAll(
-      ".testimonial-card"
-    );
-
-  if(!testimonials.length){
-    return;
-  }
-
-  let current = 0;
-
-  setInterval(function(){
-
-    testimonials[current]
-      .classList.remove("active");
-
-    current =
-      (current + 1) %
-      testimonials.length;
-
-    testimonials[current]
-      .classList.add("active");
-
-  },5000);
-
-})();
 
 </script>
 
